@@ -111,5 +111,31 @@ namespace UurroostersWebApp.Repositories.LeerkrachtRepo
             }).AsQueryable();
             return lookup.Values;
         }
+
+        public void addVak(int leerkrachtID, int vakID)
+        {
+            string query = "INSERT INTO LeerkrachtVakken (leerkrachtID, vakID) VALUES (@lkid, @vid)";
+            try
+            {
+                _db.Execute(query, new { leerkrachtID, vakID });
+            }
+            catch(Exception)
+            {
+                return;
+            }
+        }
+
+        public void removeVak(int leerkrachtID, int vakID)
+        {
+            string query = "DELETE FROM LeerkrachtVakken WHERE leerkrachtID = @lkid AND vakID = @vid";
+            try
+            {
+                _db.Execute(query, new { leerkrachtID, vakID });
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{83A5B4A6-4C51-4D8C-A2A7-F1BB7E068CAE}"
 EndProject
@@ -11,8 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "UurroostersWebApp", "src\UurroostersWebApp\UurroostersWebApp.xproj", "{AEE36E75-87D4-477F-890A-051093D155DF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UurroostersWepApp.Tests", "UurroostersWepApp.Tests\UurroostersWepApp.Tests.csproj", "{EF05994C-CB2F-475B-B97A-0C48712BA621}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,10 +22,6 @@ Global
 		{AEE36E75-87D4-477F-890A-051093D155DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEE36E75-87D4-477F-890A-051093D155DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEE36E75-87D4-477F-890A-051093D155DF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EF05994C-CB2F-475B-B97A-0C48712BA621}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EF05994C-CB2F-475B-B97A-0C48712BA621}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EF05994C-CB2F-475B-B97A-0C48712BA621}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EF05994C-CB2F-475B-B97A-0C48712BA621}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

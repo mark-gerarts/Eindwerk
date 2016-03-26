@@ -9,6 +9,8 @@ namespace UurroostersWebApp.Repositories
 {
     public interface ILeerkrachtRepository : IRepository<Leerkracht>
     {
+        void addVak(int leerkrachtID, int vakID);
 
+        void removeVak(int leerkrachtID, int vakID);
     }
 }

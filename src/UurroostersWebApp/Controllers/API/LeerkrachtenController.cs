@@ -33,7 +33,7 @@ namespace UurroostersWebApp.Controllers.API
         {
             Leerkracht leerkracht = _leerkracht.Find(id);
 
-            if(leerkracht == null)
+            if (leerkracht == null)
             {
                 Response.StatusCode = 404;
                 return Json("Leerkracht niet gevonden");
@@ -45,7 +45,7 @@ namespace UurroostersWebApp.Controllers.API
         [HttpPost("")]
         public JsonResult Insert([FromBody]Leerkracht leerkracht)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 int identity = _leerkracht.Insert(leerkracht);
                 return Json("id: " + identity);
@@ -61,7 +61,7 @@ namespace UurroostersWebApp.Controllers.API
         public JsonResult update([FromBody]Leerkracht leerkracht)
         {
             //ToDo: make ViewModels for different validations
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _leerkracht.Update(leerkracht);
                 return Json("Update succesful");
@@ -71,6 +71,14 @@ namespace UurroostersWebApp.Controllers.API
                 Response.StatusCode = 422;
                 return Json("Unprocessable Entity"); //ToDo: return validation errors
             }
+        }
+
+        [HttpDelete("{id}")]
+        public JsonResult delete(int id)
+        {
+            _leerkracht.Delete(id);
+
+            return Json("Delete sucesful");
         }
     }
 }
