@@ -13,7 +13,7 @@ namespace UurroostersWebApp.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            return Content(Startup.Configuration["data:CN"]);
+            return View();
         }
     }
 }
