@@ -210,3 +210,10 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+
+#My files
+src/UurroostersWebApp/.bowerrc
+src/UurroostersWebApp/wwwroot/lib/
+src/UurroostersWebApp/config.json
+UurroostersWepApp.Tests/Properties/AssemblyInfo.cs
+UurroostersWepApp.Tests/UurroostersWepApp.Tests.csproj
