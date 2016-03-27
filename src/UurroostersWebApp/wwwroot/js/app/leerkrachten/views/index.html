@@ -65,7 +65,7 @@
                 </tr>
             </tbody>
             <tbody data-ng-show="!vm.isLoading">
-                <tr data-ng-repeat="lk in vm.leerkrachten | filter:query" data-ng-click="vm.showLeerkracht(lk)">
+                <tr data-ng-repeat="lk in vm.leerkrachten | filter:query" data-ng-click="vm.showLeerkracht(lk)" class="link">
                     <td>{{lk.Naam}}</td>
                     <td>{{lk.Voornaam}}</td>
                     <td>--campus</td>

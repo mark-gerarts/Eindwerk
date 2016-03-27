@@ -27,5 +27,11 @@
             controllerAs: "vm",
             templateUrl: "js/app/leerkrachten/views/nieuw.html"
         });
+
+        $routeProvider.when("/leerkrachten/details/:id", {
+            controller: "leerkrachtenDetailsCtrl",
+            controllerAs: "vm",
+            templateUrl: "js/app/leerkrachten/views/details.html"
+        });
     });
 })();

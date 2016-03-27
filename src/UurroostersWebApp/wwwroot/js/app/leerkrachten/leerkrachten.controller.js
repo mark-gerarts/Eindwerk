@@ -18,7 +18,7 @@
         });
 
         vm.showLeerkracht = function (leerkracht) {
-            $location.path('#/leerkrachten/' + leerkracht.Id);
+            $location.path("/leerkrachten/details/" + leerkracht.Id);
         };
     }
 })();

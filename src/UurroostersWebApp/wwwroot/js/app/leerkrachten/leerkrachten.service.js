@@ -35,5 +35,11 @@
                 //Error
             });
         }
+
+        this.findById = function (id) {
+            return self.leerkrachten.find(function (leerkracht) {
+                return leerkracht.Id == id;
+            });
+        }
     }
 })();

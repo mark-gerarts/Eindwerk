@@ -1,0 +1,46 @@
+﻿<ul class="breadcrumb">
+    <li><a href="#/">Home</a></li>
+    <li><a href="#/leerkrachten">Leerkrachten</a></li>
+    <li class="active">Details</li>
+</ul>
+
+<div data-ng-show="vm.isBusy">
+    <i class="fa fa-spinner fa-pulse"></i>Loading...
+</div>
+<div data-ng-show="vm.notFound">
+    <p class="text-warning">Er is geen leerkracht met dit ID gevonden.</p>
+</div>
+<div data-ng-hide="vm.isBusy || vm.isDeleted || vm.notFound">
+    <div class="row">
+        <div class="col-md-1">
+            Naam:
+        </div>
+        <div class="col-md-2">
+            {{ vm.currentLeerkracht.Naam }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1">
+            Voornaam:
+        </div>
+        <div class="col-md-2">
+            {{ vm.currentLeerkracht.Voornaam }}
+        </div>
+    </div>
+    <!--
+    <div class="row">
+        <div class="col-md-4">
+            <h4>Vakken:</h4>
+            <ul>
+                <li data-ng-repeat="vak in vm.currentLeerkracht.Vakken">{{vak.Naam}}</li>
+            </ul>
+        </div>
+    </div>-->
+</div>
+<div data-ng-show="vm.isDeleted">
+    <p class="text-success">Leerkracht succesvol verwijderd</p>
+</div>
+
+<a href="#/leerkrachten" class="btn btn-default"><i class="fa fa-angle-left fa-lg"></i> Terug</a>
+<button class="btn btn-success" data-ng-click="vm.updateLeerkracht()" data-ng-hide="vm.isDeleted || vm.notFound || !isEdited"><i class="fa fa-save"></i> Wijzigingen opslaan</button>
+<button class="btn btn-danger" data-ng-click="vm.deleteLeerkracht()" data-ng-hide="vm.isDeleted || vm.notFound"><i class="fa fa-times"></i> Verwijderen...</button>
