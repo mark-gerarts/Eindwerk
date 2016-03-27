@@ -1,9 +1,9 @@
 ﻿(function () {
     "use strict";
 
-    angular.module("app").controller("homeController", homeController);
+    angular.module("app").controller("homeCtrl", homeCtrl);
 
-    function homeController() {
+    function homeCtrl() {
         var vm = this;
     }
 })();

@@ -50,15 +50,24 @@
                     <th>Vakken</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody data-ng-show="vm.leerkrachten.length == 0 && !vm.isLoading">
                 <tr>
                     <td colspan="3">
                         Nog geen leerkrachten!
                     </td>
                 </tr>
-                <tr ng-repeat="lrk in vm.leerkrachten">
-                    <td>{{lrk.Naam}}</td>
-                    <td>{{lrk.Voornaam}}</td>
+            </tbody>
+            <tbody data-ng-show="vm.isLoading">
+                <tr>
+                    <td colspan="3" class="text-center">
+                        <i class="fa fa-spinner fa-pulse"></i> Loading
+                    </td>
+                </tr>
+            </tbody>
+            <tbody data-ng-show="!vm.isLoading">
+                <tr ng-repeat="lk in vm.leerkrachten">
+                    <td>{{lk.Naam}}</td>
+                    <td>{{lk.Voornaam}}</td>
                     <td></td>
                 </tr>
             </tbody>

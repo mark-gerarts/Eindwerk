@@ -4,18 +4,26 @@
     angular.module("leerkrachtenApp").service("leerkrachtenService", leerkrachtenService);
 
     function leerkrachtenService($http) {
-        var self = this;
-        this.leerkrachten = [];
+        var leerkrachten = [];
+        var promise;
+        var leerkrachtenService = {};
 
-        $http.get("api/leerkrachten").then(function (r) {
-            angular.copy(r.data, self.leerkrachten);
-            console.log(r);
-        }, function (e) {
-            console.log(e);
-        });
-
-        this.getLeerkrachten = function() {
-            return this.leerkrachten;
+        leerkrachtenService.async = function () {
+            if (!promise) {
+                promise = $http.get("api/leerkrachten").then(function (r) {
+                    //Succes
+                    angular.copy(r.data, leerkrachten);
+                }, function (e) {
+                    //Failure
+                });
+            }
+            return promise;
         }
+
+        leerkrachtenService.getAll = function () {
+            return leerkrachten;
+        }
+
+        return leerkrachtenService;
     }
 })();
