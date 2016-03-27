@@ -1,0 +1,67 @@
+﻿<ul class="breadcrumb">
+    <li><a href="#/">Home</a></li>
+    <li class="active">Leerkrachten</li>
+</ul>
+<div class="row">
+    <div class="col-md-4">
+        <form>
+            <div class="well">
+                <div class="form-group">
+                    <label class="control-label" for="zoek_leerkracht">Zoek leerkracht:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="zoek_leerkracht" placeholder="Zoek leerkracht..." data-ng-model="Naam" />
+                        <span class="input-group-addon">
+                            <i class="fa fa-search"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="well">
+                <fieldset>
+                    <legend>Opties</legend>
+                    <div class="form-group">
+                        <label class="control-label">Campus:</label>
+                        <select class="form-control">
+                            <option>Alle</option>
+                            <option>Maaseik College I</option>
+                            <option>Maaseik College II</option>
+                            <option>Maaseik Sint-Jan</option>
+                            <option>Kinrooi</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Vakken:</label>
+                        <select class="form-control" data-ng-model="Vak" data-ng-options="vak.Naam for vak in vm.vakken" ng-model-options="{getterSetter: tue}">
+                            <option value="">Kies een vak...</option>
+                        </select>
+                    </div>
+                </fieldset>
+            </div>
+        </form>
+        <h2>Nieuw</h2>
+        <a class="btn btn-primary" href="#/leerkrachten/nieuw">Voeg een nieuwe leerkracht toe</a>
+    </div>
+    <div class="col-md-8">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Naam</th>
+                    <th>Voornaam</th>
+                    <th>Vakken</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="3">
+                        Nog geen leerkrachten!
+                    </td>
+                </tr>
+                <tr ng-repeat="lrk in vm.leerkrachten">
+                    <td>{{lrk.Naam}}</td>
+                    <td>{{lrk.Voornaam}}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

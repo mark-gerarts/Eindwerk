@@ -53,8 +53,8 @@ namespace UurroostersWebApp.Repositories.LeerkrachtRepo
 
         public void Update(Leerkracht leerkracht)
         {
-            string query = "UPDATE Leerkrachten SET naam = @naam, voornaam = @voornaam";
-            _db.Execute(query, new { leerkracht.Naam, leerkracht.Voornaam });
+            string query = "UPDATE Leerkrachten SET naam = @naam, voornaam = @voornaam WHERE id = @id";
+            _db.Execute(query, new { leerkracht.Naam, leerkracht.Voornaam, leerkracht.Id });
         }
 
         public Leerkracht Find(int id)
