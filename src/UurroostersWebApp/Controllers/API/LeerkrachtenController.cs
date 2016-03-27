@@ -48,7 +48,7 @@ namespace UurroostersWebApp.Controllers.API
             if (ModelState.IsValid)
             {
                 int identity = _leerkracht.Insert(leerkracht);
-                return Json("id: " + identity);
+                return Json(identity);
             }
             else
             {

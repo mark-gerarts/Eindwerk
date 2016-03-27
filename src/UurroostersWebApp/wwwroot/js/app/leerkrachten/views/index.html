@@ -9,7 +9,7 @@
                 <div class="form-group">
                     <label class="control-label" for="zoek_leerkracht">Zoek leerkracht:</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="zoek_leerkracht" placeholder="Zoek leerkracht..." data-ng-model="Naam" />
+                        <input type="text" class="form-control" id="zoek_leerkracht" placeholder="Zoek leerkracht..." data-ng-model="query" />
                         <span class="input-group-addon">
                             <i class="fa fa-search"></i>
                         </span>
@@ -31,7 +31,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label">Vakken:</label>
-                        <select class="form-control" data-ng-model="Vak" data-ng-options="vak.Naam for vak in vm.vakken" ng-model-options="{getterSetter: tue}">
+                        <select class="form-control" data-ng-model="Vak" data-ng-options="vak.Naam for vak in vm.vakken" ng-model-options="{getterSetter: true}">
                             <option value="">Kies een vak...</option>
                         </select>
                     </div>
@@ -47,7 +47,7 @@
                 <tr>
                     <th>Naam</th>
                     <th>Voornaam</th>
-                    <th>Vakken</th>
+                    <th>Campus</th>
                 </tr>
             </thead>
             <tbody data-ng-show="vm.leerkrachten.length == 0 && !vm.isLoading">
@@ -65,10 +65,10 @@
                 </tr>
             </tbody>
             <tbody data-ng-show="!vm.isLoading">
-                <tr ng-repeat="lk in vm.leerkrachten">
+                <tr data-ng-repeat="lk in vm.leerkrachten | filter:query" data-ng-click="vm.showLeerkracht(lk)">
                     <td>{{lk.Naam}}</td>
                     <td>{{lk.Voornaam}}</td>
-                    <td></td>
+                    <td>--campus</td>
                 </tr>
             </tbody>
         </table>

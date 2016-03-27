@@ -4,26 +4,36 @@
     angular.module("leerkrachtenApp").service("leerkrachtenService", leerkrachtenService);
 
     function leerkrachtenService($http) {
-        var leerkrachten = [];
-        var promise;
-        var leerkrachtenService = {};
+        var self = this;
+        this.leerkrachten = [];
+        this.promise;
 
-        leerkrachtenService.async = function () {
-            if (!promise) {
-                promise = $http.get("api/leerkrachten").then(function (r) {
+        this.async = function () {
+            if (!self.promise) {
+                self.promise = $http.get("api/leerkrachten").then(function (r) {
                     //Succes
-                    angular.copy(r.data, leerkrachten);
+                    angular.copy(r.data, self.leerkrachten);
                 }, function (e) {
                     //Failure
                 });
             }
-            return promise;
+            return self.promise;
         }
 
-        leerkrachtenService.getAll = function () {
-            return leerkrachten;
+        this.getAll = function () {
+            return self.leerkrachten;
         }
 
-        return leerkrachtenService;
+        this.insert = function (leerkracht) {
+            return $http.post("api/leerkrachten", leerkracht).then(function (r) {
+                console.log(r)
+                if (r.status == 200) {
+                    leerkracht.id = r.data;
+                    self.leerkrachten.push(leerkracht);
+                }
+            }, function (error) {
+                //Error
+            });
+        }
     }
 })();
