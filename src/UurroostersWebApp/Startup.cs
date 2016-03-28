@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using UurroostersWebApp.Repositories.LeerkrachtRepo;
 using UurroostersWebApp.Repositories;
 using UurroostersWebApp.Models;
+using UurroostersWebApp.Repositories.VakRepo;
 
 namespace UurroostersWebApp
 {
@@ -32,6 +33,7 @@ namespace UurroostersWebApp
 
             // Register the repositories.
             services.AddTransient<ILeerkrachtRepository, LeerkrachtRepository>();
+            services.AddTransient<IVakRepository, VakRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

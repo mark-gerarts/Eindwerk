@@ -60,10 +60,10 @@ namespace UurroostersWebApp.Repositories.LeerkrachtRepo
         public Leerkracht Find(int id)
         {
             string query = "SELECT l.id, l.naam, l.voornaam, v.id, v.naam " +
-                    "FROM Leerkrachten l " +
-                    "INNER JOIN LeerkrachtVakken lv ON l.id = lv.leerkrachtID " +
-                    "INNER JOIN Vakken v ON v.id = lv.vakID " +
-                    "WHERE l.id = @id";
+                "FROM Leerkrachten l " +
+                "INNER JOIN LeerkrachtVakken lv ON l.id = lv.leerkrachtID " +
+                "INNER JOIN Vakken v ON v.id = lv.vakID " +
+                "WHERE l.id = @id";
             var lookup = new Dictionary<int, Leerkracht>();
             return _db.Query<Leerkracht, Vak, Leerkracht>(query, (l, v) =>
             {
@@ -88,9 +88,9 @@ namespace UurroostersWebApp.Repositories.LeerkrachtRepo
         public IEnumerable<Leerkracht> GetAll()
         {
             string query = "SELECT l.id, l.naam, l.voornaam, v.id, v.naam " +
-                    "FROM Leerkrachten l " +
-                    "LEFT JOIN LeerkrachtVakken lv ON l.id = lv.leerkrachtID " +
-                    "LEFT JOIN Vakken v ON v.id = lv.vakID";
+                "FROM Leerkrachten l " +
+                "LEFT JOIN LeerkrachtVakken lv ON l.id = lv.leerkrachtID " +
+                "LEFT JOIN Vakken v ON v.id = lv.vakID";
             var lookup = new Dictionary<int, Leerkracht>();
             _db.Query<Leerkracht, Vak, Leerkracht>(query, (l, v) =>
             {
