@@ -41,5 +41,18 @@
                 return leerkracht.Id == id;
             });
         }
+
+        this.delete = function (id) {
+            return $http.delete("api/leerkrachten/" + id).then(function (r) {
+                var indexToDelete = self.leerkrachten.findIndex(function (leerkracht) {
+                    return leerkracht.Id == id;
+                });
+                if (indexToDelete) {
+                    self.leerkrachten.splice(indexToDelete, 1);
+                }
+            }, function (error) {
+                console.log(error);
+            });
+        }
     }
 })();

@@ -12,30 +12,32 @@
 </div>
 <div data-ng-hide="vm.isBusy || vm.isDeleted || vm.notFound">
     <div class="row">
-        <div class="col-md-1">
-            Naam:
-        </div>
-        <div class="col-md-2">
-            {{ vm.currentLeerkracht.Naam }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-1">
-            Voornaam:
-        </div>
-        <div class="col-md-2">
-            {{ vm.currentLeerkracht.Voornaam }}
-        </div>
-    </div>
-    <!--
-    <div class="row">
         <div class="col-md-4">
-            <h4>Vakken:</h4>
-            <ul>
-                <li data-ng-repeat="vak in vm.currentLeerkracht.Vakken">{{vak.Naam}}</li>
-            </ul>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Details
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-4 text-info">
+                            Naam:
+                        </div>
+                        <div class="col-xs-8">
+                            {{ vm.currentLeerkracht.Naam }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4 text-info">
+                            Voornaam:
+                        </div>
+                        <div class="col-xs-8">
+                            {{ vm.currentLeerkracht.Voornaam }}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>-->
+    </div> 
 </div>
 <div data-ng-show="vm.isDeleted">
     <p class="text-success">Leerkracht succesvol verwijderd</p>
