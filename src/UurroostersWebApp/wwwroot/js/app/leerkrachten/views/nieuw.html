@@ -6,19 +6,27 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form novalidate name="nieuweLeerkrachtForm" ng-submit="vm.insertLeerkracht()">
+        <form novalidate name="nieuw" ng-submit="vm.insertLeerkracht()">
             <div class="form-group">
                 <label for="naam" class="control-label">Naam</label>
-                <input class="form-control" id="naam" name="naam" type="text" ng-model="vm.nieuweLeerkracht.Naam" data-ng-maxlength="255" required tabindex="1" />
-                <span data-ng-show="nieuweLeerkrachtForm.naam.$error.required" class="text-warning">Naam is een verplicht veld</span>
-                <span data-ng-show="nieuweLeerkrachtForm.naam.$error.maxlength" class="text-warning">Naam mag maximaal 255 tekens lang zijn.</span>
+                <input class="form-control" id="naam" name="naam" type="text"
+                       data-ng-model="vm.nieuweLeerkracht.Naam"
+                       data-ng-maxlength="255"
+                       tabindex="1"
+                       required />
+                <span data-ng-show="nieuw.naam.$error.required" class="text-warning">Naam is een verplicht veld</span>
+                <span data-ng-show="nieuw.naam.$error.maxlength" class="text-warning">Naam mag maximaal 255 tekens lang zijn.</span>
                 <!-- ToDo: create directives-->
             </div>
             <div class="form-group">
                 <label for="voornaam" class="control-label">Voornaam</label>
-                <input class="form-control" id="voornaam" name="voornaam" type="text" ng-model="vm.nieuweLeerkracht.Voornaam" data-ng-maxlength="255" required tabindex="2" />
-                <span ng-show="nieuweLeerkrachtForm.voornaam.$error.required" class="text-warning">Voornaam is een verplicht veld</span>
-                <span ng-show="nieuweLeerkrachtForm.voornaam.$error.maxlength" class="text-warning">Voornaam mag maximaal 255 tekens lang zijn.</span>
+                <input class="form-control" id="voornaam" name="voornaam" type="text"
+                       data-ng-model="vm.nieuweLeerkracht.Voornaam"
+                       data-ng-maxlength="255"
+                       tabindex="2"
+                       required />
+                <span data-ng-show="nieuw.voornaam.$error.required" class="text-warning">Voornaam is een verplicht veld</span>
+                <span data-ng-show="nieuw.voornaam.$error.maxlength" class="text-warning">Voornaam mag maximaal 255 tekens lang zijn.</span>
             </div>
             <!--<div class="form-group">
             <label for="vakken" class="control-label">Vakken</label>
@@ -26,7 +34,7 @@
         </div>-->
             <div class="form-group">
                 <a class="btn btn-default" href="#/leerkrachten">Annuleren</a>
-                <input class="btn btn-success" value="Verzenden" type="submit" ng-disabled="(nieuweLeerkrachtForm.$invalid || vm.isBusy)" />
+                <input class="btn btn-success" value="Verzenden" type="submit" ng-disabled="(nieuw.$invalid || vm.isBusy)" />
             </div>
             <div ng-show="vm.isBusy"><i class="fa fa-spinner fa-pulse"></i>Verwerken...</div>
         </form>

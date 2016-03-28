@@ -58,7 +58,7 @@ namespace UurroostersWebApp.Controllers.API
         }
 
         [HttpPut("")]
-        public JsonResult update([FromBody]Leerkracht leerkracht)
+        public JsonResult Update([FromBody]Leerkracht leerkracht)
         {
             //ToDo: make ViewModels for different validations
             if (ModelState.IsValid)
@@ -74,7 +74,7 @@ namespace UurroostersWebApp.Controllers.API
         }
 
         [HttpDelete("{id}")]
-        public JsonResult delete(int id)
+        public JsonResult Delete(int id)
         {
             _leerkracht.Delete(id);
 

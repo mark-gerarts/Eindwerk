@@ -8,8 +8,9 @@
 
         vm.currentLeerkracht = {};
         vm.notFound = false;
-        vm.isBusy = false;
+        vm.deleting = false;
         vm.isDeleted = false;
+        vm.updating = false;
         
         leerkrachtenService.async().then(function (r) {
             vm.currentLeerkracht = leerkrachtenService.findById($routeParams.id);
@@ -21,7 +22,7 @@
         });
 
         vm.deleteLeerkracht = function () {
-            vm.isBusy = true;
+            vm.deleting = true;
 
             leerkrachtenService.delete(vm.currentLeerkracht.Id).then(function (r) {
                 vm.isDeleted = true;
@@ -29,7 +30,19 @@
             }, function (error) {
                 vm.errorMessage = "Er is een fout opgetreden.";
             }).finally(function () {
-                vm.isBusy = false;
+                vm.deleting = false;
+            });
+        }
+
+        vm.updateLeerkracht = function () {
+            vm.updating = true;
+
+            leerkrachtenService.update(vm.currentLeerkracht).then(function () {
+                //
+            }, function () {
+                //
+            }).finally(function () {
+                vm.updating = false;
             });
         }
     }

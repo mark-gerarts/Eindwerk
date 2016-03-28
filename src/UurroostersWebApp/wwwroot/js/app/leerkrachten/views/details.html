@@ -10,39 +10,127 @@
 <div data-ng-show="vm.notFound">
     <p class="text-warning">Er is geen leerkracht met dit ID gevonden.</p>
 </div>
-<div data-ng-hide="vm.isBusy || vm.isDeleted || vm.notFound">
+<div data-ng-hide="vm.isDeleted || vm.notFound">
     <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-primary btn-block"
+                    data-toggle="modal"
+                    data-target="#updatemodal"        
+            >
+                <span data-ng-show="vm.updating"><i class="fa fa-spinner fa-pulse"></i></span>
+                <span data-ng-hide="vm.updating"><i class="fa fa-pencil fa-fw"></i> Wijzigen</span>
+            </button>
+            <button class="btn btn-danger btn-block"
+                    data-ng-hide="vm.isDeleted || vm.notFound"
+                    data-toggle="modal"
+                    data-target="#confirmationbox"
+            >
+                <span data-ng-show="vm.deleting"><i class="fa fa-spinner fa-pulse"></i></span>
+                <span data-ng-hide="vm.deleting"><i class="fa fa-times fa-fw"></i> Verwijderen</span>
+            </button>
+            <a href="#/leerkrachten" class="btn btn-default btn-block">
+                <i class="fa fa-angle-left fa-lg fa-fw"></i> Terug
+            </a>
+        </div>
         <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Details
                 </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-xs-4 text-info">
-                            Naam:
-                        </div>
-                        <div class="col-xs-8">
-                            {{ vm.currentLeerkracht.Naam }}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-4 text-info">
-                            Voornaam:
-                        </div>
-                        <div class="col-xs-8">
-                            {{ vm.currentLeerkracht.Voornaam }}
-                        </div>
-                    </div>
-                </div>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>Naam:</td>
+                            <td>
+                                {{ vm.currentLeerkracht.Naam }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Voornaam:</td>
+                            <td>
+                                {{ vm.currentLeerkracht.Voornaam }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </div> 
+    </div>
 </div>
 <div data-ng-show="vm.isDeleted">
     <p class="text-success">Leerkracht succesvol verwijderd</p>
 </div>
 
-<a href="#/leerkrachten" class="btn btn-default"><i class="fa fa-angle-left fa-lg"></i> Terug</a>
-<button class="btn btn-success" data-ng-click="vm.updateLeerkracht()" data-ng-hide="vm.isDeleted || vm.notFound || !isEdited"><i class="fa fa-save"></i> Wijzigingen opslaan</button>
-<button class="btn btn-danger" data-ng-click="vm.deleteLeerkracht()" data-ng-hide="vm.isDeleted || vm.notFound"><i class="fa fa-times"></i> Verwijderen...</button>
+<!-- Confirmationbox voor delete -->
+<div id="confirmationbox" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="fa fa-times"></i>
+                </button>
+                <h4 class="modal-title">Leerkracht verwijderen</h4>
+            </div>
+            <div class="modal-body">
+                Deze leerkacht wordt definitief verwijderd
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="vm.deleteLeerkracht()">
+                    <i class="fa fa-times fa-fw"></i> Verwijderen
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal voor update -->
+<div id="updatemodal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="fa fa-times"></i>
+                </button>
+                <h4 class="modal-title">Leerkracht wijzigen</h4>
+            </div>
+            <div class="modal-body">
+                <form novalidate name="update" ng-submit="vm.updateLeerkracht()">
+                    <div class="form-group">
+                        <label for="naam" class="control-label">Naam</label>
+                        <input class="form-control" id="naam" name="naam" type="text"
+                               data-ng-model="vm.currentLeerkracht.Naam"
+                               data-ng-maxlength="255"
+                               tabindex="1"
+                               required />
+                        <span data-ng-show="update.naam.$error.required" class="text-warning">Naam is een verplicht veld</span>
+                        <span data-ng-show="update.naam.$error.maxlength" class="text-warning">Naam mag maximaal 255 tekens lang zijn.</span>
+                        <!-- ToDo: create directives-->
+                    </div>
+                    <div class="form-group">
+                        <label for="voornaam" class="control-label">Voornaam</label>
+                        <input class="form-control" id="voornaam" name="voornaam" type="text"
+                               data-ng-model="vm.currentLeerkracht.Voornaam"
+                               data-ng-maxlength="255"
+                               tabindex="2"
+                               required />
+                        <span data-ng-show="update.voornaam.$error.required" class="text-warning">Voornaam is een verplicht veld</span>
+                        <span data-ng-show="update.voornaam.$error.maxlength" class="text-warning">Voornaam mag maximaal 255 tekens lang zijn.</span>
+                    </div>
+                </form>
+                {{ vm.currentLeerkracht}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+                <button type="button" 
+                        class="btn btn-primary" 
+                        data-dismiss="modal"
+                        form="update"
+                        data-ng-click="vm.updateLeerkracht()"
+                >
+                    <i class="fa fa-save fa-fw"></i> Opslaan
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

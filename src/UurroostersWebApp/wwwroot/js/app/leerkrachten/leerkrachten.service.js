@@ -44,14 +44,31 @@
 
         this.delete = function (id) {
             return $http.delete("api/leerkrachten/" + id).then(function (r) {
-                var indexToDelete = self.leerkrachten.findIndex(function (leerkracht) {
-                    return leerkracht.Id == id;
-                });
-                if (indexToDelete) {
-                    self.leerkrachten.splice(indexToDelete, 1);
+                var index = self.findIndexOf(id); 
+                if (index) {
+                    self.leerkrachten.splice(index, 1);
                 }
             }, function (error) {
                 console.log(error);
+            });
+        }
+
+        this.update = function (leerkracht) {
+            return $http.put("api/leerkrachten", leerkracht).then(function (r) {
+                if (r.status == 200) {
+                    var index = self.findIndexOf(leerkracht.Id); 
+                    if (index) {
+                        self.leerkrachten.splice(index, 1, leerkracht);
+                    }
+                }
+            }, function (e) {
+
+            });
+        }
+
+        this.findIndexOf = function (id) {
+            return self.leerkrachten.findIndex(function (leerkracht) {
+                return leerkracht.Id == id;
             });
         }
     }
