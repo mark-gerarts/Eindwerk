@@ -8,5 +8,6 @@ namespace UurroostersWebApp.Repositories.VakRepo
 {
     public interface IVakRepository : IRepository<Vak>
     {
+        IEnumerable<Vak> GetVakkenByLeerkrachtId(int id);
     }
 }

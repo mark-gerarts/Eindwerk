@@ -40,6 +40,17 @@ namespace UurroostersWebApp.Repositories.VakRepo
             return _db.Query<Vak>(query).ToList();
         }
 
+        public IEnumerable<Vak> GetVakkenByLeerkrachtId(int id)
+        {
+            string query = "SELECT v.id, v.naam " +
+                "FROM LeerkrachtVakken lv " +
+                "LEFT JOIN Vakken v " +
+                "ON lv.vakID = v.id " +
+                "WHERE lv.leerkrachtID = @id";
+            var lookup = new Dictionary<int, Vak>();
+            return _db.Query<Vak>(query, new { id }).ToList();
+        }
+
         public int Insert(Vak vak)
         {
             string query = "INSERT INTO Vakken (Naam) " +

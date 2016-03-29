@@ -69,7 +69,7 @@ namespace UurroostersWebApp.Controllers.API
             else
             {
                 Response.StatusCode = 422;
-                return Json("Unprocessable Entity"); //ToDo: return validation errors
+                return Json(leerkracht); //ToDo: return validation errors
             }
         }
 
