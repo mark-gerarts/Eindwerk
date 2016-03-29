@@ -53,8 +53,15 @@ namespace UurroostersWebApp.Repositories.LeerkrachtRepo
 
         public void Update(Leerkracht leerkracht)
         {
-            string query = "UPDATE Leerkrachten SET naam = @naam, voornaam = @voornaam WHERE id = @id";
-            _db.Execute(query, new { leerkracht.Naam, leerkracht.Voornaam, leerkracht.Id });
+            string vakkenIDsString = string.Join(" ", leerkracht.Vakken.Select(p => p.Id).ToList());
+
+            var parameters = new DynamicParameters();
+            parameters.Add("@leerkrachtID", leerkracht.Id);
+            parameters.Add("@naam", leerkracht.Naam);
+            parameters.Add("@voornaam", leerkracht.Voornaam);
+            parameters.Add("@vakken", vakkenIDsString);
+
+            _db.Execute("spUpdateLeerkracht", parameters, commandType: CommandType.StoredProcedure);
         }
 
         public Leerkracht Find(int id)

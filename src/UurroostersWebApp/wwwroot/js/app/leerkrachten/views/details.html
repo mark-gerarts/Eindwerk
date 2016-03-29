@@ -55,6 +55,19 @@
                                 {{ vm.currentLeerkracht.Voornaam }}
                             </td>
                         </tr>
+                        <tr>
+                            <td>Vakken:</td>
+                            <td>
+                                <div class="list-group">
+                                    <a class="list-group-item"
+                                       data-ng-repeat="vak in vm.currentLeerkracht.Vakken" 
+                                       data-ng-href="#/vakken/details/{{vak.Id}}"   
+                                    >
+                                        {{ vak.Naam }}
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -106,7 +119,7 @@
                     <div class="form-group">
                         <label for="naam" class="control-label">Naam</label>
                         <input class="form-control" id="naam" name="naam" type="text"
-                               data-ng-model="vm.currentLeerkracht.Naam"
+                               data-ng-model="vm.updatedLeerkracht.Naam"
                                data-ng-maxlength="255"
                                tabindex="1"
                                required />
@@ -117,7 +130,7 @@
                     <div class="form-group">
                         <label for="voornaam" class="control-label">Voornaam</label>
                         <input class="form-control" id="voornaam" name="voornaam" type="text"
-                               data-ng-model="vm.currentLeerkracht.Voornaam"
+                               data-ng-model="vm.updatedLeerkracht.Voornaam"
                                data-ng-maxlength="255"
                                tabindex="2"
                                required />

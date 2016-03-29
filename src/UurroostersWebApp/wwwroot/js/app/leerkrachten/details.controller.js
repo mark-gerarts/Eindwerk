@@ -7,6 +7,7 @@
         var vm = this;
 
         vm.currentLeerkracht = {};
+        vm.updatedLeerkracht = {};
         vm.notFound = false;
         vm.deleting = false;
         vm.isDeleted = false;
@@ -37,7 +38,7 @@
         vm.updateLeerkracht = function () {
             vm.updating = true;
 
-            leerkrachtenService.update(vm.currentLeerkracht).then(function () {
+            leerkrachtenService.update(vm.updatedLeerkracht).then(function () {
                 //
             }, function () {
                 //
