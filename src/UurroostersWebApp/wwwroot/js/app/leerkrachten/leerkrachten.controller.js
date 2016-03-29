@@ -3,9 +3,9 @@
 
     angular.module("leerkrachtenApp").controller("leerkrachtenCtrl", leerkrachtenCtrl);
 
-    function leerkrachtenCtrl(leerkrachtenService, $location) {
+    function leerkrachtenCtrl(leerkrachtenService, vakkenService, $location) {
         var vm = this;
-
+        
         vm.leerkrachten = [];
         vm.isLoading = true;
 
@@ -17,7 +17,7 @@
             vm.isLoading = false;
         });
 
-        vm.showLeerkracht = function (leerkracht) {
+        vm.showDetails = function (leerkracht) {
             $location.path("/leerkrachten/details/" + leerkracht.Id);
         };
     }

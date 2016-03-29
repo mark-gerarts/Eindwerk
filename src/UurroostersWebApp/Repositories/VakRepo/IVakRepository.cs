@@ -6,7 +6,7 @@ using UurroostersWebApp.Models;
 
 namespace UurroostersWebApp.Repositories.VakRepo
 {
-    interface IVakRepository : IRepository<Vak>
+    public interface IVakRepository : IRepository<Vak>
     {
     }
 }

@@ -28,7 +28,7 @@
             return $http.post("api/leerkrachten", leerkracht).then(function (r) {
                 console.log(r)
                 if (r.status == 200) {
-                    leerkracht.id = r.data;
+                    leerkracht.Id = r.data;
                     self.leerkrachten.push(leerkracht);
                 }
             }, function (error) {
@@ -62,7 +62,7 @@
                     }
                 }
             }, function (e) {
-
+                //
             });
         }
 

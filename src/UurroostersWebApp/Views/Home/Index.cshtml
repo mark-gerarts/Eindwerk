@@ -13,13 +13,21 @@
     <script src="~/lib/angular/angular.min.js"></script>
     <script src="~/lib/angular-route/angular-route.min.js"></script>
 
-    <!-- Minfify this -->
+    <!-- Minfify everything -->
     <script src="~/js/app/app.module.js"></script>
     <script src="~/js/app/home/home.controller.js"></script>
+
+    <!-- Leerkrachten -->
+    <script src="~/js/app/leerkrachten/leerkrachten.service.js"></script>
     <script src="~/js/app/leerkrachten/leerkrachten.controller.js"></script>
     <script src="~/js/app/leerkrachten/nieuw.controller.js"></script>
     <script src="~/js/app/leerkrachten/details.controller.js"></script>
-    <script src="~/js/app/leerkrachten/leerkrachten.service.js"></script>
+
+    <!-- Vakken -->
+    <script src="~/js/app/vakken/vakken.service.js"></script>
+    <script src="~/js/app/vakken/vakken.controller.js"></script>
+    <script src="~/js/app/vakken/nieuw.controller.js"></script>
+    <script src="~/js/app/vakken/details.controller.js"></script>
 </head>
 <body data-ng-app="app">
     <nav class="navbar navbar-default navbar-static-top">
@@ -40,8 +48,10 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Beheer <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#/leerkrachten">Leerkrachten</a></li>
-                            <li><a href="#">Vakken</a></li>
+                            <li><a href="#">Klassen</a></li>
+                            <li><a href="#/vakken">Vakken</a></li>
                             <li><a href="#">Lokalen</a></li>
+                            <li><a href="#">Campussen</a></li>
                         </ul>
                     </li>
                 </ul>

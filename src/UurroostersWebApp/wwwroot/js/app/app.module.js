@@ -3,10 +3,12 @@
 
     // Move to own files
     angular.module("leerkrachtenApp", []);
+    angular.module("vakkenApp", []);
 
     angular.module("app", [
         "ngRoute",
-        "leerkrachtenApp"
+        "leerkrachtenApp",
+        "vakkenApp"
     ]).config(function ($routeProvider) {
         // Home
         $routeProvider.when("/", {
@@ -32,6 +34,25 @@
             controller: "leerkrachtenDetailsCtrl",
             controllerAs: "vm",
             templateUrl: "js/app/leerkrachten/views/details.html"
+        });
+
+        //Vakken
+        $routeProvider.when("/vakken", {
+            controller: "vakkenCtrl",
+            controllerAs: "vm",
+            templateUrl: "js/app/vakken/views/index.html"
+        });
+
+        $routeProvider.when("/vakken/nieuw", {
+            controller: "nieuwVakCtrl",
+            controllerAs: "vm",
+            templateUrl: "js/app/vakken/views/nieuw.html"
+        });
+
+        $routeProvider.when("/vakken/details/:id", {
+            controller: "vakkenDetailsCtrl",
+            controllerAs: "vm",
+            templateUrl: "js/app/vakken/views/details.html"
         });
     });
 })();

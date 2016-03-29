@@ -50,7 +50,7 @@ namespace UurroostersWebApp.Repositories.VakRepo
 
         public void Update(Vak vak)
         {
-            string query = "UPDATE Vakken SET naam = @naam, WHERE id = @id";
+            string query = "UPDATE Vakken SET naam = @naam WHERE id = @id";
             _db.Execute(query, new { vak.Naam, vak.Id });
         }
     }

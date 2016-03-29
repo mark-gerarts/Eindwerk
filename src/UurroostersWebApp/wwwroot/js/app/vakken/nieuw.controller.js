@@ -1,9 +1,9 @@
 ﻿(function () {
     "use strict";
 
-    angular.module("leerkrachtenApp").controller("nieuweLeerkrachtenCtrl", nieuweLeerkrachtenCtrl);
+    angular.module("vakkenApp").controller("nieuwVakCtrl", nieuwVakCtrl);
 
-    function nieuweLeerkrachtenCtrl(leerkrachtenService) {
+    function nieuwVakCtrl(vakkenService) {
         var vm = this;
 
         vm.isBusy = false;
@@ -11,16 +11,16 @@
         vm.errorMessage = "";
         vm.isSubmittedOnce = false;
 
-        vm.nieuweLeerkracht = {};
+        vm.nieuwVak = {};
 
-        vm.insertLeerkracht = function () {
+        vm.insertVak = function () {
             vm.isBusy = true;
             vm.isSubmittedOnce = true;
             vm.success = false;
 
-            leerkrachtenService.insert(vm.nieuweLeerkracht).then(function (r) {
+            vakkenService.insert(vm.nieuwVak).then(function (r) {
                 vm.success = true;
-                vm.nieuweLeerkracht = {};
+                vm.nieuwVak = {};
             }, function (e) {
                 //
             }).finally(function () {

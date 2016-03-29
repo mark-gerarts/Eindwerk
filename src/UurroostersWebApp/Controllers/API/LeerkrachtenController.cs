@@ -21,7 +21,7 @@ namespace UurroostersWebApp.Controllers.API
         {
             _leerkracht = leerkracht;
         }
-        // GET: /<controller>/
+
         [HttpGet("")]
         public JsonResult Get()
         {
