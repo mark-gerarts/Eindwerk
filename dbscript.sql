@@ -85,7 +85,7 @@ BEGIN
    RETURN
 END
 
--- SP om een leerkracht te update
+-- SP om een leerkracht te updaten
 -- Momenteel enkel nog met vakken
 Create PROCEDURE spUpdateLeerkracht(
 	@leerkrachtID INT,

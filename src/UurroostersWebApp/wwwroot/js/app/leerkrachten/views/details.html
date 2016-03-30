@@ -141,12 +141,11 @@
                         <select class="form-control" 
                                 data-ng-model="vm.updatedLeerkracht.Vakken" 
                                 data-ng-multiple="true"
-                                data-ng-options="vak.Naam for vak in vm.vakken track by vak.Id | orderBy:'Naam'"
+                                data-ng-options="vak.Naam for vak in vm.vakken | orderBy:'Naam' track by vak.Id"
                                 multiple
                         >
                         </select>
                     </div>
-                    {{vm.updatedLeerkracht.Vakken}}
                 </form>
             </div>
             <div class="modal-footer">
