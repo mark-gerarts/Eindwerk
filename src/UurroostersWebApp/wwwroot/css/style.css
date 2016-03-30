@@ -1,17 +1,3 @@
 ﻿tr.link:hover {
     cursor: pointer;
 }
-
-ul.my-list {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-}
-
-#nieuwe_vakken {
-    margin-top: 15px;
-}
-
-#fi_vakken .list-group {
-    margin-bottom: 0;
-}
