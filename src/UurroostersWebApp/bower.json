@@ -1,7 +1,7 @@
 {
-	"name": "ASP.NET",
+  "name": "ASP.NET",
   "private": true,
-  "directory":  "wwwroot/lib",
+  "directory": "wwwroot/lib",
   "dependencies": {
     "bootstrap": "3.3.6",
     "angular": "1.5.3",
