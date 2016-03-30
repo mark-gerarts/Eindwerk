@@ -9,12 +9,20 @@
         vm.leerkrachten = [];
         vm.isLoading = true;
 
+        vm.vakken = [];
+
         leerkrachtenService.async().then(function (r) {
             vm.leerkrachten = leerkrachtenService.getAll();
         }, function (e) {
             console.log(e);
         }).finally(function () {
             vm.isLoading = false;
+        });
+
+        vakkenService.async().then(function (r) {
+            vm.vakken = vakkenService.getAll();
+        }, function () {
+            //
         });
 
         vm.showDetails = function (leerkracht) {

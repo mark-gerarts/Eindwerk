@@ -37,7 +37,11 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label">Vakken:</label>
-                        <select class="form-control" data-ng-model="Vak" data-ng-options="vak.Naam for vak in vm.vakken" ng-model-options="{getterSetter: true}">
+                        <select class="form-control" 
+                                data-ng-model="vakQuery" 
+                                data-ng-options="vak.Naam for vak in vm.vakken | orderBy:Naam track by vak.Id" 
+                                ng-model-options="{getterSetter: true}"
+                        >
                             <option value="">Kies een vak...</option>
                         </select>
                     </div>
@@ -55,28 +59,29 @@
                     <tr>
                         <th>Naam</th>
                         <th>Voornaam</th>
-                        <th>Campus</th>
                     </tr>
                 </thead>
                 <tbody data-ng-show="vm.leerkrachten.length == 0 && !vm.isLoading">
                     <tr>
-                        <td colspan="3">
+                        <td colspan="2">
                             Nog geen leerkrachten!
                         </td>
                     </tr>
                 </tbody>
                 <tbody data-ng-show="vm.isLoading">
                     <tr>
-                        <td colspan="3" class="text-center">
+                        <td colspan="2" class="text-center">
                             <i class="fa fa-spinner fa-pulse"></i> Loading
                         </td>
                     </tr>
                 </tbody>
                 <tbody data-ng-show="!vm.isLoading">
-                    <tr data-ng-repeat="lk in vm.leerkrachten | filter:query" data-ng-click="vm.showDetails(lk)" class="link">
+                    <tr data-ng-repeat="lk in vm.leerkrachten | filter:query | filter:vakQuery.Naam" 
+                        data-ng-click="vm.showDetails(lk)" 
+                        class="link"
+                    >
                         <td>{{lk.Naam}}</td>
                         <td>{{lk.Voornaam}}</td>
-                        <td>--campus</td>
                     </tr>
                 </tbody>
             </table>

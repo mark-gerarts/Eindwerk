@@ -1,0 +1,63 @@
+﻿<!-- Campussen index -->
+<ul class="breadcrumb">
+    <li><a href="#/">Home</a></li>
+    <li class="active">Campussen</li>
+</ul>
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel">
+            <a class="btn btn-primary btn-block" href="#/campussen/nieuw">
+                <i class="fa fa-plus-circle fa-fw"></i> Nieuwe campus toevoegen
+            </a>
+        </div>
+
+        <form>
+            <div class="well">
+                <div class="form-group">
+                    <label class="control-label" for="zoek_vak">Zoek campus:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="zoek_campus" placeholder="Zoek campus..." data-ng-model="query" />
+                        <span class="input-group-addon">
+                            <i class="fa fa-search"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Overzicht campussen
+            </div>
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Naam</th>
+                    </tr>
+                </thead>
+                <tbody data-ng-show="vm.campussen.length == 0 && !vm.isLoading">
+                    <tr>
+                        <td colspan="2">
+                            Nog geen campussen!
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody data-ng-show="vm.isLoading">
+                    <tr>
+                        <td colspan="2" class="text-center">
+                            <i class="fa fa-spinner fa-pulse"></i> Loading
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody data-ng-show="!vm.isLoading">
+                    <tr data-ng-repeat="campus in vm.campussen | filter:query" data-ng-click="vm.showDetails(campus)" class="link">
+                        <td>{{ campus.Id }}</td>
+                        <td>{{ campus.Naam }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

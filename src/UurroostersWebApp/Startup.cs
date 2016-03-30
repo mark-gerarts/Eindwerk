@@ -8,10 +8,11 @@ using Microsoft.AspNet.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.Extensions.Configuration;
-using UurroostersWebApp.Repositories.LeerkrachtRepo;
-using UurroostersWebApp.Repositories;
 using UurroostersWebApp.Models;
+using UurroostersWebApp.Repositories;
+using UurroostersWebApp.Repositories.LeerkrachtRepo;
 using UurroostersWebApp.Repositories.VakRepo;
+using UurroostersWebApp.Repositories.CampusRepo;
 
 namespace UurroostersWebApp
 {
@@ -34,6 +35,7 @@ namespace UurroostersWebApp
             // Register the repositories.
             services.AddTransient<ILeerkrachtRepository, LeerkrachtRepository>();
             services.AddTransient<IVakRepository, VakRepository>();
+            services.AddTransient<ICampusRepository, CampusRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
