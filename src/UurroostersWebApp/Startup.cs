@@ -14,6 +14,7 @@ using UurroostersWebApp.Repositories.LeerkrachtRepo;
 using UurroostersWebApp.Repositories.VakRepo;
 using UurroostersWebApp.Repositories.CampusRepo;
 using UurroostersWebApp.Repositories.StudierichtingRepo;
+using UurroostersWebApp.Repositories.KlasRepo;
 
 namespace UurroostersWebApp
 {
@@ -38,6 +39,7 @@ namespace UurroostersWebApp
             services.AddTransient<IVakRepository, VakRepository>();
             services.AddTransient<ICampusRepository, CampusRepository>();
             services.AddTransient<IStudierichtingRepository, StudierichtingRepository>();
+            services.AddTransient<IKlasRepository, KlasRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

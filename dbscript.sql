@@ -40,19 +40,14 @@ CREATE TABLE Studierichtingen(
 	id INT IDENTITY PRIMARY KEY,
 	naam VARCHAR(255)
 );
-CREATE TABLE Klasnamen(
-	id INT IDENTITY PRIMARY KEY,
-	naam VARCHAR(255)
-);
 CREATE TABLE Klassen(
 	id INT IDENTITY PRIMARY KEY,
 	studierichtingID INT,
 	campusID INT,
-	klasnaamID INT,
+	naam VARCHAR(255),
 	leerjaar INT,
 	CONSTRAINT FK_klas_sr FOREIGN KEY (studierichtingID) REFERENCES Studierichtingen (id),
-	CONSTRAINT FK_klas_campus FOREIGN KEY (campusID) REFERENCES Campussen (id),
-	CONSTRAINT FK_klas_naam FOREIGN KEY (klasnaamID) REFERENCES Klasnamen (id),
+	CONSTRAINT FK_klas_campus FOREIGN KEY (campusID) REFERENCES Campussen (id)
 );
 
 -- Iterative function:

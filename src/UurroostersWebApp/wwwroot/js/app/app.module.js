@@ -6,13 +6,15 @@
     angular.module("vakkenApp", []);
     angular.module("campussenApp", []);
     angular.module("studierichtingenApp", []);
+    angular.module("klassenApp", []);
 
     angular.module("app", [
         "ngRoute",
         "leerkrachtenApp",
         "vakkenApp",
         "campussenApp",
-        "studierichtingenApp"
+        "studierichtingenApp",
+        "klassenApp"
     ]).config(function ($routeProvider) {
         // Home
         $routeProvider.when("/", {
@@ -95,6 +97,25 @@
             controller: "studierichtingenDetailsCtrl",
             controllerAs: "vm",
             templateUrl: "js/app/studierichtingen/views/details.html"
+        });
+
+        //Leerkrachten
+        $routeProvider.when("/klassen", {
+            controller: "klassenCtrl",
+            controllerAs: "vm",
+            templateUrl: "js/app/klassen/views/index.html"
+        });
+
+        $routeProvider.when("/klassen/nieuw", {
+            controller: "nieuweKlasCtrl",
+            controllerAs: "vm",
+            templateUrl: "js/app/klassen/views/nieuw.html"
+        });
+
+        $routeProvider.when("/klassen/details/:id", {
+            controller: "klassenDetailsCtrl",
+            controllerAs: "vm",
+            templateUrl: "js/app/klassen/views/details.html"
         });
     });
 })();

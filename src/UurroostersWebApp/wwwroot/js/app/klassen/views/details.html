@@ -1,7 +1,7 @@
-﻿<!-- Leerkrachten details -->
+﻿<!-- Klassen details -->
 <ul class="breadcrumb">
     <li><a href="#/">Home</a></li>
-    <li><a href="#/leerkrachten">Leerkrachten</a></li>
+    <li><a href="#/klassen">Klassen</a></li>
     <li class="active">Details</li>
 </ul>
 
@@ -9,8 +9,8 @@
     <i class="fa fa-spinner fa-pulse"></i>Loading...
 </div>
 <div data-ng-show="vm.notFound">
-    <p class="text-warning">Er is geen leerkracht met dit ID gevonden.</p>
-    <a href="#/leerkrachten" class="btn btn-default">
+    <p class="text-warning">Er is geen klas met dit ID gevonden.</p>
+    <a href="#/klassen" class="btn btn-default">
         <i class="fa fa-angle-left fa-lg fa-fw"></i> Terug
     </a>
 </div>
@@ -32,7 +32,7 @@
                 <span data-ng-show="vm.deleting"><i class="fa fa-spinner fa-pulse"></i></span>
                 <span data-ng-hide="vm.deleting"><i class="fa fa-times fa-fw"></i> Verwijderen</span>
             </button>
-            <a href="#/leerkrachten" class="btn btn-default btn-block">
+            <a href="#/klassen" class="btn btn-default btn-block">
                 <i class="fa fa-angle-left fa-lg fa-fw"></i> Terug
             </a>
         </div>
@@ -46,25 +46,25 @@
                         <tr>
                             <td>Naam:</td>
                             <td>
-                                {{ vm.currentLeerkracht.Naam }}
+                                {{ vm.currentKlas.Naam }}
                             </td>
                         </tr>
                         <tr>
-                            <td>Voornaam:</td>
+                            <td>Studierichting:</td>
                             <td>
-                                {{ vm.currentLeerkracht.Voornaam }}
+                                {{ vm.currentKlas.Studierichting.Naam }}
                             </td>
                         </tr>
                         <tr>
-                            <td>Vakken:</td>
+                            <td>Campus:</td>
                             <td>
-                                <ul class="list-unstyled">
-                                    <li data-ng-repeat="vak in vm.currentLeerkracht.Vakken">
-                                        <a data-ng-href="#/vakken/details/{{vak.Id}}">
-                                            {{vak.Naam}}
-                                        </a>
-                                    </li>
-                                </ul>
+                                {{ vm.currentKlas.Campus.Naam }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Leerjaar</td>
+                            <td>
+                                {{ vm.currentKlas.Leerjaar }}
                             </td>
                         </tr>
                     </tbody>
@@ -74,8 +74,8 @@
     </div>
 </div>
 <div data-ng-show="vm.isDeleted">
-    <p class="text-success">Leerkracht succesvol verwijderd</p>
-    <a href="#/leerkrachten" class="btn btn-default">
+    <p class="text-success">Klas succesvol verwijderd</p>
+    <a href="#/klassen" class="btn btn-default">
         <i class="fa fa-angle-left fa-lg fa-fw"></i> Terug
     </a>
 </div>
@@ -88,14 +88,14 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     <i class="fa fa-times"></i>
                 </button>
-                <h4 class="modal-title">Leerkracht verwijderen</h4>
+                <h4 class="modal-title">Klas verwijderen</h4>
             </div>
             <div class="modal-body">
-                Deze leerkacht wordt definitief verwijderd
+                Deze klas wordt definitief verwijderd
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="vm.deleteLeerkracht()">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="vm.deleteKlas()">
                     <i class="fa fa-times fa-fw"></i> Verwijderen
                 </button>
             </div>
@@ -111,14 +111,14 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     <i class="fa fa-times"></i>
                 </button>
-                <h4 class="modal-title">Leerkracht wijzigen</h4>
+                <h4 class="modal-title">Klas wijzigen</h4>
             </div>
             <div class="modal-body">
-                <form novalidate name="update" ng-submit="vm.updateLeerkracht()">
+                <form novalidate name="update" ng-submit="vm.updateKlas()">
                     <div class="form-group">
                         <label for="naam" class="control-label">Naam</label>
                         <input class="form-control" id="naam" name="naam" type="text"
-                               data-ng-model="vm.updatedLeerkracht.Naam"
+                               data-ng-model="vm.updatedKlas.Naam"
                                data-ng-maxlength="255"
                                tabindex="1"
                                required />
@@ -127,23 +127,30 @@
                         <!-- ToDo: create directives-->
                     </div>
                     <div class="form-group">
-                        <label for="voornaam" class="control-label">Voornaam</label>
-                        <input class="form-control" id="voornaam" name="voornaam" type="text"
-                               data-ng-model="vm.updatedLeerkracht.Voornaam"
+                        <label for="leerjaar" class="control-label">Leerjaar</label>
+                        <input class="form-control" id="leerjaar" name="leerjaar" type="text"
+                               data-ng-model="vm.updatedKlas.Voornaam"
                                data-ng-maxlength="255"
                                tabindex="2"
                                required />
-                        <span data-ng-show="update.voornaam.$error.required" class="text-warning">Voornaam is een verplicht veld</span>
-                        <span data-ng-show="update.voornaam.$error.maxlength" class="text-warning">Voornaam mag maximaal 255 tekens lang zijn.</span>
+                        <span data-ng-show="update.leerjaar.$error.required" class="text-warning">Leerjaar is een verplicht veld</span>
+                        <span data-ng-show="update.leerjaar.$error.maxlength" class="text-warning">Leerjaar mag maximaal 255 tekens lang zijn.</span>
+                    </div>
+                    <div class="form-group" id="fi_studierichting">
+                        <label for="studierichting" class="control-label">Studierichting</label>
+                        <select class="form-control"
+                                id="studierichting"
+                                data-ng-model="vm.updatedKlas.Studierichting"
+                                data-ng-options="sr.Naam for sr in vm.studierichtingen | orderBy:'Naam' track by sr.Id"
+                        >
+                        </select>
                     </div>
                     <div class="form-group" id="fi_vakken">
-                        <label for="vakken" class="control-label">Vakken</label>
-                        <select class="form-control" 
-                                id="vakken"
-                                data-ng-model="vm.updatedLeerkracht.Vakken" 
-                                data-ng-multiple="true"
-                                data-ng-options="vak.Naam for vak in vm.vakken | orderBy:'Naam' track by vak.Id"
-                                multiple
+                        <label for="campus" class="control-label">Campus</label>
+                        <select class="form-control"
+                                id="campus"
+                                data-ng-model="vm.updatedKlas.Campus"
+                                data-ng-options="campus.Naam for campus in vm.campussen | orderBy:'Naam' track by campus.Id"
                         >
                         </select>
                     </div>
@@ -155,7 +162,7 @@
                         class="btn btn-primary" 
                         data-dismiss="modal"
                         form="update"
-                        data-ng-click="vm.updateLeerkracht()"
+                        data-ng-click="vm.updateKlas()"
                 >
                     <i class="fa fa-save fa-fw"></i> Opslaan
                 </button>
