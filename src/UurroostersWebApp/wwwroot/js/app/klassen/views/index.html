@@ -32,6 +32,7 @@
                                 data-ng-model="campusQuery"
                                 data-ng-options="campus.Naam for campus in vm.campussen | orderBy:'Naam' track by campus.Id"
                         >
+                            <option value="">Kies een campus...</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -39,7 +40,10 @@
                         <select class="form-control"
                                 id="studierichting"
                                 data-ng-model="srQuery"
-                                data-ng-options="sr.Naam for sr in vm.studierichtingen | orderBy:'Naam' track by sr.Id"></select>
+                                data-ng-options="sr.Naam for sr in vm.studierichtingen | orderBy:'Naam' track by sr.Id"
+                        >
+                            <option value="">Kies een studierichting...</option>
+                        </select>
                     </div>
                 </fieldset>
             </div>
