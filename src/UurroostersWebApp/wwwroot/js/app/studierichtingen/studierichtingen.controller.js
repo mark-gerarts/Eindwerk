@@ -3,22 +3,21 @@
 
     angular.module("studierichtingenApp").controller("studierichtingenCtrl", studierichtingenCtrl);
 
-    function studierichtingenCtrl(studierichtingenService, $location) {
+    function studierichtingenCtrl($controller, studierichtingenService, $location) {
         var vm = this;
 
-        vm.studierichtingen = [];
-        vm.isLoading = true;
+        angular.extend(vm, $controller("baseIndexCtrl", {
+            vm: this,
+            $location: $location,
+            myService: studierichtingenService,
+            entityName: "Studierichting",
+            entityPlural: "Studierichtingen"
+        }));
 
-        studierichtingenService.async().then(function (r) {
-            vm.studierichtingen = studierichtingenService.getAll();
-        }, function (e) {
-            console.log(e);
-        }).finally(function () {
-            vm.isLoading = false;
-        });
+        vm.init();
 
-        vm.showDetails = function (studierichting) {
-            $location.path("/studierichtingen/details/" + studierichting.Id);
-        };
+        vm.includeSearchOptions = function () {
+            return "";
+        }
     }
 })();

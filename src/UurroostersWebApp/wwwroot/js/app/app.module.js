@@ -92,19 +92,19 @@
         $routeProvider.when("/studierichtingen", {
             controller: "studierichtingenCtrl",
             controllerAs: "vm",
-            templateUrl: "js/app/studierichtingen/views/index.html"
+            templateUrl: baseUrl.index
         });
 
         $routeProvider.when("/studierichtingen/nieuw", {
             controller: "nieuweStudierichtingCtrl",
             controllerAs: "vm",
-            templateUrl: "js/app/studierichtingen/views/nieuw.html"
+            templateUrl: baseUrl.nieuw
         });
 
         $routeProvider.when("/studierichtingen/details/:id", {
             controller: "studierichtingenDetailsCtrl",
             controllerAs: "vm",
-            templateUrl: "js/app/studierichtingen/views/details.html"
+            templateUrl: baseUrl.details
         });
 
         //Klassen
