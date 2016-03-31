@@ -1,0 +1,18 @@
+﻿<!-- Base nieuw -->
+<ul class="breadcrumb">
+    <li><a href="#/">Home</a></li>
+    <li><a data-ng-href="#/{{ vm.entityPlural }}">{{ vm.EntityPlural }}</a></li>
+    <li class="active">Nieuw</li>
+</ul>
+
+<div class="row">
+    <div class="col-md-4">
+        <div data-ng-include="vm.includeInsertForm()"></div>
+        <div>
+            <p class="text-danger">{{vm.errorMessage}}</p>
+        </div>
+        <div ng-show="vm.success">
+            <p class="text-success">Leerkracht succesvol toegevoegd.</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+﻿<!-- Base Index -->
+<ul class="breadcrumb">
+    <li><a href="#/">Home</a></li>
+    <li class="active">{{ vm.EntityPlural }}</li>
+</ul>
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel">
+            <a class="btn btn-primary btn-block" data-ng-href="#/{{ vm.entityPlural }}/nieuw">
+                <i class="fa fa-plus-circle fa-fw"></i> Nieuwe {{ vm.entityName }} toevoegen
+            </a>
+        </div>
+
+        <form>
+            <div class="well">
+                <div class="form-group">
+                    <label class="control-label" for="zoek">Zoek {{ vm.entityName }}:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="zoek" placeholder="Zoek {{ vm.entityName }}..." data-ng-model="query" />
+                        <span class="input-group-addon">
+                            <i class="fa fa-search"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div data-ng-include="vm.includeSearchOptions()"></div>
+        </form>
+    </div>
+    <div class="col-md-8">
+        <div data-ng-include="vm.includeOverview()"></div>
+    </div>
+</div>

@@ -3,22 +3,21 @@
 
     angular.module("vakkenApp").controller("vakkenCtrl", vakkenCtrl);
 
-    function vakkenCtrl(vakkenService, $location) {
+    function vakkenCtrl($controller, vakkenService, $location) {
         var vm = this;
 
-        vm.vakken = [];
-        vm.isLoading = true;
+        angular.extend(vm, $controller("baseIndexCtrl", {
+            vm: this,
+            $location: $location,
+            myService: vakkenService,
+            entityName: "Vak",
+            entityPlural: "Vakken"
+        }));
 
-        vakkenService.async().then(function (r) {
-            vm.vakken = vakkenService.getAll();
-        }, function (e) {
-            console.log(e);
-        }).finally(function () {
-            vm.isLoading = false;
-        });
+        vm.init();
 
-        vm.showDetails = function (vak) {
-            $location.path("/vakken/details/" + vak.Id);
-        };
+        vm.includeSearchOptions = function () {
+            return "";
+        }
     }
 })();

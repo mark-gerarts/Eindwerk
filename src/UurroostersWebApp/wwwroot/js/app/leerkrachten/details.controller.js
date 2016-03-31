@@ -47,9 +47,9 @@
         vm.updateLeerkracht = function () {
             vm.updating = true;
 
-            leerkrachtenService.update(vm.updatedLeerkracht).then(function () {
+            leerkrachtenService.update(vm.updatedLeerkracht).then(function (r) {
                 vm.currentLeerkracht = angular.copy(vm.updatedLeerkracht);
-            }, function () {
+            }, function (e) {
                 //
             }).finally(function () {
                 vm.updating = false;

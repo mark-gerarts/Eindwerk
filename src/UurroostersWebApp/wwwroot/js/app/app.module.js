@@ -7,6 +7,7 @@
     angular.module("campussenApp", []);
     angular.module("studierichtingenApp", []);
     angular.module("klassenApp", []);
+    angular.module("lokalenApp", []);
 
     angular.module("app", [
         "ngRoute",
@@ -14,8 +15,15 @@
         "vakkenApp",
         "campussenApp",
         "studierichtingenApp",
-        "klassenApp"
+        "klassenApp",
+        "lokalenApp"
     ]).config(function ($routeProvider) {
+        var baseUrl = {
+            index: 'js/app/base/views/index.html',
+            details: 'js/app/base/views/details.html',
+            nieuw: 'js/app/base/views/nieuw.html'
+        };
+
         // Home
         $routeProvider.when("/", {
             controller: "homeCtrl",
@@ -46,19 +54,19 @@
         $routeProvider.when("/vakken", {
             controller: "vakkenCtrl",
             controllerAs: "vm",
-            templateUrl: "js/app/vakken/views/index.html"
+            templateUrl: baseUrl.index
         });
 
         $routeProvider.when("/vakken/nieuw", {
             controller: "nieuwVakCtrl",
             controllerAs: "vm",
-            templateUrl: "js/app/vakken/views/nieuw.html"
+            templateUrl: baseUrl.nieuw
         });
 
         $routeProvider.when("/vakken/details/:id", {
             controller: "vakkenDetailsCtrl",
             controllerAs: "vm",
-            templateUrl: "js/app/vakken/views/details.html"
+            templateUrl: baseUrl.details
         });
 
         //Campussen
@@ -99,7 +107,7 @@
             templateUrl: "js/app/studierichtingen/views/details.html"
         });
 
-        //Leerkrachten
+        //Klassen
         $routeProvider.when("/klassen", {
             controller: "klassenCtrl",
             controllerAs: "vm",
@@ -116,6 +124,25 @@
             controller: "klassenDetailsCtrl",
             controllerAs: "vm",
             templateUrl: "js/app/klassen/views/details.html"
+        });
+
+        //Lokalen
+        $routeProvider.when("/lokalen", {
+            controller: "lokalenCtrl",
+            controllerAs: "vm",
+            templateUrl: "js/app/base/views/index.html"
+        });
+
+        $routeProvider.when("/lokalen/nieuw", {
+            controller: "nieuwLokaalCtrl",
+            controllerAs: "vm",
+            templateUrl: "js/app/base/views/nieuw.html"
+        });
+
+        $routeProvider.when("/lokalen/details/:id", {
+            controller: "lokalenDetailsCtrl",
+            controllerAs: "vm",
+            templateUrl: "js/app/base/views/details.html"
         });
     });
 })();

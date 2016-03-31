@@ -72,8 +72,9 @@
                         self.entities.splice(index, 1, entity);
                     }
                 }
+                console.log(r)
             }, function (e) {
-                //
+                console.log(e)
             });
         }
 

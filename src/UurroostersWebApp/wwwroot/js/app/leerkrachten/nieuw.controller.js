@@ -3,7 +3,7 @@
 
     angular.module("leerkrachtenApp").controller("nieuweLeerkrachtenCtrl", nieuweLeerkrachtenCtrl);
 
-    function nieuweLeerkrachtenCtrl(leerkrachtenService) {
+    function nieuweLeerkrachtenCtrl(leerkrachtenService, vakkenService) {
         var vm = this;
 
         vm.isBusy = false;
@@ -12,6 +12,14 @@
         vm.isSubmittedOnce = false;
 
         vm.nieuweLeerkracht = {};
+
+        vm.vakken = [];
+
+        vakkenService.async().then(function (r) {
+            vm.vakken = vakkenService.getAll();
+        }, function (e) {
+
+        });
 
         vm.insertLeerkracht = function () {
             vm.isBusy = true;

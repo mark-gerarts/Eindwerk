@@ -33,15 +33,23 @@
                 <label for="studierichting" class="control-label">Studierichting</label>
                 <select class="form-control"
                         id="studierichting"
+                        name="studierichting"
+                        required
                         data-ng-model="vm.nieuweKlas.Studierichting"
-                        data-ng-options="sr.Naam for sr in vm.studierichtingen | orderBy:'Naam' track by sr.Id"></select>
+                        data-ng-options="sr.Naam for sr in vm.studierichtingen | orderBy:'Naam' track by sr.Id"
+                >
+                </select>
+                <span data-ng-show="nieuw.studierichting.$error.required" class="text-warning">Studierichting is een verplicht veld</span>
             </div>
             <div class="form-group" id="fi_vakken">
                 <label for="campus" class="control-label">Campus</label>
                 <select class="form-control"
                         id="campus"
+                        name="campus"
+                        required
                         data-ng-model="vm.nieuweKlas.Campus"
                         data-ng-options="campus.Naam for campus in vm.campussen | orderBy:'Naam' track by campus.Id"></select>
+                <span data-ng-show="nieuw.campus.$error.required" class="text-warning">Campus is een verplicht veld</span>
             </div>
             <div class="form-group">
                 <a class="btn btn-default" href="#/klassen">Annuleren</a>

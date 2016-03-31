@@ -1,0 +1,15 @@
+﻿<!-- Lokalen search options -->
+<div class="well">
+    <fieldset>
+        <legend>Opties</legend>
+        <div class="form-group">
+            <label class="control-label" for="campus">Campus:</label>
+            <select class="form-control"
+                    id="campus"
+                    data-ng-model="vm.campusQuery"
+                    data-ng-options="campus.Naam for campus in vm.campussen | orderBy:'Naam' track by campus.Id">
+                <option value="">Kies een campus...</option>
+            </select>
+        </div>
+    </fieldset>
+</div>

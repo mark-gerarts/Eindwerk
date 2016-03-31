@@ -1,0 +1,97 @@
+﻿<!-- Base details -->
+<ul class="breadcrumb">
+    <li><a href="#/">Home</a></li>
+    <li><a data-ng-href="#/{{ vm.entityPlural }}">{{ vm.EntityPlural }}</a></li>
+    <li class="active">Details</li>
+</ul>
+
+<div data-ng-show="vm.isBusy">
+    <i class="fa fa-spinner fa-pulse"></i>Loading...
+</div>
+<div data-ng-show="vm.notFound">
+    <p class="text-warning">Er is geen {{ vm.entityName }} met dit ID gevonden.</p>
+    <a data-ng-href="#/{{ vm.entityPlural }}" class="btn btn-default">
+        <i class="fa fa-angle-left fa-lg fa-fw"></i> Terug
+    </a>
+</div>
+<div data-ng-hide="vm.isDeleted || vm.notFound">
+    <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-primary btn-block"
+                    data-toggle="modal"
+                    data-target="#updatemodal">
+                <span data-ng-show="vm.updating"><i class="fa fa-spinner fa-pulse"></i></span>
+                <span data-ng-hide="vm.updating"><i class="fa fa-pencil fa-fw"></i> Wijzigen</span>
+            </button>
+            <button class="btn btn-danger btn-block"
+                    data-ng-hide="vm.isDeleted || vm.notFound"
+                    data-toggle="modal"
+                    data-target="#confirmationbox">
+                <span data-ng-show="vm.deleting"><i class="fa fa-spinner fa-pulse"></i></span>
+                <span data-ng-hide="vm.deleting"><i class="fa fa-times fa-fw"></i> Verwijderen</span>
+            </button>
+            <a data-ng-href="#/{{ vm.entityPlural }}" class="btn btn-default btn-block">
+                <i class="fa fa-angle-left fa-lg fa-fw"></i> Terug
+            </a>
+        </div>
+        <div class="col-md-4">
+            <div data-ng-include="vm.includeDetails()"></div>
+        </div>
+    </div>
+</div>
+<div data-ng-show="vm.isDeleted">
+    <p class="text-success">{{ vm.EntityName }} succesvol verwijderd</p>
+    <a data-ng-href="#/{{ vm.entityPlural }}" class="btn btn-default">
+        <i class="fa fa-angle-left fa-lg fa-fw"></i> Terug
+    </a>
+</div>
+
+<!-- Confirmationbox voor delete -->
+<div id="confirmationbox" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="fa fa-times"></i>
+                </button>
+                <h4 class="modal-title">{{ vm.EntityName }} verwijderen</h4>
+            </div>
+            <div class="modal-body">
+                Deze {{ vm.entityName }} wordt definitief verwijderd
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="vm.deleteEntity()">
+                    <i class="fa fa-times fa-fw"></i> Verwijderen
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal voor update -->
+<div id="updatemodal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="fa fa-times"></i>
+                </button>
+                <h4 class="modal-title">{{ vm.EntityName }} wijzigen</h4>
+            </div>
+            <div class="modal-body">
+                <div data-ng-include="vm.includeUpdateForm()"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+                <button type="button"
+                        class="btn btn-primary"
+                        data-dismiss="modal"
+                        form="update"
+                        data-ng-click="vm.updateEntity()">
+                    <i class="fa fa-save fa-fw"></i> Opslaan
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

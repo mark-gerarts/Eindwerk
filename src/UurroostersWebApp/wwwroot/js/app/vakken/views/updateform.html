@@ -1,0 +1,13 @@
+﻿<!-- Vakken updateform -->
+<form novalidate name="update" ng-submit="vm.updateEntity()">
+    <div class="form-group">
+        <label for="naam" class="control-label">Naam</label>
+        <input class="form-control" id="naam" name="naam" type="text"
+                data-ng-model="vm.updatedEntity.Naam"
+                data-ng-maxlength="255"
+                tabindex="1"
+                required />
+        <span data-ng-show="update.naam.$error.required" class="text-warning">Naam is een verplicht veld</span>
+        <span data-ng-show="update.naam.$error.maxlength" class="text-warning">Naam mag maximaal 255 tekens lang zijn.</span>
+    </div>
+</form>

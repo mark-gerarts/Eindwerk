@@ -30,9 +30,8 @@ CREATE TABLE Campussen(
 
 CREATE TABLE Lokalen(
 	id INT IDENTITY PRIMARY KEY,
-	lokaalnaamID INT,
+	naam VARCHAR(255),
 	campusID INT,
-	CONSTRAINT FK_naam_lokalen FOREIGN KEY (lokaalnaamID) REFERENCES Lokaalnamen (id),
 	CONSTRAINT FK_campus_lokalen FOREIGN KEY (campusID) REFERENCES Campussen (id),
 );
 --
@@ -100,7 +99,7 @@ END
 
 -- SP om een leerkracht te updaten
 -- Momenteel enkel nog met vakken
-Create PROCEDURE spUpdateLeerkracht(
+CREATE PROCEDURE spUpdateLeerkracht(
 	@leerkrachtID INT,
 	@naam VARCHAR(255),
 	@voornaam VARCHAR(255),
@@ -125,10 +124,10 @@ BEGIN
 		USING #LeerkrachtVakken AS SOURCE
 			ON SOURCE.leerkrachtID = TARGET.leerkrachtID
 			AND SOURCE.vakID = TARGET.vakID
-		WHEN NOT MATCHED BY TARGET AND SOURCE.leerkrachtID = 1 THEN
+		WHEN NOT MATCHED BY TARGET AND SOURCE.leerkrachtID = @leerkrachtID THEN
 			INSERT (leerkrachtID, vakID)
 				VALUES (leerkrachtID, vakID)
-		WHEN NOT MATCHED BY SOURCE AND TARGET.leerkrachtID = 1 THEN
+		WHEN NOT MATCHED BY SOURCE AND TARGET.leerkrachtID = @leerkrachtID THEN
 			DELETE;
 
 	COMMIT TRANSACTION UpdateLeerkacht;
