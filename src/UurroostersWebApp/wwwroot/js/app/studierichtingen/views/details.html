@@ -1,7 +1,7 @@
-﻿<!-- Campussen details -->
+﻿<!-- studierichtingen details -->
 <ul class="breadcrumb">
     <li><a href="#/">Home</a></li>
-    <li><a href="#/campussen">Campussen</a></li>
+    <li><a href="#/studierichtingen">Studierichtingen</a></li>
     <li class="active">Details</li>
 </ul>
 
@@ -9,8 +9,8 @@
     <i class="fa fa-spinner fa-pulse"></i>Loading...
 </div>
 <div data-ng-show="vm.notFound">
-    <p class="text-warning">Er is geen campus met dit ID gevonden.</p>
-    <a href="#/campussen" class="btn btn-default">
+    <p class="text-warning">Er is geen studierichting met dit ID gevonden.</p>
+    <a href="#/studierichtingen" class="btn btn-default">
         <i class="fa fa-angle-left fa-lg fa-fw"></i> Terug
     </a>
 </div>
@@ -30,7 +30,7 @@
                 <span data-ng-show="vm.deleting"><i class="fa fa-spinner fa-pulse"></i></span>
                 <span data-ng-hide="vm.deleting"><i class="fa fa-times fa-fw"></i> Verwijderen</span>
             </button>
-            <a href="#/campussen" class="btn btn-default btn-block">
+            <a href="#/studierichtingen" class="btn btn-default btn-block">
                 <i class="fa fa-angle-left fa-lg fa-fw"></i> Terug
             </a>
         </div>
@@ -44,7 +44,7 @@
                         <tr>
                             <td>Naam:</td>
                             <td>
-                                {{ vm.currentCampus.Naam }}
+                                {{ vm.currentStudierichting.Naam }}
                             </td>
                         </tr>
                     </tbody>
@@ -54,8 +54,8 @@
     </div>
 </div>
 <div data-ng-show="vm.isDeleted">
-    <p class="text-success">Campus succesvol verwijderd</p>
-    <a href="#/campussen" class="btn btn-default">
+    <p class="text-success">Studierichting succesvol verwijderd</p>
+    <a href="#/studierichtingen" class="btn btn-default">
         <i class="fa fa-angle-left fa-lg fa-fw"></i> Terug
     </a>
 </div>
@@ -68,14 +68,14 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     <i class="fa fa-times"></i>
                 </button>
-                <h4 class="modal-title">Campus verwijderen</h4>
+                <h4 class="modal-title">Studierichting verwijderen</h4>
             </div>
             <div class="modal-body">
-                Deze campus wordt definitief verwijderd
+                Deze studierichting wordt definitief verwijderd
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="vm.deleteCampus()">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="vm.deleteStudierichting()">
                     <i class="fa fa-times fa-fw"></i> Verwijderen
                 </button>
             </div>
@@ -91,14 +91,14 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     <i class="fa fa-times"></i>
                 </button>
-                <h4 class="modal-title">Campus wijzigen</h4>
+                <h4 class="modal-title">Studierichting wijzigen</h4>
             </div>
             <div class="modal-body">
-                <form novalidate name="update" ng-submit="vm.updateCampus()">
+                <form novalidate name="update" ng-submit="vm.updateStudierichting()">
                     <div class="form-group">
                         <label for="naam" class="control-label">Naam</label>
                         <input class="form-control" id="naam" name="naam" type="text"
-                               data-ng-model="vm.currentCampus.Naam"
+                               data-ng-model="vm.currentStudierichting.Naam"
                                data-ng-maxlength="255"
                                tabindex="1"
                                required />
@@ -113,7 +113,7 @@
                         class="btn btn-primary"
                         data-dismiss="modal"
                         form="update"
-                        data-ng-click="vm.updateCampus()">
+                        data-ng-click="vm.updateStudierichting()">
                     <i class="fa fa-save fa-fw"></i> Opslaan
                 </button>
             </div>

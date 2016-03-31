@@ -53,7 +53,7 @@ namespace UurroostersWebApp.Repositories.VakRepo
 
         public int Insert(Vak vak)
         {
-            string query = "INSERT INTO Vakken (Naam) " +
+            string query = "INSERT INTO Vakken (naam) " +
                 "OUTPUT Inserted.Id " +
                 "VALUES (@naam)";
             return _db.Query<int>(query, new { vak.Naam }).Single();
