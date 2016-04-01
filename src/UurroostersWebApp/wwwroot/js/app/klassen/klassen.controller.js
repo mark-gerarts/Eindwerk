@@ -3,37 +3,33 @@
 
     angular.module("klassenApp").controller("klassenCtrl", klassenCtrl);
 
-    function klassenCtrl(klassenService, campussenService, studierichtingenService, $location) {
+    function klassenCtrl($controller, klassenService, campussenService, studierichtingenService, $location) {
         var vm = this;
-        
-        vm.klassen = [];
-        vm.isLoading = true;
 
+        angular.extend(vm, $controller("baseIndexCtrl", {
+            vm: this,
+            $location: $location,
+            myService: klassenService,
+            entityName: "Klas",
+            entityPlural: "Klassen"
+        }));
+
+        vm.init();
+
+        vm.campusQuery;
         vm.campussen = [];
-        vm.studierichtingen = [];
-
-        klassenService.async().then(function (r) {
-            vm.klassen = klassenService.getAll();
-        }, function (e) {
-            console.log(e);
-        }).finally(function () {
-            vm.isLoading = false;
-        });
-
         campussenService.async().then(function (r) {
             vm.campussen = campussenService.getAll();
         }, function () {
             //
         });
 
+        vm.srQuery;
+        vm.studierichtingen = [];
         studierichtingenService.async().then(function (r) {
             vm.studierichtingen = studierichtingenService.getAll();
         }, function () {
             //
         });
-
-        vm.showDetails = function (klas) {
-            $location.path("/klassen/details/" + klas.Id);
-        };
     }
 })();

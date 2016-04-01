@@ -1,0 +1,46 @@
+﻿<!-- Klassen updateform -->
+<form novalidate name="update" ng-submit="vm.updateEntity()">
+    <div class="form-group">
+        <label for="naam" class="control-label">Naam</label>
+        <input class="form-control" id="naam" name="naam" type="text"
+                data-ng-model="vm.updatedEntity.Naam"
+                data-ng-maxlength="255"
+                tabindex="1"
+                required />
+        <span data-ng-show="update.naam.$error.required" class="text-warning">Naam is een verplicht veld</span>
+        <span data-ng-show="update.naam.$error.maxlength" class="text-warning">Naam mag maximaal 255 tekens lang zijn.</span>
+        <!-- ToDo: create directives-->
+    </div>
+    <div class="form-group">
+        <label for="leerjaar" class="control-label">Leerjaar</label>
+        <input class="form-control" id="leerjaar" name="leerjaar" type="text"
+                data-ng-model="vm.updatedEntity.Leerjaar"
+                data-ng-maxlength="255"
+                tabindex="2"
+                required />
+        <span data-ng-show="update.leerjaar.$error.required" class="text-warning">Leerjaar is een verplicht veld</span>
+        <span data-ng-show="update.leerjaar.$error.maxlength" class="text-warning">Leerjaar mag maximaal 255 tekens lang zijn.</span>
+    </div>
+    <div class="form-group" id="fi_studierichting">
+        <label for="studierichting" class="control-label">Studierichting</label>
+        <select class="form-control"
+                id="studierichting"
+                name="studierichting"
+                data-ng-model="vm.updatedEntity.Studierichting"
+                data-ng-options="sr.Naam for sr in vm.studierichtingen | orderBy:'Naam' track by sr.Id"
+        >
+        </select>
+        <span data-ng-show="update.studierichting.$error.required" class="text-warning">Studierichting is een verplicht veld</span>
+    </div>
+    <div class="form-group">
+        <label for="campus" class="control-label">Campus</label>
+        <select class="form-control"
+                id="campus"
+                name="campus"
+                data-ng-model="vm.updatedEntity.Campus"
+                data-ng-options="campus.Naam for campus in vm.campussen | orderBy:'Naam' track by campus.Id"
+        >
+        </select>
+        <span data-ng-show="update.campus.$error.required" class="text-warning">Campus is een verplicht veld</span>
+    </div>
+</form>

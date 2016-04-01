@@ -1,172 +1,34 @@
 ﻿<!-- Klassen details -->
-<ul class="breadcrumb">
-    <li><a href="#/">Home</a></li>
-    <li><a href="#/klassen">Klassen</a></li>
-    <li class="active">Details</li>
-</ul>
-
-<div data-ng-show="vm.isBusy">
-    <i class="fa fa-spinner fa-pulse"></i>Loading...
-</div>
-<div data-ng-show="vm.notFound">
-    <p class="text-warning">Er is geen klas met dit ID gevonden.</p>
-    <a href="#/klassen" class="btn btn-default">
-        <i class="fa fa-angle-left fa-lg fa-fw"></i> Terug
-    </a>
-</div>
-<div data-ng-hide="vm.isDeleted || vm.notFound">
-    <div class="row">
-        <div class="col-md-2">
-            <button class="btn btn-primary btn-block"
-                    data-toggle="modal"
-                    data-target="#updatemodal"        
-            >
-                <span data-ng-show="vm.updating"><i class="fa fa-spinner fa-pulse"></i></span>
-                <span data-ng-hide="vm.updating"><i class="fa fa-pencil fa-fw"></i> Wijzigen</span>
-            </button>
-            <button class="btn btn-danger btn-block"
-                    data-ng-hide="vm.isDeleted || vm.notFound"
-                    data-toggle="modal"
-                    data-target="#confirmationbox"
-            >
-                <span data-ng-show="vm.deleting"><i class="fa fa-spinner fa-pulse"></i></span>
-                <span data-ng-hide="vm.deleting"><i class="fa fa-times fa-fw"></i> Verwijderen</span>
-            </button>
-            <a href="#/klassen" class="btn btn-default btn-block">
-                <i class="fa fa-angle-left fa-lg fa-fw"></i> Terug
-            </a>
-        </div>
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Details
-                </div>
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <td>Naam:</td>
-                            <td>
-                                {{ vm.currentKlas.Naam }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Studierichting:</td>
-                            <td>
-                                {{ vm.currentKlas.Studierichting.Naam }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Campus:</td>
-                            <td>
-                                {{ vm.currentKlas.Campus.Naam }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Leerjaar</td>
-                            <td>
-                                {{ vm.currentKlas.Leerjaar }}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Details
     </div>
-</div>
-<div data-ng-show="vm.isDeleted">
-    <p class="text-success">Klas succesvol verwijderd</p>
-    <a href="#/klassen" class="btn btn-default">
-        <i class="fa fa-angle-left fa-lg fa-fw"></i> Terug
-    </a>
-</div>
-
-<!-- Confirmationbox voor delete -->
-<div id="confirmationbox" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    <i class="fa fa-times"></i>
-                </button>
-                <h4 class="modal-title">Klas verwijderen</h4>
-            </div>
-            <div class="modal-body">
-                Deze klas wordt definitief verwijderd
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="vm.deleteKlas()">
-                    <i class="fa fa-times fa-fw"></i> Verwijderen
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal voor update -->
-<div id="updatemodal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    <i class="fa fa-times"></i>
-                </button>
-                <h4 class="modal-title">Klas wijzigen</h4>
-            </div>
-            <div class="modal-body">
-                <form novalidate name="update" ng-submit="vm.updateKlas()">
-                    <div class="form-group">
-                        <label for="naam" class="control-label">Naam</label>
-                        <input class="form-control" id="naam" name="naam" type="text"
-                               data-ng-model="vm.updatedKlas.Naam"
-                               data-ng-maxlength="255"
-                               tabindex="1"
-                               required />
-                        <span data-ng-show="update.naam.$error.required" class="text-warning">Naam is een verplicht veld</span>
-                        <span data-ng-show="update.naam.$error.maxlength" class="text-warning">Naam mag maximaal 255 tekens lang zijn.</span>
-                        <!-- ToDo: create directives-->
-                    </div>
-                    <div class="form-group">
-                        <label for="leerjaar" class="control-label">Leerjaar</label>
-                        <input class="form-control" id="leerjaar" name="leerjaar" type="text"
-                               data-ng-model="vm.updatedKlas.Leerjaar"
-                               data-ng-maxlength="255"
-                               tabindex="2"
-                               required />
-                        <span data-ng-show="update.leerjaar.$error.required" class="text-warning">Leerjaar is een verplicht veld</span>
-                        <span data-ng-show="update.leerjaar.$error.maxlength" class="text-warning">Leerjaar mag maximaal 255 tekens lang zijn.</span>
-                    </div>
-                    <div class="form-group" id="fi_studierichting">
-                        <label for="studierichting" class="control-label">Studierichting</label>
-                        <select class="form-control"
-                                id="studierichting"
-                                data-ng-model="vm.updatedKlas.Studierichting"
-                                data-ng-options="sr.Naam for sr in vm.studierichtingen | orderBy:'Naam' track by sr.Id"
-                        >
-                        </select>
-                    </div>
-                    <div class="form-group" id="fi_vakken">
-                        <label for="campus" class="control-label">Campus</label>
-                        <select class="form-control"
-                                id="campus"
-                                data-ng-model="vm.updatedKlas.Campus"
-                                data-ng-options="campus.Naam for campus in vm.campussen | orderBy:'Naam' track by campus.Id"
-                        >
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
-                <button type="button" 
-                        class="btn btn-primary" 
-                        data-dismiss="modal"
-                        form="update"
-                        data-ng-click="vm.updateKlas()"
-                >
-                    <i class="fa fa-save fa-fw"></i> Opslaan
-                </button>
-            </div>
-        </div>
-    </div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <td>Naam:</td>
+                <td>
+                    {{ vm.currentEntity.Naam }}
+                </td>
+            </tr>
+            <tr>
+                <td>Studierichting:</td>
+                <td>
+                    {{ vm.currentEntity.Studierichting.Naam }}
+                </td>
+            </tr>
+            <tr>
+                <td>Campus:</td>
+                <td>
+                    {{ vm.currentEntity.Campus.Naam }}
+                </td>
+            </tr>
+            <tr>
+                <td>Leerjaar</td>
+                <td>
+                    {{ vm.currentEntity.Leerjaar }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>

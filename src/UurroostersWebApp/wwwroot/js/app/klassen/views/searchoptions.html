@@ -1,0 +1,26 @@
+﻿<!-- Klassen searchoptions -->
+<div class="well">
+    <fieldset>
+        <legend>Opties</legend>
+        <div class="form-group">
+            <label class="control-label" for="campus">Campus:</label>
+            <select class="form-control"
+                    id="campus"
+                    data-ng-model="vm.campusQuery"
+                    data-ng-options="campus.Naam for campus in vm.campussen | orderBy:'Naam' track by campus.Id"
+            >
+                <option value="">Kies een campus...</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="studierichting">Studierichting:</label>
+            <select class="form-control"
+                    id="studierichting"
+                    data-ng-model="vm.srQuery"
+                    data-ng-options="sr.Naam for sr in vm.studierichtingen | orderBy:'Naam' track by sr.Id"
+            >
+                <option value="">Kies een studierichting...</option>
+            </select>
+        </div>
+    </fieldset>
+</div>

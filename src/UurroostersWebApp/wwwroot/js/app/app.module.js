@@ -111,19 +111,19 @@
         $routeProvider.when("/klassen", {
             controller: "klassenCtrl",
             controllerAs: "vm",
-            templateUrl: "js/app/klassen/views/index.html"
+            templateUrl: baseUrl.index
         });
 
         $routeProvider.when("/klassen/nieuw", {
             controller: "nieuweKlasCtrl",
             controllerAs: "vm",
-            templateUrl: "js/app/klassen/views/nieuw.html"
+            templateUrl: baseUrl.nieuw
         });
 
         $routeProvider.when("/klassen/details/:id", {
             controller: "klassenDetailsCtrl",
             controllerAs: "vm",
-            templateUrl: "js/app/klassen/views/details.html"
+            templateUrl: baseUrl.details
         });
 
         //Lokalen
