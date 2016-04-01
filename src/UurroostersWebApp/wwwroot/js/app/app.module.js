@@ -73,19 +73,19 @@
         $routeProvider.when("/campussen", {
             controller: "campussenCtrl",
             controllerAs: "vm",
-            templateUrl: "js/app/campussen/views/index.html"
+            templateUrl: baseUrl.index
         });
 
         $routeProvider.when("/campussen/nieuw", {
             controller: "nieuweCampusCtrl",
             controllerAs: "vm",
-            templateUrl: "js/app/campussen/views/nieuw.html"
+            templateUrl: baseUrl.nieuw
         });
 
         $routeProvider.when("/campussen/details/:id", {
             controller: "campussenDetailsCtrl",
             controllerAs: "vm",
-            templateUrl: "js/app/campussen/views/details.html"
+            templateUrl: baseUrl.details
         });
 
         //Studierichtingen
@@ -130,19 +130,19 @@
         $routeProvider.when("/lokalen", {
             controller: "lokalenCtrl",
             controllerAs: "vm",
-            templateUrl: "js/app/base/views/index.html"
+            templateUrl: baseUrl.index
         });
 
         $routeProvider.when("/lokalen/nieuw", {
             controller: "nieuwLokaalCtrl",
             controllerAs: "vm",
-            templateUrl: "js/app/base/views/nieuw.html"
+            templateUrl: baseUrl.nieuw
         });
 
         $routeProvider.when("/lokalen/details/:id", {
             controller: "lokalenDetailsCtrl",
             controllerAs: "vm",
-            templateUrl: "js/app/base/views/details.html"
+            templateUrl: baseUrl.details
         });
     });
 })();

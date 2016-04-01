@@ -3,22 +3,21 @@
 
     angular.module("campussenApp").controller("campussenCtrl", campussenCtrl);
 
-    function campussenCtrl(campussenService, $location) {
+    function campussenCtrl($controller, campussenService, $location) {
         var vm = this;
 
-        vm.campussen = [];
-        vm.isLoading = true;
+        angular.extend(vm, $controller("baseIndexCtrl", {
+            vm: this,
+            $location: $location,
+            myService: campussenService,
+            entityName: "Campus",
+            entityPlural: "Campussen"
+        }));
 
-        campussenService.async().then(function (r) {
-            vm.campussen = campussenService.getAll();
-        }, function (e) {
-            console.log(e);
-        }).finally(function () {
-            vm.isLoading = false;
-        });
+        vm.init();
 
-        vm.showDetails = function (campus) {
-            $location.path("/campussen/details/" + campus.Id);
-        };
+        vm.includeSearchOptions = function () {
+            return "";
+        }
     }
 })();
