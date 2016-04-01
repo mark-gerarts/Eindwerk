@@ -1,0 +1,37 @@
+﻿<!-- Leerkrachten overview -->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Overzicht leerkrachten
+    </div>
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Naam</th>
+                <th>Voornaam</th>
+            </tr>
+        </thead>
+        <tbody data-ng-show="vm.entities.length == 0 && !vm.isLoading">
+            <tr>
+                <td colspan="2">
+                    Nog geen leerkrachten!
+                </td>
+            </tr>
+        </tbody>
+        <tbody data-ng-show="vm.isLoading">
+            <tr>
+                <td colspan="2" class="text-center">
+                    <i class="fa fa-spinner fa-pulse"></i> Loading
+                </td>
+            </tr>
+        </tbody>
+        <tbody data-ng-show="!vm.isLoading">
+            <tr data-ng-repeat="lk in vm.entities | filter:query | filter:vm.vakQuery.Naam" 
+                data-ng-click="vm.showDetails(lk)" 
+                class="link"
+            >
+                <td>{{lk.Naam}}</td>
+                <td>{{lk.Voornaam}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

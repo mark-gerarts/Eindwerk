@@ -35,19 +35,19 @@
         $routeProvider.when("/leerkrachten", {
             controller: "leerkrachtenCtrl",
             controllerAs: "vm",
-            templateUrl: "js/app/leerkrachten/views/index.html"
+            templateUrl: baseUrl.index
         });
 
         $routeProvider.when("/leerkrachten/nieuw", {
             controller: "nieuweLeerkrachtenCtrl",
             controllerAs: "vm",
-            templateUrl: "js/app/leerkrachten/views/nieuw.html"
+            templateUrl: baseUrl.nieuw
         });
 
         $routeProvider.when("/leerkrachten/details/:id", {
             controller: "leerkrachtenDetailsCtrl",
             controllerAs: "vm",
-            templateUrl: "js/app/leerkrachten/views/details.html"
+            templateUrl: baseUrl.details
         });
 
         //Vakken

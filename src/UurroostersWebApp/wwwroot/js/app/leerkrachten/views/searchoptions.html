@@ -1,0 +1,17 @@
+﻿<!-- Leerkrachten searchoptions -->
+<div class="well">
+    <fieldset>
+        <legend>Opties</legend>
+        <div class="form-group">
+            <label class="control-label">Vakken:</label>
+            <select class="form-control" 
+                    data-ng-model="vm.vakQuery" 
+                    data-ng-options="vak.Naam for vak in vm.vakken | orderBy:Naam track by vak.Id" 
+                    ng-model-options="{getterSetter: true}"
+            >
+                <option value="">Kies een vak...</option>
+            </select>
+        </div>
+    </fieldset>
+</div>
+        
