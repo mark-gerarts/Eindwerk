@@ -1,0 +1,25 @@
+﻿<!-- Uurroosters Aanpassen -->
+<ul class="breadcrumb">
+    <li><a href="#/">Home</a></li>
+    <li><a href="#/uurroosters">Uurroosters</a></li>
+    <li class="active">Aanpassen</li>
+</ul>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="btn-group btn-group-justified">
+            <a href="#/uurroosters" class="btn btn-default">
+                <i class="fa fa-angle-left fa-fw"></i> Terug
+            </a>
+            <a data-ng-href="#/uurroosters/{{vm.currentKlas.Id}}/preview" class="btn btn-default">
+                <i class="fa fa-calendar fa-fw"></i> Preview
+            </a>
+            <a data-ng-href="#/uurroosters/{{vm.currentKlas.Id}}/aanpassen" class="btn btn-default active">
+                <i class="fa fa-edit fa-fw"></i> Aanpassen
+            </a>
+            <a data-ng-href="#/uurroosters/{{vm.currentKlas.Id}}/verwijderen" class="btn btn-default">
+                <i class="fa fa-times fa-fw"></i> Verwijderen
+            </a>
+        </div>
+    </div>
+</div>
+<h1>Aanpassen</h1>

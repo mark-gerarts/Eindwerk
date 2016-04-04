@@ -63,8 +63,16 @@
     <script src="~/js/app/base/baseNieuw.controller.js"></script>
     <script src="~/js/app/base/baseDetails.controller.js"></script>
 
+    <!-- Uurroosters -->
+    <script src="~/js/app/uurroosters/timeconverter.service.js"></script>
+    <script src="~/js/app/uurroosters/aanpassen.controller.js"></script>
+    <script src="~/js/app/uurroosters/index.controller.js"></script>
+    <script src="~/js/app/uurroosters/preview.controller.js"></script>
+    <script src="~/js/app/uurroosters/verwijderen.controller.js"></script>
+
     <!-- my stuffs -->
     <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/weekview.css" />
 </head>
 <body data-ng-app="app">
     <nav class="navbar navbar-default navbar-static-top">
@@ -82,9 +90,9 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Uurroosters <span class="caret"></span></a>
-                        <ul class="dropdown" role="menu">
-                            <li><a href="#/uurroosters">Overzicht?</a></li>
-                            <li><a href="#/lesblokken">Beheer lesblokken?</a></li>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#/uurroosters">Uurroosters</a></li>
+                            <li><a href="#/lesblokken">Lesblokken</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">

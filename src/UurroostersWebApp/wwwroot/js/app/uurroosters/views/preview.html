@@ -1,0 +1,55 @@
+﻿<!-- Uurroosters Index -->
+<ul class="breadcrumb">
+    <li><a href="#/">Home</a></li>
+    <li><a href="#/uurroosters">Uurroosters</a></li>
+    <li class="active">Preview</li>
+</ul>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="btn-group btn-group-justified">
+            <a href="#/uurroosters" class="btn btn-default">
+                <i class="fa fa-angle-left fa-fw"></i> Terug
+            </a>
+            <a data-ng-href="#/uurroosters/{{vm.currentKlas.Id}}/preview" class="btn btn-default active">
+                <i class="fa fa-calendar fa-fw"></i> Preview
+            </a>
+            <a data-ng-href="#/uurroosters/{{vm.currentKlas.Id}}/aanpassen" class="btn btn-default">
+                <i class="fa fa-edit fa-fw"></i> Aanpassen
+            </a>
+            <a data-ng-href="#/uurroosters/{{vm.currentKlas.Id}}/verwijderen" class="btn btn-default">
+                <i class="fa fa-times fa-fw"></i> Verwijderen
+            </a>
+        </div>
+    </div>
+</div>
+<div class="calendar">
+    <div class="calendar-headers">
+        <div>
+        </div>
+        <div data-ng-repeat="dag in vm.dagen">
+            {{dag.Naam}}
+        </div>
+    </div>
+    <div class="hours">
+        <div class="hour-block" data-ng-repeat="uur in vm.tijdstippen">
+            <span class="hour-text">
+                {{ uur }}
+            </span>
+        </div>
+        <div class="hour-block"></div>
+    </div>
+    <div class="weekday"
+         data-ng-repeat="dag in vm.dagen">
+        <div class="hour-bg-container">
+            <div class="hour-bg"
+                 data-ng-repeat="uur in vm.tijdstippen"></div>
+            <div class="hour-bg"></div>
+        </div>
+        <div class="les"
+             data-ng-repeat="les in dag.Lessen"
+             data-ng-style="{{vm.getStyle(les)}}">
+            Les
+        </div>
+
+    </div>
+</div>

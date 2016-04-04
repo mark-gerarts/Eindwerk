@@ -8,6 +8,7 @@
     angular.module("studierichtingenApp", []);
     angular.module("klassenApp", []);
     angular.module("lokalenApp", []);
+    angular.module("uurroostersApp", []);
 
     angular.module("app", [
         "ngRoute",
@@ -16,7 +17,8 @@
         "campussenApp",
         "studierichtingenApp",
         "klassenApp",
-        "lokalenApp"
+        "lokalenApp",
+        "uurroostersApp"
     ]).config(function ($routeProvider) {
         var baseUrl = {
             index: 'js/app/base/views/index.html',
@@ -143,6 +145,31 @@
             controller: "lokalenDetailsCtrl",
             controllerAs: "vm",
             templateUrl: baseUrl.details
+        });
+
+        //Uurroosters
+        $routeProvider.when('/uurroosters', {
+            controller: 'uurroostersIndexCtrl',
+            controllerAs: 'vm',
+            templateUrl: 'js/app/uurroosters/views/index.html'
+        });
+
+        $routeProvider.when('/uurroosters/:klasID/aanpassen', {
+            controller: 'uurroostersAanpassenCtrl',
+            controllerAs: 'vm',
+            templateUrl: 'js/app/uurroosters/views/aanpassen.html'
+        });
+
+        $routeProvider.when('/uurroosters/:klasID/preview', {
+            controller: 'uurroostersPreviewCtrl',
+            controllerAs: 'vm',
+            templateUrl: 'js/app/uurroosters/views/preview.html'
+        });
+
+        $routeProvider.when('/uurroosters/:klasID/verwijderen', {
+            controller: 'uurroostersVerwijderenCtrl',
+            controllerAs: 'vm',
+            templateUrl: 'js/app/uurroosters/views/verwijderen.html'
         });
     });
 })();

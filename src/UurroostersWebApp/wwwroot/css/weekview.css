@@ -1,0 +1,67 @@
+﻿.calendar {
+    width: 100%;
+    margin-top: 21px;
+    overflow: auto;
+}
+.calendar > div {
+    float: left;
+    position: relative;
+}
+.calendar-headers {
+    width: 100%;
+    background: #DDD;
+    color: #666;
+    text-transform: uppercase;
+    line-height: 32px;
+    margin-bottom: 15px;
+}
+.calendar-headers > div {
+    width: 19%;
+    float: left;
+    text-align: center;
+}
+.calendar-headers > div:first-child {
+    width: 5%;
+    min-height: 1px;
+}
+.hours {
+    width: 5%;
+    min-height: 1px;
+}
+.weekday {
+    width: 18%;
+    margin: 0 0.5%;
+    min-height: 1px;
+}
+.hour-block {
+    position: relative;
+    height: 100px;
+}
+.hour-block:before {
+    content: " "
+}
+.hour-text {
+    position: absolute;
+    bottom: 0;
+    right: 5px;
+}
+.hour-bg-container {
+    position: absolute;
+    width: 100%;
+}
+.hour-bg {
+    height: 98px;
+    width: 100%;
+    background: #EEE;
+    border-bottom: 2px solid #AAA;
+}
+.hour-bg:last-of-type {
+    border-bottom: none;
+    height: 100px;
+}
+.les {
+    position: absolute;
+    width: 96%;
+    margin-left: 2%;
+    background: red;
+}
