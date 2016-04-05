@@ -15,8 +15,16 @@
             };
         }
 
+        mapper.updateViewModel = function (klas) {
+            return {
+                Id: klas.Id,
+                Naam: klas.Naam,
+                Leerjaar: klas.Leerjaar,
+                CampusID: klas.Campus.Id,
+                StudierichtingID: klas.Studierichting.Id
+            };
+        }
+
         return mapper;
-
-
     }
 })();

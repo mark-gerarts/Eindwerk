@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using UurroostersWebApp.Repositories.KlasRepo;
 using UurroostersWebApp.Models;
+using UurroostersWebApp.ViewModels.KlasViewModels;
+using AutoMapper;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -41,10 +43,11 @@ namespace UurroostersWebApp.Controllers.API
         }
 
         [HttpPost("")]
-        public JsonResult Insert([FromBody]Klas klas)
+        public JsonResult Insert([FromBody]InsertKlasViewModel klasvm)
         {
             if (ModelState.IsValid)
             {
+                Klas klas = Mapper.Map<Klas>(klasvm);
                 int identity = _klas.Insert(klas);
                 return Json(identity);
             }
@@ -56,18 +59,18 @@ namespace UurroostersWebApp.Controllers.API
         }
 
         [HttpPut("")]
-        public JsonResult Update([FromBody]Klas klas)
+        public JsonResult Update([FromBody]UpdateKlasViewModel klasvm)
         {
-            //ToDo: make ViewModels for different validations
             if (ModelState.IsValid)
             {
+                Klas klas = Mapper.Map<Klas>(klasvm);
                 _klas.Update(klas);
                 return Json("Update succesful");
             }
             else
             {
                 Response.StatusCode = 422;
-                return Json(klas); //ToDo: return validation errors
+                return Json("Unprocessable entity"); //@TODO: return validation errors
             }
         }
 
@@ -75,7 +78,6 @@ namespace UurroostersWebApp.Controllers.API
         public JsonResult Delete(int id)
         {
             _klas.Delete(id);
-
             return Json("Delete sucesful");
         }
     }

@@ -14,12 +14,15 @@ namespace UurroostersWebApp.ViewModels.KlasViewModels
         public string Naam { get; set; }
 
         [Required]
+        [RegularExpression("([0-9]+)")]
         public int Leerjaar { get; set; }
 
         [Required]
+        [RegularExpression("([0-9]+)")]
         public int CampusId { get; set; }
 
         [Required]
+        [RegularExpression("([0-9]+)")]
         public int StudierichtingId { get; set; }
     }
 }

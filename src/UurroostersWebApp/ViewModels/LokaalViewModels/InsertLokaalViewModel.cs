@@ -4,16 +4,16 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace UurroostersWebApp.ViewModels.CampusViewModels
+namespace UurroostersWebApp.ViewModels.LokaalViewModels
 {
-    public class UpdateCampusViewModel
+    public class InsertLokaalViewModel
     {
-        [Required]
-        [RegularExpression("([0-9]+)")]
-        public int Id { get; set; }
-
         [Required]
         [MaxLength(255)]
         public string Naam { get; set; }
+
+        [Required]
+        [RegularExpression("([0-9]+)")]
+        public int CampusID { get; set; }
     }
 }

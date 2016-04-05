@@ -9,9 +9,14 @@
         this.url;
         this.$http = $http;
 
-        this.setUrl = function (url) {
-            this.url = url;
-        }
+        this.mapper = {
+            insertViewModel: function (model) {
+                return model;
+            },
+            updateViewModel: function (model) {
+                return model;
+            }
+        };
 
         this.async = function () {
             var self = this;
@@ -33,7 +38,9 @@
 
         this.insert = function (entity) {
             var self = this;
-            return $http.post(self.url, entity).then(function (r) {
+
+            var insertVM = self.mapper.insertViewModel(entity);
+            return $http.post(self.url, insertVM).then(function (r) {
                 console.log(r)
                 if (r.status == 200) {
                     entity.Id = r.data;
@@ -65,7 +72,9 @@
 
         this.update = function (entity) {
             var self = this;
-            return $http.put(self.url, entity).then(function (r) {
+
+            var updateVM = self.mapper.updateViewModel(entity);
+            return $http.put(self.url, updateVM).then(function (r) {
                 if (r.status == 200) {
                     var index = self.findIndexOf(entity.Id);
                     if (index) {
