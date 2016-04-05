@@ -56,73 +56,36 @@ CREATE TABLE Dagen(
 CREATE TABLE Lesblokken(
 	id INT IDENTITY PRIMARY KEY,
 	starttijd TIME,
-	eindtijd TIME,
-	dagID INT,
-	CONSTRAINT FK_Lesblok_dag FOREIGN KEY (dagID) REFERENCES Dagen (id)
+	eindtijd TIME
 );
 CREATE TABLE Lessen(
 	id INT IDENTITY PRIMARY KEY,
 	jaar SMALLINT,
 	lesblokID INT,
+	dagID INT,
 	leerkrachtID INT,
 	lokaalID INT,
 	klasID INT,
 	CONSTRAINT FK_Les_Lesblok FOREIGN KEY (lesblokID) REFERENCES Lesblokken (id),
 	CONSTRAINT FK_Les_Leerkracht FOREIGN KEY (leerkrachtID) REFERENCES Leerkrachten (id),
 	CONSTRAINT FK_Les_Lokaal FOREIGN KEY (lokaalID) REFERENCES Lokalen (id),
-	CONSTRAINT FK_Les_Klas FOREIGN KEY (klasID) REFERENCES Klassen (id)
+	CONSTRAINT FK_Les_Klas FOREIGN KEY (klasID) REFERENCES Klassen (id),
+	CONSTRAINT FK_Lesblok_dag FOREIGN KEY (dagID) REFERENCES Dagen (id)
 );
 
 --Inserts
 -- Dagen
 INSERT INTO Dagen (naam) VALUES ('Maandag'), ('Dinsdag'), ('Woensdag'), ('Donderdag'), ('Vrijdag');
 -- Lesblokken
---Maandag
-INSERT INTO Lesblokken (starttijd, eindtijd, dagID) VALUES
-	('08:20:00', '09:10:00', 1),
-	('09:10:00', '10:00:00', 1),
-	('10:20:00', '11:10:00', 1),
-	('11:10:00', '12:00:00', 1),
-	('12:50:00', '13:40:00', 1),
-	('13:40:00', '14:30:00', 1),
-	('14:40:00', '15:30:00', 1),
-	('15:30:00', '16:20:00', 1);
---DINSDAG
-INSERT INTO Lesblokken (starttijd, eindtijd, dagID) VALUES
-	('08:20:00', '09:10:00', 2),
-	('09:10:00', '10:00:00', 2),
-	('10:20:00', '11:10:00', 2),
-	('11:10:00', '12:00:00', 2),
-	('12:50:00', '13:40:00', 2),
-	('13:40:00', '14:30:00', 2),
-	('14:40:00', '15:30:00', 2),
-	('15:30:00', '16:20:00', 2);
---Woensdag
-INSERT INTO Lesblokken (starttijd, eindtijd, dagID) VALUES
-	('08:20:00', '09:10:00', 3),
-	('09:10:00', '10:00:00', 3),
-	('10:20:00', '11:10:00', 3),
-	('11:10:00', '12:00:00', 3);
---Donderdag
-INSERT INTO Lesblokken (starttijd, eindtijd, dagID) VALUES
-	('08:20:00', '09:10:00', 4),
-	('09:10:00', '10:00:00', 4),
-	('10:20:00', '11:10:00', 4),
-	('11:10:00', '12:00:00', 4),
-	('12:50:00', '13:40:00', 4),
-	('13:40:00', '14:30:00', 4),
-	('14:40:00', '15:30:00', 4),
-	('15:30:00', '16:20:00', 4);
---Vrijdag
-INSERT INTO Lesblokken (starttijd, eindtijd, dagID) VALUES
-	('08:20:00', '09:10:00', 5),
-	('09:10:00', '10:00:00', 5),
-	('10:20:00', '11:10:00', 5),
-	('11:10:00', '12:00:00', 5),
-	('12:50:00', '13:40:00', 5),
-	('13:40:00', '14:30:00', 5),
-	('14:40:00', '15:30:00', 5),
-	('15:30:00', '16:20:00', 5);
+INSERT INTO Lesblokken (starttijd, eindtijd) VALUES
+	('08:20:00', '09:10:00'),
+	('09:10:00', '10:00:00'),
+	('10:20:00', '11:10:00'),
+	('11:10:00', '12:00:00'),
+	('12:50:00', '13:40:00'),
+	('13:40:00', '14:30:00'),
+	('14:40:00', '15:30:00'),
+	('15:30:00', '16:20:00');
 
 -- Iterative function:
 -- Zet string van ints om naar een table

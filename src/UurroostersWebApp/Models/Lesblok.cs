@@ -12,7 +12,5 @@ namespace UurroostersWebApp.Models
         public TimeSpan Starttijd { get; set; }
 
         public TimeSpan Eindtijd { get; set; }
-
-        public Dag Dag { get; set; }
     }
 }

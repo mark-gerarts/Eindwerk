@@ -3,25 +3,18 @@
     
     angular.module("uurroostersApp").controller("uurroostersPreviewCtrl", uurroostersPreviewCtrl);
 
-    function uurroostersPreviewCtrl(timeConverter) {
+    function uurroostersPreviewCtrl(timeConverter, lessenService, $routeParams) {
         var vm = this;
-
+        
+        vm.lessen = [];
         vm.currentKlas = {
-            Id: 1
-        }
+            Id: $routeParams.klasID
+        };
 
-        //Komt uit DB
-        vm.dagen = [
-            {
-                "Id": 1, "Naam": "Maandag", "Lessen": [
-                    {"Naam": "Wiskunde", "Starttijdstip": "08:20:00", "Eindtijdstip": "09:10:00"}
-                ]
-            },
-            { "Id": 1, "Naam": "Dinsdag", "Lessen": [] },
-            { "Id": 1, "Naam": "Woensdag", "Lessen": [] },
-            { "Id": 1, "Naam": "Donderdag", "Lessen": [] },
-            { "Id": 1, "Naam": "Vrijdag", "Lessen": [] },
-        ];
+        lessenService.getLessenByKlasID($routeParams.klasID).then(function (r) {
+            angular.copy(r.data, vm.lessen);
+        });
+        
 
         vm.tijdstippen = [
             "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"

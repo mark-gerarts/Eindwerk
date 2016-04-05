@@ -18,5 +18,7 @@ namespace UurroostersWebApp.Models
         public Lokaal Lokaal { get; set; }
 
         public Klas Klas { get; set; }
+
+        public Dag Dag { get; set; }
     }
 }
