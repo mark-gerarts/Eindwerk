@@ -50,7 +50,7 @@
     width: 100%;
 }
 .hour-bg {
-    height: 98px;
+    height: 100px;
     width: 100%;
     background: #EEE;
     border-bottom: 2px solid #AAA;
@@ -64,4 +64,7 @@
     width: 96%;
     margin-left: 2%;
     background: red;
+}
+.les p {
+    margin: 0;
 }

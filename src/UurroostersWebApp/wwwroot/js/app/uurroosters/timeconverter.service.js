@@ -12,7 +12,7 @@
             var hours = parseInt(splits[0]);
             var minutes = parseInt(splits[1]);
 
-            hours -= 8;
+            hours -= calendarStartTime;
 
             return (hours * hourLengthInPixels) + (minutes * hourLengthInPixels / 60);
         }

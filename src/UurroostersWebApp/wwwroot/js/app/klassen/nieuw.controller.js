@@ -3,14 +3,15 @@
 
     angular.module("klassenApp").controller("nieuweKlasCtrl", nieuweKlasCtrl);
 
-    function nieuweKlasCtrl($controller, klassenService, campussenService, studierichtingenService) {
+    function nieuweKlasCtrl($controller, klassenService, campussenService, studierichtingenService, klassenMapper) {
         var vm = this;
 
         angular.extend(vm, $controller("baseNieuwCtrl", {
             vm: this,
             myService: klassenService,
             entityName: "Klas",
-            entityPlural: "Klassen"
+            entityPlural: "Klassen",
+            myMapper: klassenMapper
         }));
 
         vm.campussen = [];

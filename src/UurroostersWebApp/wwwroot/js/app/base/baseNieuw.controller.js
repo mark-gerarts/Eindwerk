@@ -4,7 +4,7 @@
     angular.module("app").controller("baseNieuwCtrl", baseNieuwCtrl);
 
     //Could Have
-    function baseNieuwCtrl(vm, myService, entityName, entityPlural) {
+    function baseNieuwCtrl(vm, myService, entityName, entityPlural, myMapper) {
         vm.EntityName = entityName;
         vm.entityName = entityName.toLowerCase();
         vm.EntityPlural = entityPlural;
@@ -22,7 +22,9 @@
             vm.isSubmittedOnce = true;
             vm.success = false;
 
-            myService.insert(vm.nieuweEntity).then(function (r) {
+            var insertVM = myMapper.insertViewModel(vm.nieuweEntity) || vm.nieuweEntity;
+
+            myService.insert(insertVM).then(function (r) {
                 vm.success = true;
                 vm.nieuweEntity = {};
             }, function (e) {

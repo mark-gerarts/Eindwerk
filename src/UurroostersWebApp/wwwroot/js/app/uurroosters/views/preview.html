@@ -40,16 +40,20 @@
         <div class="hour-block"></div>
     </div>
     <div class="weekday"
-         data-ng-repeat="dag in vm.dagen">
+         data-ng-repeat="dag in vm.dagen"
+    >
         <div class="hour-bg-container">
             <div class="hour-bg"
                  data-ng-repeat="uur in vm.tijdstippen"></div>
             <div class="hour-bg"></div>
         </div>
         <div class="les"
-             data-ng-repeat="les in dag.Lessen"
-             data-ng-style="{{vm.getStyle(les)}}">
-            Les
+             data-ng-repeat="les in vm.lessen | dagFilter:dag"
+             data-ng-style="{{vm.getStyle(les)}}"
+        >
+            <p>{{les.Vak.Naam}}</p>
+            <p>{{les.Lokaal.Naam}}</p>
+            <p>{{ getFormattedTime(les.Lesblok.Starttijd)}}</p>    
         </div>
 
     </div>

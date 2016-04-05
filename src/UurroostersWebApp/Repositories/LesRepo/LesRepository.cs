@@ -26,11 +26,13 @@ namespace UurroostersWebApp.Repositories.LesRepo
 
         public IEnumerable<Les> getByKlasID(int id)
         {
+            //Mss naar SP
             string query = "SELECT " +
                     "l.id, l.jaar, " +
                     "lb.id, lb.starttijd, lb.eindtijd, " +
                     "dag.id, dag.naam, " +
                     "lrk.id, lrk.naam, lrk.voornaam, " +
+                    "v.id, v.naam, " +
                     "lok.id, lok.naam, " +
                     "c.id, c.naam " +
                 "FROM " +
@@ -38,17 +40,19 @@ namespace UurroostersWebApp.Repositories.LesRepo
                     "JOIN Lesblokken lb ON l.lesblokID = lb.id " +
                     "JOIN Dagen dag ON l.dagID = dag.id " +
                     "JOIN Leerkrachten lrk ON l.leerkrachtID = lrk.id " +
+                    "JOIN Vakken v ON l.vakID = v.id " +
                     "JOIN Lokalen lok ON l.lokaalID = lok.id " +
                     "JOIN Campussen c ON lok.campusID = c.id " +
                     "JOIN Klassen kl ON l.klasID = kl.id " +
                 "WHERE " +
                     "kl.id = @id";
 
-            return _db.Query<Les, Lesblok, Dag, Leerkracht, Lokaal, Campus, Les>(query, (l, lb, dag, lrk, lok, c) => 
+            return _db.Query<Les, Lesblok, Dag, Leerkracht, Vak, Lokaal, Campus, Les>(query, (l, lb, dag, lrk, v, lok, c) => 
             {
                 l.Lesblok = lb;
                 l.Dag = dag;
                 l.Leerkracht = lrk;
+                l.Vak = v;
                 lok.Campus = c;
                 l.Lokaal = lok;
                 return l;

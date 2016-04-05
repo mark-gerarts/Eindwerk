@@ -20,5 +20,7 @@ namespace UurroostersWebApp.Models
         public Klas Klas { get; set; }
 
         public Dag Dag { get; set; }
+
+        public Vak Vak { get; set; }
     }
 }

@@ -66,11 +66,13 @@ CREATE TABLE Lessen(
 	leerkrachtID INT,
 	lokaalID INT,
 	klasID INT,
+	vakID INT,
 	CONSTRAINT FK_Les_Lesblok FOREIGN KEY (lesblokID) REFERENCES Lesblokken (id),
 	CONSTRAINT FK_Les_Leerkracht FOREIGN KEY (leerkrachtID) REFERENCES Leerkrachten (id),
 	CONSTRAINT FK_Les_Lokaal FOREIGN KEY (lokaalID) REFERENCES Lokalen (id),
 	CONSTRAINT FK_Les_Klas FOREIGN KEY (klasID) REFERENCES Klassen (id),
-	CONSTRAINT FK_Lesblok_dag FOREIGN KEY (dagID) REFERENCES Dagen (id)
+	CONSTRAINT FK_Lesblok_dag FOREIGN KEY (dagID) REFERENCES Dagen (id),
+	CONSTRAINT FK_Les_Vak FOREIGN KEY (vakID) REFERENCES Vakken (id)
 );
 
 --Inserts

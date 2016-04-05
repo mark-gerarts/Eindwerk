@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using UurroostersWebApp.Repositories.CampusRepo;
 using UurroostersWebApp.Models;
+using UurroostersWebApp.ViewModels.CampusViewModels;
+using AutoMapper;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -41,10 +43,11 @@ namespace UurroostersWebApp.Controllers.API
         }
 
         [HttpPost("")]
-        public JsonResult Insert([FromBody]Campus campus)
+        public JsonResult Insert([FromBody]InsertCampusViewModel campusvm)
         {
             if (ModelState.IsValid)
             {
+                Campus campus = Mapper.Map<Campus>(campusvm);
                 int identity = _campus.Insert(campus);
                 return Json(identity);
             }
@@ -56,11 +59,12 @@ namespace UurroostersWebApp.Controllers.API
         }
 
         [HttpPut("")]
-        public JsonResult Update([FromBody]Campus campus)
+        public JsonResult Update([FromBody]UpdateCampusViewModel campusvm)
         {
             //ToDo: make ViewModels for different validations
             if (ModelState.IsValid)
             {
+                Campus campus = Mapper.Map<Campus>(campusvm);
                 _campus.Update(campus);
                 return Json("Update succesful");
             }

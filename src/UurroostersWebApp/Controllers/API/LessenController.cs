@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using UurroostersWebApp.Repositories.LesRepo;
+using AutoMapper;
+using UurroostersWebApp.Models;
+using UurroostersWebApp.ViewModels.LesViewModels;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,7 +26,9 @@ namespace UurroostersWebApp.Controllers.API
         public JsonResult getLessenByKlasID(int klasID)
         {
             var lessen = _les.getByKlasID(klasID);
-            return Json(lessen);
+            var result = Mapper.Map<IEnumerable<DisplayLesViewModel>>(lessen);
+
+            return Json(result);
         }
     }
 }

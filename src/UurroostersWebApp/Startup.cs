@@ -17,6 +17,7 @@ using UurroostersWebApp.Repositories.StudierichtingRepo;
 using UurroostersWebApp.Repositories.KlasRepo;
 using UurroostersWebApp.Repositories.LokaalRepo;
 using UurroostersWebApp.Repositories.LesRepo;
+using UurroostersWebApp.ViewModels.LesViewModels;
 
 namespace UurroostersWebApp
 {
@@ -50,6 +51,9 @@ namespace UurroostersWebApp
         public void Configure(IApplicationBuilder app)
         {
             app.UseStaticFiles();
+
+            //http://cpratt.co/using-automapper-creating-mappings/
+            AutoMapperConfig.RegisterMappings();
 
             app.UseMvc(config =>
             {
