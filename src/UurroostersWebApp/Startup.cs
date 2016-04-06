@@ -26,13 +26,15 @@ namespace UurroostersWebApp
         public static IConfiguration Configuration { get; private set; }
         public Startup(IApplicationEnvironment env)
         {
+            // Het config.json bestand beschikbaar maken.
+            // Hierin staat oa de connection string.
             var configurationBuilder = new ConfigurationBuilder()
                 .AddJsonFile("config.json")
                 .AddEnvironmentVariables();
             Configuration = configurationBuilder.Build();
         }
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
+        
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
@@ -50,9 +52,11 @@ namespace UurroostersWebApp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app)
         {
+            // Om JS bestanden etc te kunnen serven
             app.UseStaticFiles();
 
-            //http://cpratt.co/using-automapper-creating-mappings/
+            // In de AutoMapperConfig class worden alle mappings gerigstreerd
+            // http://cpratt.co/using-automapper-creating-mappings/
             AutoMapperConfig.RegisterMappings();
 
             app.UseMvc(config =>

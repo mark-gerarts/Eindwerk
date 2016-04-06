@@ -16,8 +16,10 @@ namespace UurroostersWebApp.Repositories.CampusRepo
         {
             _db = new SqlConnection(Startup.Configuration["Data:CN"]);
         }
+
         public void Delete(int id)
         {
+            //ToDo: Foreign Key dependencies
             string query = "DELETE FROM Campussen WHERE id = @id";
             _db.Execute(query, new { id });
         }

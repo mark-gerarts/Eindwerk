@@ -1,10 +1,17 @@
 ﻿(function () {
     "use strict";
 
+    /**
+     * 
+     * Base Nieuw Controller. Controllers die deze functies nodig hebben
+     * erven hiervan.
+     * 
+     */
+
     angular.module("app").controller("baseNieuwCtrl", baseNieuwCtrl);
 
-    //Could Have
     function baseNieuwCtrl(vm, myService, entityName, entityPlural) {
+        // Worden in de views gebruikt
         vm.EntityName = entityName;
         vm.entityName = entityName.toLowerCase();
         vm.EntityPlural = entityPlural;
@@ -32,6 +39,7 @@
             })
         }
 
+        // Partials includen.
         vm.includeInsertForm = function () {
             return 'js/app/' + vm.entityPlural + '/views/insertform.html';
         }

@@ -2,6 +2,7 @@
     "use strict";
 
     // Move to own files
+    // De modules registreren.
     angular.module("leerkrachtenApp", []);
     angular.module("vakkenApp", []);
     angular.module("campussenApp", []);
@@ -10,6 +11,7 @@
     angular.module("lokalenApp", []);
     angular.module("uurroostersApp", []);
 
+    // De main module.
     angular.module("app", [
         "ngRoute",
         "leerkrachtenApp",
@@ -20,6 +22,7 @@
         "lokalenApp",
         "uurroostersApp"
     ]).config(function ($routeProvider) {
+        // De gedeelde views' URLs
         var baseUrl = {
             index: 'js/app/base/views/index.html',
             details: 'js/app/base/views/details.html',

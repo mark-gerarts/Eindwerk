@@ -16,6 +16,11 @@ namespace UurroostersWebApp
 {
     public class AutoMapperConfig
     {
+        /// <summary>
+        /// Zet een TimeSpan om in een hh:ii string
+        /// </summary>
+        /// <param name="ts">De TimeSpan</param>
+        /// <returns>hh:ii string</returns>
         private static string ConvertTimeSpan(TimeSpan ts)
         {
             return string.Format("{0:00}:{1:00}", ts.Hours, ts.Minutes);
@@ -23,6 +28,7 @@ namespace UurroostersWebApp
 
         public static void RegisterMappings()
         {
+            // Registreert alle mappings.
             Mapper.Initialize(config =>
             {
                 //Lessen
@@ -65,6 +71,11 @@ namespace UurroostersWebApp
             });
         }
 
+        /// <summary>
+        /// Zet een List van vakIDs om in een List van Vakken
+        /// </summary>
+        /// <param name="src"></param>
+        /// <returns></returns>
         private static List<Vak> ConvertVakList(List<int> src)
         {
             List<Vak> output = new List<Vak>();

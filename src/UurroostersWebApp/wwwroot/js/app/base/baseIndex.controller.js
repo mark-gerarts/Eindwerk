@@ -1,9 +1,17 @@
 ﻿(function () {
     "use strict";
 
+    /**
+     * 
+     * Base Index Controller. Controllers die deze functies nodig hebben 
+     * erven hiervan.
+     * 
+     */
+
     angular.module("app").controller("baseIndexCtrl", baseIndexCtrl);
 
     function baseIndexCtrl(vm, $location, myService, entityName, entityPlural) {
+        // Worden in de views gebruikt.
         vm.EntityName = entityName;
         vm.entityName = entityName.toLowerCase();
         vm.EntityPlural = entityPlural;
@@ -23,10 +31,12 @@
             });
         }
         
+        // Functie die ervoor zorgt dat een table row als een <a> werkt.
         vm.showDetails = function (entity) {
             $location.path("/" + vm.entityPlural + "/details/" + entity.Id);
         };
 
+        // Partials includen.
         vm.includeOverview = function () {
             return 'js/app/' + vm.entityPlural + '/views/overview.html';
         }

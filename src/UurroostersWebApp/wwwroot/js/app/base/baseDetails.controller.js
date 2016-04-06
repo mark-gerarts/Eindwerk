@@ -1,9 +1,17 @@
 ﻿(function () {
     "use strict";
 
+    /**
+     * 
+     * Base Details controller. Bevat alle logica die herhaalt wordt door de 
+     * verschillende controllers die hiervan erven.
+     *  
+     */
+
     angular.module("app").controller("baseDetailsCtrl", baseDetailsCtrl);
 
     function baseDetailsCtrl(vm, $routeParams, myService, entityName, entityPlural) {
+        // Worden in de views gebruikt .
         vm.EntityName = entityName;
         vm.entityName = entityName.toLowerCase();
         vm.EntityPlural = entityPlural;
@@ -17,6 +25,7 @@
         vm.updating = false;
 
         vm.init = function () {
+            // Haalt de huidige entity op adhv het ID in de URI.
             myService.async().then(function (r) {
                 vm.currentEntity = myService.findById($routeParams.id);
                 vm.updatedEntity = angular.copy(vm.currentEntity);
@@ -53,6 +62,7 @@
             });
         }
 
+        // Functies om de partials op te halen in ngInclude.
         vm.includeDetails = function () {
             return 'js/app/' + vm.entityPlural + '/views/details.html';
         }
