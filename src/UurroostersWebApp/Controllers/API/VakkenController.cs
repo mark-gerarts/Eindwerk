@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using UurroostersWebApp.Repositories.VakRepo;
 using UurroostersWebApp.Models;
+using UurroostersWebApp.ViewModels.VakVIewModels;
+using AutoMapper;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -41,10 +43,11 @@ namespace UurroostersWebApp.Controllers.API
         }
 
         [HttpPost("")]
-        public JsonResult Insert([FromBody]Vak vak)
+        public JsonResult Insert([FromBody]InsertVakViewModel vakvm)
         {
             if (ModelState.IsValid)
             {
+                Vak vak = Mapper.Map<Vak>(vakvm);
                 int identity = _vak.Insert(vak);
                 return Json(identity);
             }
@@ -56,11 +59,11 @@ namespace UurroostersWebApp.Controllers.API
         }
 
         [HttpPut("")]
-        public JsonResult Update([FromBody]Vak vak)
+        public JsonResult Update([FromBody]UpdateVakViewModel vakvm)
         {
-            //ToDo: make ViewModels for different validations
             if (ModelState.IsValid)
             {
+                Vak vak = Mapper.Map<Vak>(vakvm);
                 _vak.Update(vak);
                 return Json("Update succesful");
             }

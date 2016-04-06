@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using UurroostersWebApp.ViewModels.VakVIewModels;
 
 namespace UurroostersWebApp.ViewModels.LeerkrachtViewModels
 {
-    public class InsertLeerkrachtViewModel
+    public class UpdateLeerkrachtViewModel
     {
+        [Required]
+        [RegularExpression("([0-9]+)")]
+        public int Id { get; set; }
+
         [Required]
         [MaxLength(255)]
         public string Naam { get; set; }
@@ -16,7 +19,7 @@ namespace UurroostersWebApp.ViewModels.LeerkrachtViewModels
         [Required]
         [MaxLength(255)]
         public string Voornaam { get; set; }
-        
+
         public List<int> Vakken { get; set; }
     }
 }

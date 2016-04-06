@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using UurroostersWebApp.Repositories.StudierichtingRepo;
 using UurroostersWebApp.Models;
+using UurroostersWebApp.ViewModels.StudierichtingVIewModels;
+using AutoMapper;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -41,10 +43,11 @@ namespace UurroostersWebApp.Controllers.API
         }
 
         [HttpPost("")]
-        public JsonResult Insert([FromBody]Studierichting studierichting)
+        public JsonResult Insert([FromBody]InsertStudierichtingViewModel studierichtingvm)
         {
             if (ModelState.IsValid)
             {
+                Studierichting studierichting = Mapper.Map<Studierichting>(studierichtingvm);
                 int identity = _studierichting.Insert(studierichting);
                 return Json(identity);
             }
@@ -56,11 +59,11 @@ namespace UurroostersWebApp.Controllers.API
         }
 
         [HttpPut("")]
-        public JsonResult Update([FromBody]Studierichting studierichting)
+        public JsonResult Update([FromBody]UpdateStudierichtingViewModel studierichtingvm)
         {
-            //ToDo: make ViewModels for different validations
             if (ModelState.IsValid)
             {
+                Studierichting studierichting = Mapper.Map<Studierichting>(studierichtingvm);
                 _studierichting.Update(studierichting);
                 return Json("Update succesful");
             }

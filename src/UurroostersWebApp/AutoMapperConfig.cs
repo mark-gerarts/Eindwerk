@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 using UurroostersWebApp.Models;
 using UurroostersWebApp.ViewModels.CampusViewModels;
 using UurroostersWebApp.ViewModels.KlasViewModels;
+using UurroostersWebApp.ViewModels.LeerkrachtViewModels;
 using UurroostersWebApp.ViewModels.LesViewModels;
 using UurroostersWebApp.ViewModels.LokaalViewModels;
+using UurroostersWebApp.ViewModels.StudierichtingVIewModels;
+using UurroostersWebApp.ViewModels.VakVIewModels;
 
 namespace UurroostersWebApp
 {
@@ -45,7 +48,33 @@ namespace UurroostersWebApp
                     .ForMember(dest => dest.Campus, opt => opt.MapFrom(src => new Campus { Id = src.CampusID }));
                 config.CreateMap<UpdateLokaalViewModel, Lokaal>()
                     .ForMember(dest => dest.Campus, opt => opt.MapFrom(src => new Campus { Id = src.CampusID }));
+
+                //Vakken
+                config.CreateMap<InsertVakViewModel, Vak>();
+                config.CreateMap<UpdateVakViewModel, Vak>();
+
+                //Studierichtingen
+                config.CreateMap<InsertStudierichtingViewModel, Studierichting>();
+                config.CreateMap<UpdateStudierichtingViewModel, Studierichting>();
+
+                //Leerkrachten
+                config.CreateMap<InsertLeerkrachtViewModel, Leerkracht>()
+                    .ForMember(dest => dest.Vakken, opt => opt.ResolveUsing(src => ConvertVakList(src.Vakken)));
+                config.CreateMap<UpdateLeerkrachtViewModel, Leerkracht>()
+                    .ForMember(dest => dest.Vakken, opt => opt.ResolveUsing(src => ConvertVakList(src.Vakken)));
             });
+        }
+
+        private static List<Vak> ConvertVakList(List<int> src)
+        {
+            List<Vak> output = new List<Vak>();
+
+            foreach (int vakID in src)
+            {
+                output.Add(new Vak { Id = vakID });
+            }
+
+            return output;
         }
     }
 }

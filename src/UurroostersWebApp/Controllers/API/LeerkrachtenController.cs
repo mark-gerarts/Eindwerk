@@ -7,6 +7,7 @@ using UurroostersWebApp.Repositories.LeerkrachtRepo;
 using UurroostersWebApp.Repositories;
 using UurroostersWebApp.Models;
 using AutoMapper;
+using UurroostersWebApp.ViewModels.LeerkrachtViewModels;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -43,10 +44,11 @@ namespace UurroostersWebApp.Controllers.API
         }
 
         [HttpPost("")]
-        public JsonResult Insert([FromBody]Leerkracht leerkracht)
+        public JsonResult Insert([FromBody]InsertLeerkrachtViewModel leerkrachtvm)
         {
             if (ModelState.IsValid)
             {
+                Leerkracht leerkracht = Mapper.Map<Leerkracht>(leerkrachtvm);
                 int identity = _leerkracht.Insert(leerkracht);
                 return Json(identity);
             }
@@ -58,18 +60,18 @@ namespace UurroostersWebApp.Controllers.API
         }
 
         [HttpPut("")]
-        public JsonResult Update([FromBody]Leerkracht leerkracht)
+        public JsonResult Update([FromBody]UpdateLeerkrachtViewModel leerkrachtvm)
         {
-            //ToDo: make ViewModels for different validations
             if (ModelState.IsValid)
             {
+                Leerkracht leerkracht = Mapper.Map<Leerkracht>(leerkrachtvm);
                 _leerkracht.Update(leerkracht);
                 return Json("Update succesful");
             }
             else
             {
                 Response.StatusCode = 422;
-                return Json(leerkracht); //ToDo: return validation errors
+                return Json("Unprocessable entity"); //ToDo: return validation errors
             }
         }
 
@@ -77,7 +79,6 @@ namespace UurroostersWebApp.Controllers.API
         public JsonResult Delete(int id)
         {
             _leerkracht.Delete(id);
-
             return Json("Delete sucesful");
         }
     }
