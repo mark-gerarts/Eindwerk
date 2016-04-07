@@ -45,7 +45,7 @@ namespace UurroostersWebApp.Repositories.LesRepo
                     "JOIN Campussen c ON lok.campusID = c.id " +
                     "JOIN Klassen kl ON l.klasID = kl.id " +
                 "WHERE " +
-                    "kl.id = @id";
+                    "l.klasID = @id";
 
             return _db.Query<Les, Lesblok, Dag, Leerkracht, Vak, Lokaal, Campus, Les>(query, (l, lb, dag, lrk, v, lok, c) => 
             {
@@ -61,12 +61,49 @@ namespace UurroostersWebApp.Repositories.LesRepo
 
         public IEnumerable<Les> getByLeerkrachtID(int id)
         {
-            throw new NotImplementedException();
+            //Mss naar SP
+            string query = "SELECT " +
+                    "l.id, l.jaar, " +
+                    "lb.id, lb.starttijd, lb.eindtijd, " +
+                    "dag.id, dag.naam, " +
+                    "lrk.id, lrk.naam, lrk.voornaam, " +
+                    "v.id, v.naam, " +
+                    "lok.id, lok.naam, " +
+                    "c.id, c.naam " +
+                "FROM " +
+                    "Lessen l " +
+                    "JOIN Lesblokken lb ON l.lesblokID = lb.id " +
+                    "JOIN Dagen dag ON l.dagID = dag.id " +
+                    "JOIN Leerkrachten lrk ON l.leerkrachtID = lrk.id " +
+                    "JOIN Vakken v ON l.vakID = v.id " +
+                    "JOIN Lokalen lok ON l.lokaalID = lok.id " +
+                    "JOIN Campussen c ON lok.campusID = c.id " +
+                    "JOIN Klassen kl ON kl.id = l.klasID " +
+                "WHERE " +
+                    "l.leerkrachtID = @id";
+
+            return _db.Query<Les, Lesblok, Dag, Klas, Vak, Lokaal, Campus, Les>(query, (l, lb, dag, kl, v, lok, c) =>
+            {
+                l.Lesblok = lb;
+                l.Dag = dag;
+                l.Klas = kl;
+                l.Vak = v;
+                lok.Campus = c;
+                l.Lokaal = lok;
+                return l;
+            }, new { id });
         }
 
         public int insert(Les les)
         {
-            throw new NotImplementedException();
+            //ToDo
+            string query = "INSERT INTO Lessen ()" +
+                "OUTPUT Inserted.Id" +
+                "VALUES ()";
+
+            var parameters = new DynamicParameters();
+
+            return _db.Query<int>(query, parameters).Single();
         }
 
         public void update(Les les)
