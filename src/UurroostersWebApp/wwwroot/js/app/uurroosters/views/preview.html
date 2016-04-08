@@ -22,13 +22,12 @@
         </div>
     </div>
 </div>
-<pre>{{ vm.lessen  | json }}</pre>
 <div class="calendar">
     <div class="calendar-headers">
         <div>
         </div>
         <div data-ng-repeat="dag in vm.dagen">
-            {{dag.Naam}}
+            {{ dag }}
         </div>
     </div>
     <div class="hours">
@@ -48,13 +47,32 @@
             <div class="hour-bg"></div>
         </div>
         <div class="les"
-             data-ng-repeat="les in vm.lessen | dagFilter:dag"
+             data-ng-repeat="les in vm.lessen | filter:{DagNaam:dag}"
              data-ng-style="{{vm.getStyle(les)}}"
+             data-toggle="modal"
+             data-target="#info"
+             data-ng-click="vm.selectedLes = les"
         >
-            <p>{{les.Vak.Naam}}</p>
-            <p>{{les.Lokaal.Naam}}</p>
-            <p>{{ getFormattedTime(les.Lesblok.Starttijd)}}</p>    
+            <p>{{les.VakNaam}}</p>
+            <p>{{les.LokaalNaam}}</p>
+            <p>{{ vm.getFormattedTime(les) }}</p>    
         </div>
 
+    </div>
+</div>
+
+<div class="modal fade" id="info" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">{{ vm.selectedLes.VakNaam}}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{{ vm.getFormattedTime(vm.selectedLes) }}</p>
+                <p>{{ vm.selectedLes.LeerkrachtNaam}}</p>
+                <p>{{ vm.selectedLes.LokaalNaam}}</p>
+            </div>
+        </div>
     </div>
 </div>
