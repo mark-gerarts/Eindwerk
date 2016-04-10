@@ -1,9 +1,4 @@
 ﻿<!-- Uurroosters Aanpassen -->
-<ul class="breadcrumb">
-    <li><a href="#/">Home</a></li>
-    <li><a href="#/uurroosters">Uurroosters</a></li>
-    <li class="active">Aanpassen</li>
-</ul>
 <div class="row">
     <div class="col-xs-12">
         <div class="btn-group btn-group-justified">
@@ -22,4 +17,40 @@
         </div>
     </div>
 </div>
-<h1>Aanpassen</h1>
+<div class="row">
+    <div class="col-md-3">
+        <div class="calendar">
+            <div class="calendar-headers aanpassen-headers">
+                <div>
+                    <i class="fa fa-caret-left vorige" data-ng-click="vm.selectDag('vorige')"></i>
+                    {{ vm.dagLabels[vm.selectedDag] }}
+                    <i class="fa fa-caret-right volgende" data-ng-click="vm.selectDag('volgende')"></i>
+                </div>
+            </div>
+            <div class="hours aanpassen-hours">
+                <div class="hour-block" data-ng-repeat="uur in vm.tijdstippen">
+                    <span class="hour-text">
+                        {{ uur }}
+                    </span>
+                </div>
+                <div class="hour-block"></div>
+            </div>
+            <div class="weekday aanpassen-weekday">
+                <div class="hour-bg-container">
+                    <div class="hour-bg"
+                         data-ng-repeat="uur in vm.tijdstippen"></div>
+                    <div class="hour-bg"></div>
+                </div>
+                <div class="les lesblok"
+                     data-ng-repeat="lb in vm.lesblokken"
+                     data-ng-style="{{vm.getStyle(lb)}}"
+                     data-ng-click="vm.selectLesblok(lb)"
+                     >
+                    <p><strong>Lesblok {{$index + 1}}</strong></p>
+                    <p><em>Nog geen les ingepland.</em></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

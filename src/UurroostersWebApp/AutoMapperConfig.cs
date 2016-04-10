@@ -7,6 +7,7 @@ using UurroostersWebApp.Models;
 using UurroostersWebApp.ViewModels.CampusViewModels;
 using UurroostersWebApp.ViewModels.KlasViewModels;
 using UurroostersWebApp.ViewModels.LeerkrachtViewModels;
+using UurroostersWebApp.ViewModels.LesblokViewModels;
 using UurroostersWebApp.ViewModels.LesViewModels;
 using UurroostersWebApp.ViewModels.LokaalViewModels;
 using UurroostersWebApp.ViewModels.StudierichtingVIewModels;
@@ -36,6 +37,11 @@ namespace UurroostersWebApp
                     .ForMember(dest => dest.Starttijd, opt => opt.MapFrom(src => ConvertTimeSpan(src.Lesblok.Starttijd)))
                     .ForMember(dest => dest.Eindtijd, opt => opt.MapFrom(src => ConvertTimeSpan(src.Lesblok.Eindtijd)))
                     .ForMember(dest => dest.LeerkrachtNaam, opt => opt.MapFrom(src => src.Leerkracht.Naam + " " + src.Leerkracht.Voornaam));
+
+                //Lesblokken
+                config.CreateMap<Lesblok, DisplayLesblokViewModel>()
+                    .ForMember(dest => dest.Starttijd, opt => opt.MapFrom(src => ConvertTimeSpan(src.Starttijd)))
+                    .ForMember(dest => dest.Eindtijd, opt => opt.MapFrom(src => ConvertTimeSpan(src.Eindtijd)));
 
                 //Campussen
                 config.CreateMap<InsertCampusViewModel, Campus>();

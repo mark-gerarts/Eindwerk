@@ -65,6 +65,43 @@
     margin-left: 2%;
     background: red;
 }
+.les:hover {
+    cursor: pointer;
+}
 .les p {
     margin: 0;
+}
+
+
+/*** Aanpassen ***/
+.aanpassen-headers {
+    width: 79%;
+    margin-left: 21%;
+}
+.aanpassen-headers > div, .aanpassen-headers > div:first-child {
+    width: 100%;
+}
+.aanpassen-weekday {
+    width: 79%
+}
+.aanpassen-hours {
+    width: 20%
+}
+.lesblok {
+    background: white;
+    border: 1px solid black;
+    width: 90%;
+    margin-left: 5%;
+}
+.aanpassen-headers .vorige {
+    position: absolute;
+    left: 5px;
+    top: 4px;
+    font-size: 24px;
+}
+.aanpassen-headers .volgende {
+    position: absolute;
+    right: 5px;
+    top: 4px;
+    font-size: 24px;
 }

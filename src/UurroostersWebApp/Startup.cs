@@ -18,6 +18,8 @@ using UurroostersWebApp.Repositories.KlasRepo;
 using UurroostersWebApp.Repositories.LokaalRepo;
 using UurroostersWebApp.Repositories.LesRepo;
 using UurroostersWebApp.ViewModels.LesViewModels;
+using UurroostersWebApp.Repositories.LesblokRepo;
+using UurroostersWebApp.Repositories.DagRepo;
 
 namespace UurroostersWebApp
 {
@@ -47,6 +49,8 @@ namespace UurroostersWebApp
             services.AddTransient<IKlasRepository, KlasRepository>();
             services.AddTransient<ILokaalRepository, LokaalRepository>();
             services.AddTransient<ILesRepository, LesRepository>();
+            services.AddTransient<ILesblokRepository, LesblokRepository>();
+            services.AddTransient<IDagRepository, DagRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
