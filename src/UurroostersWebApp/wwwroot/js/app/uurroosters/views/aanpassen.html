@@ -53,4 +53,11 @@
             </div>
         </div>
     </div>
+    <div class="col-md-9">
+        {{ vm.selectedLesblok | json}}
+        <div data-ng-show="vm.showDetails"></div>
+        <div data-ng-hide="vm.showDetails">
+            <p>Nog geen lesblok geselecteerd</p>
+        </div>
+    </div>
 </div>

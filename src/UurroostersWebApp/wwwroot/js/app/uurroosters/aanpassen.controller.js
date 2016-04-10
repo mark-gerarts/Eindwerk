@@ -16,10 +16,11 @@
             "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"
         ];
 
+        vm.showDetails = false;
         vm.selectedLesblok = {};
         vm.selectLesblok = function (lesblok) {
+            vm.showDetails = true;
             vm.selectedLesblok = lesblok;
-            alert(vm.selectedLesblok.Starttijd)
         }
 
         vm.dagLabels = [
