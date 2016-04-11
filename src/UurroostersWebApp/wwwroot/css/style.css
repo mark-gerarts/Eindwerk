@@ -1,3 +1,10 @@
 ﻿tr.link:hover {
     cursor: pointer;
 }
+.well-title {
+    margin-top: 0;
+}
+
+.les-invoegen a:hover {
+    cursor: pointer;
+}

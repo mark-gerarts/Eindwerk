@@ -44,8 +44,7 @@
                 <div class="les lesblok"
                      data-ng-repeat="lb in vm.lesblokken"
                      data-ng-style="{{vm.getStyle(lb)}}"
-                     data-ng-click="vm.selectLesblok(lb)"
-                     >
+                     data-ng-click="vm.selectLesblok(lb)">
                     <p><strong>Lesblok {{$index + 1}}</strong></p>
                     <p><em>Nog geen les ingepland.</em></p>
                 </div>
@@ -53,9 +52,117 @@
             </div>
         </div>
     </div>
-    <div class="col-md-9">
-        {{ vm.selectedLesblok | json}}
-        <div data-ng-show="vm.showDetails"></div>
+    <div class="col-md-9 aanpassen-right-col">
+        <div data-ng-show="vm.showDetails">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="well les-invoegen">
+                        <h3 class="well-title">Les inplannen</h3>
+                        <p>Van {{ vm.selectedLesblok.Starttijd }} tot {{ vm.selectedLesblok.Eindtijd }}</p>
+                        <p>
+                            <a data-ng-click="vm.huidigItem = 'vakken'">
+                                Kies een vak <i class="fa fa-angle-double-right fa-fw"></i>
+                            </a><br />
+                            <em data-ng-hide="vm.bevestigdeItems.vakken">Nog geen vak geselecteerd</em>
+                            <span data-ng-show="vm.bevestigdeItems.vakken">{{vm.nieuweLes.vak.Naam}}</span>
+                        </p>
+                        <p>
+                            <a data-ng-click="vm.huidigItem = 'leerkrachten'">
+                                Kies een leerkracht <i class="fa fa-angle-double-right fa-fw"></i>
+                            </a><br />
+                            <em data-ng-hide="vm.bevestigdeItems.leerkrachten">Nog geen leerkracht geselecteerd</em>
+                            <span data-ng-show="vm.bevestigdeItems.leerkrachten">{{vm.nieuweLes.leerkracht.Naam}}</span>
+                        </p>
+                        <p>
+                            <a data-ng-click="vm.huidigItem = 'lokalen'">
+                                Kies een lokaal <i class="fa fa-angle-double-right fa-fw"></i>
+                            </a><br />
+                            <em data-ng-hide="vm.bevestigdeItems.lokalen">Nog geen lokaal geselecteerd</em>
+                            <span data-ng-show="vm.bevestigdeItems.lokalen">{{vm.nieuweLes.lokaal.Naam}}</span>
+                        </p>
+                        <button type="reset" class="btn btn-default">Annuleren</button>
+                        <button type="submit" class="btn btn-primary">Opslaan</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!-- vakken-->
+                    <div class="well" data-ng-show="vm.huidigItem == 'vakken'">
+                        <form class="form">
+                            <fieldset>
+                                <legend>Vakken</legend>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="zoek" placeholder="Zoek een vak..." data-ng-model="vakQuery" />
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-search"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control"
+                                            size="5"
+                                            data-ng-model="vm.nieuweLes.vak"
+                                            data-ng-options="vak.Naam for vak in vm.vakken | filter:vakQuery | orderBy:'Naam' track by vak.Id"></select>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary" data-ng-click="vm.bevestigItem('vakken')">Bevestigen</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <!-- leerkrachten -->
+                    <div class="well" data-ng-show="vm.huidigItem == 'leerkrachten'">
+                        <form class="form">
+                            <fieldset>
+                                <legend>Leerkrachten</legend>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="zoek" placeholder="Zoek een leerkracht..." data-ng-model="lrkQuery" />
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-search"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control"
+                                            size="5"
+                                            data-ng-model="vm.nieuweLes.leerkracht"
+                                            data-ng-options="lrk.Naam for lrk in vm.leerkrachten| filter:lrkQuery | orderBy:'Naam' track by lrk.Id"></select>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary" data-ng-click="vm.bevestigItem('leerkrachten')">Bevestigen</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <!-- Lokalen -->
+                    <div class="well" data-ng-show="vm.huidigItem == 'lokalen'">
+                        <form class="form">
+                            <fieldset>
+                                <legend>Lokalen</legend>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="zoek" placeholder="Zoek een lokaal..." data-ng-model="lokaalQuery" />
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-search"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control"
+                                            size="5"
+                                            data-ng-model="vm.nieuweLes.lokaal"
+                                            data-ng-options="lokaal.Naam for lokaal in vm.lokalen| filter:lokaalQuery | orderBy:'Naam' track by lokaal.Id"></select>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary" data-ng-click="vm.bevestigItem('lokalen')">Bevestigen</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div data-ng-hide="vm.showDetails">
             <p>Nog geen lesblok geselecteerd</p>
         </div>

@@ -8,12 +8,20 @@
 
         vm.lesblokken = [];
         vm.dagen = [];
+        vm.leerkrachten = [];
+        vm.lokalen = [];
+        vm.vakken = [];
 
-        vm.currentKlas = {
-            Id: $routeParams.klasID
-        }
+        vm.currentKlas = {};
+        vm.bevestigdeItems = {};
+        vm.huidigItem = "";
+        vm.nieuweLes = {};
+                
         vm.tijdstippen = [
             "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"
+        ];
+        vm.dagLabels = [
+            "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag"
         ];
 
         vm.showDetails = false;
@@ -22,10 +30,6 @@
             vm.showDetails = true;
             vm.selectedLesblok = lesblok;
         }
-
-        vm.dagLabels = [
-            "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag"
-        ];
 
         vm.selectedDag = 0;
         vm.selectDag = function (direction) {
@@ -55,13 +59,40 @@
                 "height": (eind - start) + "px"
             }
         }
+
+        vm.bevestigItem = function (item) {
+            switch (item) {
+                case "vakken":
+                    vm.bevestigdeItems.vakken = vm.nieuweLes.vak;
+                    break;
+                case "leerkrachten":
+                    vm.bevestigdeItems.leerkrachten = vm.nieuweLes.leerkracht;
+                    break;
+                case "lokalen":
+                    vm.bevestigdeItems.lokalen = vm.nieuweLes.lokaal;
+                    break;
+            }
+
+            vm.huidigItem = '';
+        }
         
-        
+        vm.initialiseNieuweLes = function () {
+            vm.nieuweLes.vak = vm.vakken[0] || null;
+            vm.nieuweLes.leerkracht = vm.leerkrachten[0] || null;
+            vm.nieuweLes.lokaal = vm.lokalen[0] || null;
+        }
 
         vm.init = function () {
             uurroostersService.async().then(function () {
-                vm.lesblokken = uurroostersService.getAllLesblokken();
-                vm.dagen = uurroostersService.getAllDagen();
+                vm.lesblokken = uurroostersService.getAll("lesblokken");
+                vm.dagen = uurroostersService.getAll("dagen");
+                vm.leerkrachten = uurroostersService.getAll("leerkrachten");
+                vm.lokalen = uurroostersService.getAll("lokalen");
+                vm.vakken = uurroostersService.getAll("vakken");
+
+                vm.currentKlas = uurroostersService.find("klassen", $routeParams.klasID);
+                
+                vm.initialiseNieuweLes();
             });
         }
 

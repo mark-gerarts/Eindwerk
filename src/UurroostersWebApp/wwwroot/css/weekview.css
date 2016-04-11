@@ -108,3 +108,8 @@
 .aanpassen-headers .volgende:hover, .aanpassen-headers .vorige{
     cursor: pointer;
 }
+
+/** aanpassen col **/
+.aanpassen-right-col {
+    margin-top: 21px;
+}

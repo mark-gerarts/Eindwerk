@@ -6,6 +6,10 @@
     function uurroostersService($http, $q) {
         this.lesblokken = [];
         this.dagen = [];
+        this.leerkrachten = [];
+        this.lokalen = [];
+        this.klassen = [];
+        this.vakken = [];
         
         this.promise;
         
@@ -23,23 +27,37 @@
             if (!self.promise) {
                 self.promise = $q.all([
                     getData("lesblokken"),
-                    getData("dagen")
+                    getData("dagen"),
+                    getData("leerkrachten"),
+                    getData("lokalen"),
+                    getData("klassen"),
+                    getData("vakken")
                 ]).then(function (data) {
                     console.log(data)
                     angular.copy(data[0], self.lesblokken);
                     angular.copy(data[1], self.dagen);
+                    angular.copy(data[2], self.leerkrachten);
+                    angular.copy(data[3], self.lokalen);
+                    angular.copy(data[4], self.klassen);
+                    angular.copy(data[5], self.vakken);
                 })
             }
             return self.promise;
         }
 
-        this.getAllLesblokken = function () {
-            return this.lesblokken;
+        this.getAll = function (type) {
+            return this[type];
         }
 
-        this.getAllDagen = function () {
-            return this.dagen;
+        this.find = function (type, id) {
+            var self = this;
+            var index = -1;
+            index = self[type].findIndex(function (element) {
+                return element.Id == id;
+            });
+            if(index > -1) {
+                return self[type][index];
+            }
         }
-
     }
 })();
