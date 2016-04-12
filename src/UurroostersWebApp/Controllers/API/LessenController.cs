@@ -30,5 +30,12 @@ namespace UurroostersWebApp.Controllers.API
 
             return Json(result);
         }
+
+        [HttpGet("{klasID}/uitgebreid")]
+        public JsonResult getDetailedLessenByKlasID(int klasID)
+        {
+            var lessen = _les.getByKlasID(klasID);
+            return Json(lessen);
+        }
     }
 }

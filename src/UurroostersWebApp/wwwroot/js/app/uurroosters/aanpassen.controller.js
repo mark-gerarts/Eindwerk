@@ -11,6 +11,7 @@
         vm.leerkrachten = [];
         vm.lokalen = [];
         vm.vakken = [];
+        vm.lessen = [];
 
         vm.currentKlas = {};
         vm.bevestigdeItems = {};
@@ -25,10 +26,10 @@
         ];
 
         vm.showDetails = false;
-        vm.selectedLesblok = {};
         vm.selectLesblok = function (lesblok) {
             vm.showDetails = true;
-            vm.selectedLesblok = lesblok;
+            vm.bevestigdeItems = {};
+            vm.nieuweLes.lesblok = lesblok;
         }
 
         vm.selectedDag = 0;
@@ -82,13 +83,28 @@
             vm.nieuweLes.lokaal = vm.lokalen[0] || null;
         }
 
+        vm.isIngepland = function (lb) {
+            var index = -1;
+            index = vm.lessen.findIndex(function (les) {
+                return les.Lesblok.Id == lb.Id;
+            });
+            if (index > -1 && vm.lessen[index].Dag.Naam == vm.dagLabels[vm.selectedDag]) return true;
+            return false;
+        }
+
+        vm.displayLesInfo = function (lb) {
+            return "Ingepland"
+        }
+
         vm.init = function () {
+            uurroostersService.setKlasID($routeParams.klasID);
             uurroostersService.async().then(function () {
                 vm.lesblokken = uurroostersService.getAll("lesblokken");
                 vm.dagen = uurroostersService.getAll("dagen");
                 vm.leerkrachten = uurroostersService.getAll("leerkrachten");
                 vm.lokalen = uurroostersService.getAll("lokalen");
                 vm.vakken = uurroostersService.getAll("vakken");
+                vm.lessen = uurroostersService.getAll("lessen");
 
                 vm.currentKlas = uurroostersService.find("klassen", $routeParams.klasID);
                 

@@ -10,7 +10,9 @@
         this.lokalen = [];
         this.klassen = [];
         this.vakken = [];
-        
+        this.lessen = [];
+
+        this.currentKlasID = -1;
         this.promise;
         
         this.async = function () {
@@ -24,6 +26,14 @@
                 return defer.promise;
             }
 
+            function getLessen() {
+                var defer = $q.defer();
+                $http.get("api/lessen/" + self.currentKlasID + "/uitgebreid").then(function (r) {
+                    defer.resolve(r.data);
+                });
+                return defer.promise;
+            }
+
             if (!self.promise) {
                 self.promise = $q.all([
                     getData("lesblokken"),
@@ -31,7 +41,8 @@
                     getData("leerkrachten"),
                     getData("lokalen"),
                     getData("klassen"),
-                    getData("vakken")
+                    getData("vakken"),
+                    getLessen()
                 ]).then(function (data) {
                     console.log(data)
                     angular.copy(data[0], self.lesblokken);
@@ -40,9 +51,14 @@
                     angular.copy(data[3], self.lokalen);
                     angular.copy(data[4], self.klassen);
                     angular.copy(data[5], self.vakken);
+                    angular.copy(data[6], self.lessen);
                 })
             }
             return self.promise;
+        }
+
+        this.setKlasID = function(klasID) {
+            this.currentKlasID = klasID;
         }
 
         this.getAll = function (type) {
