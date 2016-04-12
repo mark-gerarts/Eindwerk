@@ -84,16 +84,27 @@
         }
 
         vm.isIngepland = function (lb) {
+            var les = vm.findLes((l) => l.Lesblok.Id == lb.Id);
+            if (les && les.Dag.Naam == vm.dagLabels[vm.selectedDag]) return true;
+            return false;
+        }
+
+        vm.findLes = function (expression) {
             var index = -1;
             index = vm.lessen.findIndex(function (les) {
-                return les.Lesblok.Id == lb.Id;
+                return expression(les);
             });
-            if (index > -1 && vm.lessen[index].Dag.Naam == vm.dagLabels[vm.selectedDag]) return true;
+            if (index > -1) {
+                return vm.lessen[index];
+            }
             return false;
         }
 
         vm.displayLesInfo = function (lb) {
-            return "Ingepland"
+            var les = vm.findLes((l) => l.Lesblok.Id == lb.Id);
+            if (les) {
+                return les.Vak.Naam;
+            }
         }
 
         vm.init = function () {
