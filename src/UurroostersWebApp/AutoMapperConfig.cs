@@ -43,6 +43,14 @@ namespace UurroostersWebApp
                     .ForMember(dest => dest.Starttijd, opt => opt.MapFrom(src => ConvertTimeSpan(src.Starttijd)))
                     .ForMember(dest => dest.Eindtijd, opt => opt.MapFrom(src => ConvertTimeSpan(src.Eindtijd)));
 
+                config.CreateMap<InsertLesViewModel, Les>()
+                    .ForMember(dest => dest.Lesblok, opt => opt.MapFrom(src => new Lesblok { Id = src.LesblokID }))
+                    .ForMember(dest => dest.Leerkracht, opt => opt.MapFrom(src => new Leerkracht { Id = src.LeerkrachtID }))
+                    .ForMember(dest => dest.Dag, opt => opt.MapFrom(src => new Dag { Id = src.DagID }))
+                    .ForMember(dest => dest.Lokaal, opt => opt.MapFrom(src => new Lokaal { Id = src.LokaalID }))
+                    .ForMember(dest => dest.Klas, opt => opt.MapFrom(src => new Klas { Id = src.KlasID }))
+                    .ForMember(dest => dest.Vak, opt => opt.MapFrom(src => new Vak { Id = src.VakID }));
+
                 //Campussen
                 config.CreateMap<InsertCampusViewModel, Campus>();
                 config.CreateMap<UpdateCampusViewModel, Campus>();

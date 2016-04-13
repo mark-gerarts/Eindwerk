@@ -109,6 +109,7 @@
         }
 
         vm.submitLes = function () {
+            //Mappen vd les
             var les = {};
             les.jaar = 2016; // ToDo
             les.lesblokID = vm.nieuweLes.Lesblok.Id;
@@ -117,6 +118,8 @@
             les.lokaalID = vm.nieuweLes.Lokaal.Id;
             les.klasID = vm.currentKlas.Id;
             les.vakID = vm.nieuweLes.Vak.Id;
+
+
             console.log(les);
         }
 

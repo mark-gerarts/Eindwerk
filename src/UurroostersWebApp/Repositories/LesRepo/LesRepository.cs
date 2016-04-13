@@ -94,14 +94,21 @@ namespace UurroostersWebApp.Repositories.LesRepo
             }, new { id });
         }
 
-        public int insert(Les les)
+        public int Insert(Les les)
         {
             //ToDo
-            string query = "INSERT INTO Lessen ()" +
+            string query = "INSERT INTO Lessen (jaar, lesblokID, dagID, leerkrachtID, lokaalID, klasID, vakID)" +
                 "OUTPUT Inserted.Id" +
-                "VALUES ()";
+                "VALUES (@jaar, @lesblokID, @dagID, @leerkrachtID, @lokaalID, @klasID, @vakID)";
 
             var parameters = new DynamicParameters();
+            parameters.Add("@jaar", les.Jaar);
+            parameters.Add("@lesblokID", les.Lesblok.Id);
+            parameters.Add("@dagID", les.Dag.Id);
+            parameters.Add("leerkrachtID", les.Leerkracht.Id);
+            parameters.Add("@lokaalID", les.Lokaal.Id);
+            parameters.Add("@klasID", les.Klas.Id);
+            parameters.Add("@vakID", les.Vak.Id);
 
             return _db.Query<int>(query, parameters).Single();
         }

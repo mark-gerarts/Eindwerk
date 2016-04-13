@@ -65,9 +65,7 @@
 
         this.findById = function (id) {
             var self = this;
-            return self.entities.find(function (entity) {
-                return entity.Id == id;
-            });
+            return self.entities.find((e) => e.Id == id);
         }
 
         this.delete = function (id) {

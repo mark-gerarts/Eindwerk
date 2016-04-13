@@ -37,5 +37,23 @@ namespace UurroostersWebApp.Controllers.API
             var lessen = _les.getByKlasID(klasID);
             return Json(lessen);
         }
+
+        [HttpPost("")]
+        public JsonResult Insert([FromBody]InsertLesViewModel lesvm)
+        {
+            // ToDo: check of de les al ingepland is of niet
+            // mss in stored procedure
+            if (ModelState.IsValid)
+            {
+                Les les = Mapper.Map<Les>(lesvm);
+                int identity = _les.insert(les);
+                return Json(identity);
+            }
+            else
+            {
+                Response.StatusCode = 422;
+                return Json("Unprocessable Entity"); //ToDo: return validation errors
+            }
+        }
     }
 }

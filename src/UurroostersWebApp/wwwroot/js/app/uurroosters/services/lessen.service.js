@@ -15,6 +15,9 @@
             return $http.get("api/lessen/" + klasID + "/uitgebreid");
         }
 
+        this.insertLes = function (les) {
+
+        }
 
     }
 })();
