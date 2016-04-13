@@ -3,7 +3,18 @@
 
     angular.module("uurroostersApp").controller("uurroostersAanpassenCtrl", uurroostersAanpassenCtrl);
 
-    function uurroostersAanpassenCtrl($routeParams, uurroostersService, timeConverter) {
+    function uurroostersAanpassenCtrl(
+        $routeParams,
+        $q,
+        timeConverter,
+        klassenService,
+        lokalenService,
+        lesblokkenService,
+        leerkrachtenService,
+        vakkenService,
+        lessenService,
+        dagenService
+    ) {
         var vm = this;
 
         vm.lesblokken = [];
@@ -24,12 +35,12 @@
         vm.dagLabels = [
             "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag"
         ];
-
+        
         vm.showDetails = false;
         vm.selectLesblok = function (lesblok) {
             vm.showDetails = true;
             vm.bevestigdeItems = {};
-            vm.nieuweLes.lesblok = lesblok;
+            vm.nieuweLes.Lesblok = lesblok;
         }
 
         vm.selectedDag = 0;
@@ -64,13 +75,13 @@
         vm.bevestigItem = function (item) {
             switch (item) {
                 case "vakken":
-                    vm.bevestigdeItems.vakken = vm.nieuweLes.vak;
+                    vm.bevestigdeItems.vakken = vm.nieuweLes.Vak;
                     break;
                 case "leerkrachten":
-                    vm.bevestigdeItems.leerkrachten = vm.nieuweLes.leerkracht;
+                    vm.bevestigdeItems.leerkrachten = vm.nieuweLes.Leerkracht;
                     break;
                 case "lokalen":
-                    vm.bevestigdeItems.lokalen = vm.nieuweLes.lokaal;
+                    vm.bevestigdeItems.lokalen = vm.nieuweLes.Lokaal;
                     break;
             }
 
@@ -78,51 +89,74 @@
         }
         
         vm.initialiseNieuweLes = function () {
-            vm.nieuweLes.vak = vm.vakken[0] || null;
-            vm.nieuweLes.leerkracht = vm.leerkrachten[0] || null;
-            vm.nieuweLes.lokaal = vm.lokalen[0] || null;
+            vm.nieuweLes.Vak = vm.vakken[0] || null;
+            vm.nieuweLes.Leerkracht = vm.leerkrachten[0] || null;
+            vm.nieuweLes.Lokaal = vm.lokalen[0] || null;
+            console.log(vm.nieuweLes)
         }
 
         vm.isIngepland = function (lb) {
-            var les = vm.findLes((l) => l.Lesblok.Id == lb.Id);
+            var les = vm.lessen.find((l) => l.Lesblok.Id == lb.Id);
             if (les && les.Dag.Naam == vm.dagLabels[vm.selectedDag]) return true;
             return false;
         }
 
-        vm.findLes = function (expression) {
-            var index = -1;
-            index = vm.lessen.findIndex(function (les) {
-                return expression(les);
-            });
-            if (index > -1) {
-                return vm.lessen[index];
-            }
-            return false;
-        }
-
         vm.displayLesInfo = function (lb) {
-            var les = vm.findLes((l) => l.Lesblok.Id == lb.Id);
+            var les = vm.lessen.find((l) => l.Lesblok.Id == lb.Id);
             if (les) {
                 return les.Vak.Naam;
             }
         }
 
-        vm.init = function () {
-            uurroostersService.setKlasID($routeParams.klasID);
-            uurroostersService.async().then(function () {
-                vm.lesblokken = uurroostersService.getAll("lesblokken");
-                vm.dagen = uurroostersService.getAll("dagen");
-                vm.leerkrachten = uurroostersService.getAll("leerkrachten");
-                vm.lokalen = uurroostersService.getAll("lokalen");
-                vm.vakken = uurroostersService.getAll("vakken");
-                vm.lessen = uurroostersService.getAll("lessen");
-
-                vm.currentKlas = uurroostersService.find("klassen", $routeParams.klasID);
-                
-                vm.initialiseNieuweLes();
-            });
+        vm.submitLes = function () {
+            var les = {};
+            les.jaar = 2016; // ToDo
+            les.lesblokID = vm.nieuweLes.Lesblok.Id;
+            les.dagID = vm.dagen.find((d) => d.Naam == vm.dagLabels[vm.selectedDag]).Id;
+            les.leerkrachtID = vm.nieuweLes.Leerkracht.Id;
+            les.lokaalID = vm.nieuweLes.Lokaal.Id;
+            les.klasID = vm.currentKlas.Id;
+            les.vakID = vm.nieuweLes.Vak.Id;
+            console.log(les);
         }
 
+        //Bundles all calls in a $q.all
+        vm.init = function () {
+            function getData(service) {
+                var defer = $q.defer();
+                service.async().then(function (r) {
+                    defer.resolve(service.getAll());
+                });
+                return defer.promise;
+            }
+            function getLessen() {
+                var defer = $q.defer();
+                lessenService.getDetailedLessenByKlasID($routeParams.klasID).then(function (r) {
+                    defer.resolve(r.data);
+                });
+                return defer.promise;
+            }
+            $q.all([
+                getData(lokalenService),
+                getData(klassenService),
+                getData(lesblokkenService),
+                getData(leerkrachtenService),
+                getData(vakkenService),
+                getData(dagenService),
+                getLessen()
+            ]).then(function (data) {
+                angular.copy(data[0], vm.lokalen);
+                angular.copy(data[1], vm.klassen);
+                angular.copy(data[2], vm.lesblokken);
+                angular.copy(data[3], vm.leerkrachten);
+                angular.copy(data[4], vm.vakken);
+                angular.copy(data[5], vm.dagen);
+                angular.copy(data[6], vm.lessen);
+
+                vm.currentKlas = klassenService.findById($routeParams.klasID);
+                vm.initialiseNieuweLes();
+            })
+        }
         vm.init();
 
     }

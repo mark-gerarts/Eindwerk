@@ -42,20 +42,21 @@
                          data-ng-repeat="uur in vm.tijdstippen"></div>
                     <div class="hour-bg"></div>
                 </div>
-                <div class="les lesblok"                     
-                     data-ng-repeat="lb in vm.lesblokken"
-                     data-ng-style="{{vm.getStyle(lb)}}"
-                     data-ng-click="vm.selectLesblok(lb)"
-                >
-                    <p><strong>Lesblok {{$index + 1}}</strong></p>
-                    <div data-ng-hide="vm.isIngepland(lb)">
-                        <p><em>Nog geen les ingepland.</em></p>
+                <div data-ng-repeat="lb in vm.lesblokken">
+                    <div class="les lesblok"
+                         data-ng-hide="vm.isIngepland(lb)"
+                         data-ng-style="{{vm.getStyle(lb)}}"
+                         data-ng-click="vm.selectLesblok(lb)">
+                        <p><strong>Lesblok {{$index + 1}}</strong></p>
                     </div>
-                    <div data-ng-show="vm.isIngepland(lb)">
+                    <div class="les lesblok ingepland"
+                         data-ng-show="vm.isIngepland(lb)"
+                         data-ng-style="{{vm.getStyle(lb)}}"
+                         data-ng-click="vm.selectLesblok(lb)">
+                        <p><strong>Lesblok {{$index + 1}}</strong></p>
                         <p>{{ vm.displayLesInfo(lb) }}</p>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -66,27 +67,27 @@
                 <div class="col-md-6">
                     <div class="well les-invoegen">
                         <h3 class="well-title">Les inplannen</h3>
-                        <p>Van {{ vm.nieuweLes.lesblok.Starttijd }} tot {{ vm.nieuweLes.lesblok.Eindtijd }}</p>
+                        <p>Van {{ vm.nieuweLes.Lesblok.Starttijd }} tot {{ vm.nieuweLes.Lesblok.Eindtijd }}</p>
                         <p>
                             <a data-ng-click="vm.huidigItem = 'vakken'">
                                 Kies een vak <i class="fa fa-angle-double-right fa-fw"></i>
                             </a><br />
                             <em data-ng-hide="vm.bevestigdeItems.vakken">Nog geen vak geselecteerd</em>
-                            <span data-ng-show="vm.bevestigdeItems.vakken">{{vm.nieuweLes.vak.Naam}}</span>
+                            <span data-ng-show="vm.bevestigdeItems.vakken">{{vm.nieuweLes.Vak.Naam}}</span>
                         </p>
                         <p>
                             <a data-ng-click="vm.huidigItem = 'leerkrachten'">
                                 Kies een leerkracht <i class="fa fa-angle-double-right fa-fw"></i>
                             </a><br />
                             <em data-ng-hide="vm.bevestigdeItems.leerkrachten">Nog geen leerkracht geselecteerd</em>
-                            <span data-ng-show="vm.bevestigdeItems.leerkrachten">{{vm.nieuweLes.leerkracht.Naam}}</span>
+                            <span data-ng-show="vm.bevestigdeItems.leerkrachten">{{vm.nieuweLes.Leerkracht.Naam}}</span>
                         </p>
                         <p>
                             <a data-ng-click="vm.huidigItem = 'lokalen'">
                                 Kies een lokaal <i class="fa fa-angle-double-right fa-fw"></i>
                             </a><br />
                             <em data-ng-hide="vm.bevestigdeItems.lokalen">Nog geen lokaal geselecteerd</em>
-                            <span data-ng-show="vm.bevestigdeItems.lokalen">{{vm.nieuweLes.lokaal.Naam}}</span>
+                            <span data-ng-show="vm.bevestigdeItems.lokalen">{{vm.nieuweLes.Lokaal.Naam}}</span>
                         </p>
                         <button type="reset"
                                 class="btn btn-default"
@@ -119,7 +120,7 @@
                                 <div class="form-group">
                                     <select class="form-control"
                                             size="5"
-                                            data-ng-model="vm.nieuweLes.vak"
+                                            data-ng-model="vm.nieuweLes.Vak"
                                             data-ng-options="vak.Naam for vak in vm.vakken | filter:vakQuery | orderBy:'Naam' track by vak.Id"></select>
                                 </div>
                                 <div class="form-group">
@@ -144,7 +145,7 @@
                                 <div class="form-group">
                                     <select class="form-control"
                                             size="5"
-                                            data-ng-model="vm.nieuweLes.leerkracht"
+                                            data-ng-model="vm.nieuweLes.Leerkracht"
                                             data-ng-options="lrk.Naam for lrk in vm.leerkrachten| filter:lrkQuery | orderBy:'Naam' track by lrk.Id"></select>
                                 </div>
                                 <div class="form-group">
@@ -169,7 +170,7 @@
                                 <div class="form-group">
                                     <select class="form-control"
                                             size="5"
-                                            data-ng-model="vm.nieuweLes.lokaal"
+                                            data-ng-model="vm.nieuweLes.Lokaal"
                                             data-ng-options="lokaal.Naam for lokaal in vm.lokalen| filter:lokaalQuery | orderBy:'Naam' track by lokaal.Id"></select>
                                 </div>
                                 <div class="form-group">

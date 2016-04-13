@@ -102,9 +102,7 @@
         // Hulpfunctie om de index van een entity te vinden.
         this.findIndexOf = function (id) {
             var self = this;
-            return self.entities.findIndex(function (entity) {
-                return entity.Id == id;
-            });
+            return self.entities.findIndex((e) => e.Id == id);
         }
     }
 })();

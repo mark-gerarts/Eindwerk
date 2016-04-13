@@ -11,6 +11,10 @@
             return $http.get("api/lessen/" + klasID);
         }
 
+        this.getDetailedLessenByKlasID = function (klasID) {
+            return $http.get("api/lessen/" + klasID + "/uitgebreid");
+        }
+
 
     }
 })();
