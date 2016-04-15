@@ -25,7 +25,7 @@ namespace UurroostersWebApp.Controllers.API
         [HttpGet("{klasID}")]
         public JsonResult getLessenByKlasID(int klasID)
         {
-            var lessen = _les.getByKlasID(klasID);
+            var lessen = _les.GetByKlasID(klasID);
             var result = Mapper.Map<IEnumerable<DisplayLesViewModel>>(lessen);
 
             return Json(result);
@@ -34,7 +34,7 @@ namespace UurroostersWebApp.Controllers.API
         [HttpGet("{klasID}/uitgebreid")]
         public JsonResult getDetailedLessenByKlasID(int klasID)
         {
-            var lessen = _les.getByKlasID(klasID);
+            var lessen = _les.GetByKlasID(klasID);
             return Json(lessen);
         }
 
@@ -46,7 +46,7 @@ namespace UurroostersWebApp.Controllers.API
             if (ModelState.IsValid)
             {
                 Les les = Mapper.Map<Les>(lesvm);
-                int identity = _les.insert(les);
+                int identity = _les.Insert(les);
                 return Json(identity);
             }
             else

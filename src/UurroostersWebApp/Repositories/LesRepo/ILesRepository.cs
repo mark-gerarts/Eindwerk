@@ -8,14 +8,14 @@ namespace UurroostersWebApp.Repositories.LesRepo
 {
     public interface ILesRepository
     {
-        int insert(Les les);
+        int Insert(Les les);
 
-        void delete(int id);
+        void Delete(int id);
 
-        IEnumerable<Les> getByKlasID(int id);
+        IEnumerable<Les> GetByKlasID(int id);
 
-        IEnumerable<Les> getByLeerkrachtID(int id);
+        IEnumerable<Les> GetByLeerkrachtID(int id);
 
-        void update(Les les);
+        void Update(Les les);
     }
 }

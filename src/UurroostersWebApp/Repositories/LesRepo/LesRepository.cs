@@ -17,14 +17,14 @@ namespace UurroostersWebApp.Repositories.LesRepo
             _db = new SqlConnection(Startup.Configuration["Data:CN"]);
         }
 
-        public void delete(int id)
+        public void Delete(int id)
         {
             string query = "DELETE FROM Lessen WHERE id = @id";
 
             _db.Execute(query, new { id });
         }
 
-        public IEnumerable<Les> getByKlasID(int id)
+        public IEnumerable<Les> GetByKlasID(int id)
         {
             //Mss naar SP
             string query = "SELECT " +
@@ -59,7 +59,7 @@ namespace UurroostersWebApp.Repositories.LesRepo
             }, new { id });
         }
 
-        public IEnumerable<Les> getByLeerkrachtID(int id)
+        public IEnumerable<Les> GetByLeerkrachtID(int id)
         {
             //Mss naar SP
             string query = "SELECT " +
@@ -113,7 +113,7 @@ namespace UurroostersWebApp.Repositories.LesRepo
             return _db.Query<int>(query, parameters).Single();
         }
 
-        public void update(Les les)
+        public void Update(Les les)
         {
             throw new NotImplementedException();
         }
