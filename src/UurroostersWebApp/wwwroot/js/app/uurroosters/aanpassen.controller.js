@@ -40,6 +40,7 @@
         vm.selectLesblok = function (lesblok) {
             var les = vm.isIngepland(lesblok);
             vm.bevestigdeItems = {};
+            vm.nieuweLes.Id = false;
             if (les) {
                 vm.bevestigdeItems = {
                     vakken: true,
@@ -49,7 +50,8 @@
                 vm.nieuweLes.Vak = les.Vak;
                 vm.nieuweLes.Leerkracht = les.Leerkracht;
                 vm.nieuweLes.Lokaal = les.Lokaal;
-            }
+                vm.nieuweLes.Id = les.Id;
+            }            
             vm.nieuweLes.Lesblok = lesblok;
             vm.showDetails = true;
         }
@@ -101,6 +103,7 @@
         }
         
         vm.initialiseNieuweLes = function () {
+            vm.nieuweLes = {};
             vm.nieuweLes.Vak = vm.vakken[0] || null;
             vm.nieuweLes.Leerkracht = vm.leerkrachten[0] || null;
             vm.nieuweLes.Lokaal = vm.lokalen[0] || null;
@@ -120,6 +123,11 @@
             }
         }
 
+        vm.cancel = function () {
+            vm.showDetails = false;
+            vm.initialiseNieuweLes();
+        }
+
         vm.submitLes = function () {
             vm.isSubmitting = true;
 
@@ -135,13 +143,32 @@
             les.vakID = vm.nieuweLes.Vak.Id;
             
             lessenService.insertLes(les).then(function (r) {
+                console.log(r)
+                vm.nieuweLes.Id = r.data;
                 vm.upsert(les);
-                vm.initialiseNieuweLes;
+                vm.initialiseNieuweLes();
             }, function (e) {
                 console.log(e)
             }).finally(function () {
                 vm.isSubmitting = false;
                 vm.showDetails = false;
+            });
+        }
+
+        vm.deleteLes = function () {
+            vm.deleting = true;
+            if (!vm.nieuweLes.Id || vm.nieuweLes.Id < 1) {
+                return;
+            }
+            lessenService.deleteLes(vm.nieuweLes.Id).then(function (r) {
+                var index = vm.lessen.findIndex((l) => l.Id == vm.nieuweLes.Id);
+                vm.lessen.splice(index, 1);
+                vm.initialiseNieuweLes();
+                vm.showDetails = false;
+            }, function (e) {
+                console.log(e);
+            }).finally(function () {
+                vm.deleting = false;
             });
         }
 
