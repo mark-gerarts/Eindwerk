@@ -8,7 +8,7 @@ namespace UurroostersWebApp.Repositories.LesRepo
 {
     public interface ILesRepository
     {
-        void Upsert(Les les);
+        int Upsert(Les les);
 
         void Delete(int id);
 

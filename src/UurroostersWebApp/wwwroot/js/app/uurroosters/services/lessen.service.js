@@ -18,5 +18,9 @@
         this.insertLes = function (les) {
             return $http.post("api/lessen", les);
         }
+
+        this.deleteLes = function (id) {
+            return $http.delete("api/lessen/" + id);
+        }
     }
 })();

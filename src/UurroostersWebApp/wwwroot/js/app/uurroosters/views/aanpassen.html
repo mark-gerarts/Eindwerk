@@ -66,7 +66,18 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="well les-invoegen">
-                        <h3 class="well-title">Les inplannen</h3>
+                        <h3 class="well-title">
+                            Les inplannen
+                            <span class="pull-right text-danger pointer"
+                                  data-toggle="modal"
+                                  data-placement="left"
+                                  data-ng-show="vm.nieuweLes.Id"
+                                  data-target="#confirm-delete"
+                                  title="Verwijderen"      
+                            >
+                                <i class="fa fa-times-circle fa-fw"></i>
+                            </span>
+                        </h3>
                         <p>Van {{ vm.nieuweLes.Lesblok.Starttijd }} tot {{ vm.nieuweLes.Lesblok.Eindtijd }}</p>
                         <p>
                             <a data-ng-click="vm.huidigItem = 'vakken'">
@@ -91,13 +102,14 @@
                         </p>
                         <button type="reset"
                                 class="btn btn-default"
-                                data-ng-click=""
+                                data-ng-click="vm.cancel()"
                                 >
                             Annuleren
                         </button>
                         <button type="submit"
                                 class="btn btn-primary"
                                 data-ng-click="vm.submitLes()"
+                                data-ng-disabled="!(vm.bevestigdeItems.vakken && vm.bevestigdeItems.leerkrachten && vm.bevestigdeItems.lokalen)"
                                 >
                             <span data-ng-show="vm.isSubmitting"><i class="fa fa-spinner fa-pulse fa-fw"></i> </span>
                             Opslaan
@@ -179,8 +191,33 @@
                                 </div>
                             </fieldset>
                         </form>
-                    </div>
-                </div>
+                    </div> <!--// well-->
+                </div> <!--// col-md-6 -->
+            </div> <!--// row -->
+        </div> <!--// showDetails  -->
+    </div> <!--// Right col -->
+</div> <!--// row -->
+
+
+<!-- Delete modal -->
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Verwijderen bevestigen</h4>
+            </div>
+            <div class="modal-body">
+                <p>Deze les wordt definitief verwijderd: </p>
+                <p>{{ vm.nieuweLes.Vak.Naam }}</p>
+                <p>{{ vm.nieuweLes.Leerkracht.Naam }} {{ vm.nieuweLes.Leerkracht.Voornaam }}</p>
+                <p>{{ vm.nieuweLes.Lokaal.Naam}}</p>
+                <p>{{ vm.nieuweLes.Lesblok.Starttijd }} - {{ vm.nieuweLes.Lesblok.Eindtijd }}</p>
+                <p>{{ vm.dagLabels[vm.selectedDag] }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="vm.deleteLes()">Verwijderen</button>
             </div>
         </div>
     </div>

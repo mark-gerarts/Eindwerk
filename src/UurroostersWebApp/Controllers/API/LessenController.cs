@@ -45,14 +45,21 @@ namespace UurroostersWebApp.Controllers.API
             // mss in stored procedure
             if (ModelState.IsValid)
             {
-                _les.Upsert(Mapper.Map<Les>(lesvm));
-                return Json("Update Succesful"); //ToDo: check if succeeded
+                int identity = _les.Upsert(Mapper.Map<Les>(lesvm));
+                return Json(identity); //ToDo: check if succeeded
             }
             else
             {
                 Response.StatusCode = 422;
                 return Json("Unprocessable Entity"); //ToDo: return validation errors
             }
+        }
+
+        [HttpDelete("{lesID}")]
+        public JsonResult Delete(int lesID)
+        {
+            _les.Delete(lesID);
+            return Json("Delete succesful"); //ToDo
         }
     }
 }

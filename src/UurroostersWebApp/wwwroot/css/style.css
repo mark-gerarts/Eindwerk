@@ -8,3 +8,7 @@
 .les-invoegen a:hover {
     cursor: pointer;
 }
+
+.pointer:hover {
+    cursor: pointer;
+}

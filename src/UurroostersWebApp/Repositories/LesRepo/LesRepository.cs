@@ -95,7 +95,7 @@ namespace UurroostersWebApp.Repositories.LesRepo
             }, new { id });
         }
 
-        public void Upsert(Les les)
+        public int Upsert(Les les)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@jaar", les.Jaar);
@@ -106,7 +106,7 @@ namespace UurroostersWebApp.Repositories.LesRepo
             parameters.Add("@klasID", les.Klas.Id);
             parameters.Add("@vakID", les.Vak.Id);
 
-            _db.Execute("spUpsertLes", parameters, commandType: CommandType.StoredProcedure);
+            return _db.Query<int>("spUpsertLes", parameters, commandType: CommandType.StoredProcedure).Single();
         }
 
         public void Update(Les les)
