@@ -38,9 +38,20 @@
         
         vm.showDetails = false;
         vm.selectLesblok = function (lesblok) {
-            vm.showDetails = true;
+            var les = vm.isIngepland(lesblok);
             vm.bevestigdeItems = {};
+            if (les) {
+                vm.bevestigdeItems = {
+                    vakken: true,
+                    leerkrachten: true,
+                    lokalen: true
+                }
+                vm.nieuweLes.Vak = les.Vak;
+                vm.nieuweLes.Leerkracht = les.Leerkracht;
+                vm.nieuweLes.Lokaal = les.Lokaal;
+            }
             vm.nieuweLes.Lesblok = lesblok;
+            vm.showDetails = true;
         }
 
         vm.selectedDag = 0;
@@ -56,6 +67,7 @@
                     if (vm.selectedDag > length - 1) vm.selectedDag = 0;
                     break;
             }
+            vm.showDetails = false;
         }
 
         vm.convertTime = function (time) {
@@ -92,12 +104,13 @@
             vm.nieuweLes.Vak = vm.vakken[0] || null;
             vm.nieuweLes.Leerkracht = vm.leerkrachten[0] || null;
             vm.nieuweLes.Lokaal = vm.lokalen[0] || null;
+            vm.nieuweLes.Klas = vm.currentKlas;
             console.log(vm.nieuweLes)
         }
 
         vm.isIngepland = function (lb) {
             var les = vm.lessen.find((l) => l.Lesblok.Id == lb.Id);
-            if (les && les.Dag.Naam == vm.dagLabels[vm.selectedDag]) return true;
+            if (les && les.Dag.Naam == vm.dagLabels[vm.selectedDag]) return les;
             return false;
         }
 
@@ -109,18 +122,28 @@
         }
 
         vm.submitLes = function () {
+            vm.isSubmitting = true;
+
             //Mappen vd les
             var les = {};
             les.jaar = 2016; // ToDo
             les.lesblokID = vm.nieuweLes.Lesblok.Id;
-            les.dagID = vm.dagen.find((d) => d.Naam == vm.dagLabels[vm.selectedDag]).Id;
+            vm.nieuweLes.Dag = vm.dagen.find((d) => d.Naam == vm.dagLabels[vm.selectedDag]); 
+            les.dagID = vm.nieuweLes.Dag.Id;
             les.leerkrachtID = vm.nieuweLes.Leerkracht.Id;
             les.lokaalID = vm.nieuweLes.Lokaal.Id;
-            les.klasID = vm.currentKlas.Id;
+            les.klasID = vm.nieuweLes.Klas.Id;
             les.vakID = vm.nieuweLes.Vak.Id;
-
-
-            console.log(les);
+            
+            lessenService.insertLes(les).then(function (r) {
+                console.log(r);
+                vm.lessen.push(vm.nieuweLes);
+                vm.initialiseNieuweLes;
+            }, function (e) {
+                console.log(e)
+            }).finally(function () {
+                vm.isSubmitting = false;
+            });
         }
 
         //Bundles all calls in a $q.all

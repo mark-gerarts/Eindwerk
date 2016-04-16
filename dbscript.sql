@@ -172,3 +172,31 @@ BEGIN
 
 	COMMIT TRANSACTION UpdateLeerkacht;
 END
+
+	@jaar SMALLINT,
+	@lesblokID INT,
+	@dagID INT,
+	@leerkrachtID INT,
+	@lokaalID INT,
+	@klasID INT,
+	@vakID INT
+) AS
+BEGIN
+	BEGIN TRANSACTION UpsertLes;
+
+	MERGE INTO dbo.Lessen AS TARGET
+		USING (SELECT @jaar, @lesblokID, @dagID, @leerkrachtID, @lokaalID, @klasID, @vakID)
+			AS SOURCE(jaar, lesblokID, dagID, leerkrachtID, lokaalID, klasID, vakID)
+		ON SOURCE.klasID = TARGET.klasID
+		AND SOURCE.lesblokID = TARGET.lesblokID
+		AND SOURCE.dagID = TARGET.dagID
+		AND SOURCE.jaar = TARGET.jaar
+	WHEN MATCHED THEN 
+		UPDATE SET leerkrachtID=@leerkrachtID, lokaalID=@lokaalID, vakID=@vakID
+	WHEN NOT MATCHED THEN
+		INSERT(jaar, lesblokID, dagID, leerkrachtID, lokaalID, klasID, vakID)
+		VALUES(@jaar, @lesblokID, @dagID, @leerkrachtID, @lokaalID, @klasID, @vakID)
+	;
+
+	COMMIT TRANSACTION UpsertLes;
+END

@@ -39,15 +39,14 @@ namespace UurroostersWebApp.Controllers.API
         }
 
         [HttpPost("")]
-        public JsonResult Insert([FromBody]InsertLesViewModel lesvm)
+        public JsonResult Upsert([FromBody]InsertLesViewModel lesvm)
         {
             // ToDo: check of de les al ingepland is of niet
             // mss in stored procedure
             if (ModelState.IsValid)
             {
-                Les les = Mapper.Map<Les>(lesvm);
-                int identity = _les.Insert(les);
-                return Json(identity);
+                _les.Upsert(Mapper.Map<Les>(lesvm));
+                return Json("Update Succesful"); //ToDo: check if succeeded
             }
             else
             {
