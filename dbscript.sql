@@ -173,6 +173,7 @@ BEGIN
 	COMMIT TRANSACTION UpdateLeerkacht;
 END
 
+CREATE PROCEDURE spUpsertLes(
 	@jaar SMALLINT,
 	@lesblokID INT,
 	@dagID INT,

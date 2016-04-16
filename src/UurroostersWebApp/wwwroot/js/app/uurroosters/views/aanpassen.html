@@ -99,6 +99,7 @@
                                 class="btn btn-primary"
                                 data-ng-click="vm.submitLes()"
                                 >
+                            <span data-ng-show="vm.isSubmitting"><i class="fa fa-spinner fa-pulse fa-fw"></i> </span>
                             Opslaan
                         </button>
                     </div>
@@ -184,4 +185,3 @@
         </div>
     </div>
 </div>
-<pre>{{ vm.nieuweLes | json}}</pre>

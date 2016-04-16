@@ -105,7 +105,6 @@
             vm.nieuweLes.Leerkracht = vm.leerkrachten[0] || null;
             vm.nieuweLes.Lokaal = vm.lokalen[0] || null;
             vm.nieuweLes.Klas = vm.currentKlas;
-            console.log(vm.nieuweLes)
         }
 
         vm.isIngepland = function (lb) {
@@ -136,14 +135,24 @@
             les.vakID = vm.nieuweLes.Vak.Id;
             
             lessenService.insertLes(les).then(function (r) {
-                console.log(r);
-                vm.lessen.push(vm.nieuweLes);
+                vm.upsert(les);
                 vm.initialiseNieuweLes;
             }, function (e) {
                 console.log(e)
             }).finally(function () {
                 vm.isSubmitting = false;
+                vm.showDetails = false;
             });
+        }
+
+        vm.upsert = function (les) {
+            var index = vm.lessen.findIndex((l) => l.Lesblok.Id == les.lesblokID && l.Dag.Id == les.dagID);
+            if (index > -1) {
+                vm.lessen[index] = angular.copy(vm.nieuweLes);
+            } else {
+                var nieuw = angular.copy(vm.nieuweLes);
+                vm.lessen.push(nieuw);
+            }
         }
 
         //Bundles all calls in a $q.all
