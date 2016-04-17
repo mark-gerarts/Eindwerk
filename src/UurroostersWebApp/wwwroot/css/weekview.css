@@ -93,10 +93,10 @@
     width: 90%;
     margin-left: 5%;
 }
-.lesblok > p {
+.lesblok > p, .les > p {
     padding-left: 5px;
 }
-.lesblok >p:first-child {
+.lesblok >p:first-child, .les > p:first-child {
     padding-top: 5px;
 }
 .lesblok.ingepland {

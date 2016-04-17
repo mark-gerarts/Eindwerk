@@ -115,6 +115,11 @@
                             Opslaan
                         </button>
                     </div>
+                    <div class="well">
+                        <p data-ng-repeat="les in vm.lessen | uniekeLessen">
+                            {{les.Vak.Naam}}
+                        </p>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <!-- vakken-->
