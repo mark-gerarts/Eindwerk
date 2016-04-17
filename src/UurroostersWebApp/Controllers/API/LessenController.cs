@@ -41,16 +41,24 @@ namespace UurroostersWebApp.Controllers.API
         [HttpPost("")]
         public JsonResult Upsert([FromBody]InsertLesViewModel lesvm)
         {
-            if (ModelState.IsValid)
-            {
-                int identity = _les.Upsert(Mapper.Map<Les>(lesvm));
-                return Json(identity); //ToDo: check if succeeded
-            }
-            else
+            if (!ModelState.IsValid)
             {
                 Response.StatusCode = 422;
                 return Json("Unprocessable Entity"); //ToDo: return validation errors
             }
+
+            Les les = Mapper.Map<Les>(lesvm);
+
+            // Check for duplicates.
+            IEnumerable<Les> duplicates = _les.GetDuplicates(les);
+            if(duplicates.Count() > 0)
+            {
+                Response.StatusCode = 409; // 406 ~= conflict
+                return Json(Mapper.Map<DisplayLesViewModel>(duplicates.First()));
+            }
+
+            int identity = _les.Upsert(les);
+            return Json(identity); //ToDo: check if succeeded
         }
 
         [HttpDelete("{lesID}")]

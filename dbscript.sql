@@ -204,15 +204,14 @@ BEGIN
 END
 
 
-ALTER PROCEDURE spCheckAvailability(
-	@id INT NULL,
+CREATE PROCEDURE spGetDuplicates(	
 	@jaar SMALLINT,
 	@lesblokID INT,
 	@dagID INT,
 	@leerkrachtID INT,
 	@lokaalID INT,
 	@klasID INT,
-	@vakID INT
+	@id INT = NULL
 ) AS
 BEGIN	
 	DECLARE @starttijd TIME;
@@ -222,25 +221,55 @@ BEGIN
 	FROM Lesblokken 
 	WHERE id = @lesblokID;
 	
-	IF(@id IS NOT NULL)
+	IF(@id IS NULL)
 	BEGIN
-		SELECT COUNT(l.id)
-		FROM Lessen l 
-		JOIN Lesblokken lb ON l.lesblokID = lb.id
-		WHERE l.jaar=@jaar AND l.dagID=@dagID -- Zelfde dag
-			AND ((lb.starttijd > @starttijd AND lb.starttijd < @eindtijd) -- In dezelfde tijdspanne
-				OR (lb.eindtijd > @starttijd AND lb.eindtijd < @eindtijd))
+		SELECT l.id, l.jaar,
+               lb.id, lb.starttijd, lb.eindtijd,
+               dag.id, dag.naam,
+               lrk.id, lrk.naam, lrk.voornaam,
+			   kl.id, kl.naam,
+               v.id, v.naam,
+               lok.id, lok.naam,
+               c.id, c.naam
+		FROM 
+			Lessen l 
+			JOIN Lesblokken lb ON l.lesblokID = lb.id
+			JOIN Dagen dag ON l.dagID = dag.id
+            JOIN Leerkrachten lrk ON l.leerkrachtID = lrk.id
+			JOIN Klassen kl ON l.klasID = kl.id
+            JOIN Vakken v ON l.vakID = v.id
+            JOIN Lokalen lok ON l.lokaalID = lok.id
+            JOIN Campussen c ON lok.campusID = c.id
+		WHERE 
+			l.jaar=@jaar AND l.dagID=@dagID -- Zelfde dag
+			AND ((lb.starttijd >= @starttijd AND lb.starttijd <= @eindtijd) -- In dezelfde tijdspanne
+				OR (lb.eindtijd >= @starttijd AND lb.eindtijd <= @eindtijd))
 			AND (l.lokaalID=@lokaalID OR l.leerkrachtID=@leerkrachtID) -- Met dezelfde leerkracht OF lokaal
 			;
 	END
 	ELSE
 	BEGIN
-		SELECT COUNT(l.id)
-		FROM Lessen l 
-		JOIN Lesblokken lb ON l.lesblokID = lb.id
-		WHERE l.jaar=@jaar AND l.dagID=@dagID -- Zelfde dag
-			AND ((lb.starttijd > @starttijd AND lb.starttijd < @eindtijd) -- In dezelfde tijdspanne
-				OR (lb.eindtijd > @starttijd AND lb.eindtijd < @eindtijd))
+		SELECT l.id, l.jaar,
+               lb.id, lb.starttijd, lb.eindtijd,
+               dag.id, dag.naam,
+               lrk.id, lrk.naam, lrk.voornaam,
+			   kl.id, kl.naam,
+               v.id, v.naam,
+               lok.id, lok.naam,
+               c.id, c.naam
+		FROM 
+			Lessen l 
+			JOIN Lesblokken lb ON l.lesblokID = lb.id
+			JOIN Dagen dag ON l.dagID = dag.id
+            JOIN Leerkrachten lrk ON l.leerkrachtID = lrk.id
+			JOIN Klassen kl ON l.klasID = kl.id
+            JOIN Vakken v ON l.vakID = v.id
+            JOIN Lokalen lok ON l.lokaalID = lok.id
+            JOIN Campussen c ON lok.campusID = c.id
+		WHERE 
+			l.jaar=@jaar AND l.dagID=@dagID -- Zelfde dag
+			AND ((lb.starttijd >= @starttijd AND lb.starttijd < @eindtijd) -- In dezelfde tijdspanne
+				OR (lb.eindtijd > @starttijd AND lb.eindtijd <= @eindtijd))
 			AND (l.lokaalID=@lokaalID OR l.leerkrachtID=@leerkrachtID) -- Met dezelfde leerkracht OF lokaal
 			AND l.id<>@id
 	END

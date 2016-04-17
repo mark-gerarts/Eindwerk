@@ -18,6 +18,6 @@ namespace UurroostersWebApp.Repositories.LesRepo
 
         void Update(Les les);
 
-        bool CheckAvailability(Les les);
+        IEnumerable<Les> GetDuplicates(Les les);
     }
 }

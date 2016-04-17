@@ -23,5 +23,7 @@ namespace UurroostersWebApp.ViewModels.LesViewModels
         public string DagNaam { get; set; }
 
         public string VakNaam { get; set; }
+
+        public string KlasNaam { get; set; }
     }
 }

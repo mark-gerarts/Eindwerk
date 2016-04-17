@@ -114,10 +114,43 @@ namespace UurroostersWebApp.Repositories.LesRepo
             throw new NotImplementedException();
         }
 
-        public bool CheckAvailability(Les les)
+        /// <summary>
+        /// Kijkt na of een lokaal of leerkracht niet dubbel ingepland wordt.
+        /// Returnt een lijst met mogelijk dubbel ingeplande lessen
+        /// </summary>
+        /// <param name="les"></param>
+        /// <returns></returns>
+        public IEnumerable<Les> GetDuplicates(Les les)
         {
-            throw new NotImplementedException();
-            //string query = "SELECT id FROM Lessen WHERE jaar=@jaar AND dagID=@dagID AND lesblokID = @lesblokID"
+            var parameters = new DynamicParameters();
+            parameters.Add("@jaar", les.Jaar);
+            parameters.Add("@lesblokID", les.Lesblok.Id);
+            parameters.Add("@dagID", les.Dag.Id);
+            parameters.Add("@leerkrachtID", les.Leerkracht.Id);
+            parameters.Add("@lokaalID", les.Lokaal.Id);
+            parameters.Add("@klasID", les.Klas.Id);
+
+            if(les.Id > 0)
+            {
+                parameters.Add("@id", les.Id);
+            }
+
+            return _db.Query<Les, Lesblok, Leerkracht, Klas, Vak, Lokaal, Campus, Les>(
+                "spGetDuplicates", 
+                (l, lb, lrk, kl, v, lok, c) =>
+                {
+                    l.Lesblok = lb;
+                    l.Dag = les.Dag;
+                    l.Klas = kl;
+                    l.Leerkracht = lrk;
+                    l.Vak = v;
+                    lok.Campus = c;
+                    l.Lokaal = lok;
+                    return l;
+                },
+                parameters, 
+                commandType: CommandType.StoredProcedure
+            ).ToList();
         }
     }
 }

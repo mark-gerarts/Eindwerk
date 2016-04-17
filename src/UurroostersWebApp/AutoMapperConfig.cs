@@ -36,7 +36,8 @@ namespace UurroostersWebApp
                 config.CreateMap<Les, DisplayLesViewModel>()
                     .ForMember(dest => dest.Starttijd, opt => opt.MapFrom(src => ConvertTimeSpan(src.Lesblok.Starttijd)))
                     .ForMember(dest => dest.Eindtijd, opt => opt.MapFrom(src => ConvertTimeSpan(src.Lesblok.Eindtijd)))
-                    .ForMember(dest => dest.LeerkrachtNaam, opt => opt.MapFrom(src => src.Leerkracht.Naam + " " + src.Leerkracht.Voornaam));
+                    .ForMember(dest => dest.LeerkrachtNaam, opt => opt.MapFrom(src => src.Leerkracht.Naam + " " + src.Leerkracht.Voornaam))
+                    .ForMember(dest => dest.KlasNaam, opt => opt.MapFrom(src => src.Klas.Naam));
 
                 //Lesblokken
                 config.CreateMap<Lesblok, DisplayLesblokViewModel>()

@@ -153,17 +153,21 @@
             les.lokaalID = vm.nieuweLes.Lokaal.Id;
             les.klasID = vm.nieuweLes.Klas.Id;
             les.vakID = vm.nieuweLes.Vak.Id;
+            if (vm.nieuweLes.Id) les.Id = vm.nieuweLes.Id;
             
             lessenService.insertLes(les).then(function (r) {
-                console.log(r)
+                console.log("success")
                 vm.nieuweLes.Id = r.data;
                 vm.upsert(les);
                 vm.initialiseNieuweLes();
+                vm.showDetails = false;
             }, function (e) {
-                console.log(e)
+                console.log(e);
+                if (e.status == 409) { // Conflict
+                    alert("Lokaal of leerkracht is op dit tijdstip al ingepland voor klas " + e.data.KlasNaam)
+                }
             }).finally(function () {
                 vm.isSubmitting = false;
-                vm.showDetails = false;
             });
         }
 
