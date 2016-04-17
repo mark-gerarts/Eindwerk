@@ -122,3 +122,14 @@
 .aanpassen-right-col {
     margin-top: 21px;
 }
+.bestaande-les > p {
+    margin: 0;
+}
+.bestaande-les {
+    padding: 5px;
+}
+
+.bestaande-les:hover {
+    cursor: pointer;
+    background: #cfd1d2;
+}

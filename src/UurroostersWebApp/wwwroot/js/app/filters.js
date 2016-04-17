@@ -27,7 +27,7 @@
                 var index = lessen.findIndex((l) => zelfdeLes(l, les));
                 if (index == -1) lessen.push(les);
             });
-            console.log(lessen)
+
             return lessen;
         }
     }

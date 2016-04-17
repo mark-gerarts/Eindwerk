@@ -128,6 +128,18 @@
             vm.initialiseNieuweLes();
         }
 
+        vm.useExisting = function (les) {
+            vm.nieuweLes.Vak = les.Vak;
+            vm.nieuweLes.Lokaal = les.Lokaal;
+            vm.nieuweLes.Leerkracht = les.Leerkracht;
+            vm.bevestigdeItems = {
+                vakken: true,
+                leerkrachten: true,
+                lokalen: true
+            };
+            vm.huidigItem = '';
+        }
+
         vm.submitLes = function () {
             vm.isSubmitting = true;
 

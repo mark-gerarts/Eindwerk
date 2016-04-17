@@ -173,7 +173,7 @@ BEGIN
 	COMMIT TRANSACTION UpdateLeerkacht;
 END
 
-ALTER PROCEDURE spUpsertLes(
+CREATE PROCEDURE spUpsertLes(
 	@jaar SMALLINT,
 	@lesblokID INT,
 	@dagID INT,
@@ -184,8 +184,6 @@ ALTER PROCEDURE spUpsertLes(
 ) AS
 BEGIN
 	BEGIN TRANSACTION UpsertLes;
-
-	DECLARE @Identity INT; 
 
 	MERGE INTO dbo.Lessen AS TARGET
 		USING (SELECT @jaar, @lesblokID, @dagID, @leerkrachtID, @lokaalID, @klasID, @vakID)
@@ -199,7 +197,7 @@ BEGIN
 	WHEN NOT MATCHED THEN
 		INSERT(jaar, lesblokID, dagID, leerkrachtID, lokaalID, klasID, vakID)
 		VALUES(@jaar, @lesblokID, @dagID, @leerkrachtID, @lokaalID, @klasID, @vakID)
-		OUTPUT Inserted.id
+	OUTPUT Inserted.id
 	;
 
 	COMMIT TRANSACTION UpsertLes;
