@@ -73,8 +73,7 @@
                                   data-placement="left"
                                   data-ng-show="vm.nieuweLes.Id"
                                   data-target="#confirm-delete"
-                                  title="Verwijderen"      
-                            >
+                                  title="Verwijderen">
                                 <i class="fa fa-times-circle fa-fw"></i>
                             </span>
                         </h3>
@@ -100,25 +99,23 @@
                             <em data-ng-hide="vm.bevestigdeItems.lokalen">Nog geen lokaal geselecteerd</em>
                             <span data-ng-show="vm.bevestigdeItems.lokalen">{{vm.nieuweLes.Lokaal.Naam}}</span>
                         </p>
+                        <p>
+                            <a data-ng-click="vm.huidigItem = 'bestaandeLessen'">
+                                Reeds ingeplande les gebruiken <i class="fa fa-angle-double-right fa-fw"></i>
+                            </a>
+                        </p>
                         <button type="reset"
                                 class="btn btn-default"
-                                data-ng-click="vm.cancel()"
-                                >
+                                data-ng-click="vm.cancel()">
                             Annuleren
                         </button>
                         <button type="submit"
                                 class="btn btn-primary"
                                 data-ng-click="vm.submitLes()"
-                                data-ng-disabled="!(vm.bevestigdeItems.vakken && vm.bevestigdeItems.leerkrachten && vm.bevestigdeItems.lokalen)"
-                                >
+                                data-ng-disabled="!(vm.bevestigdeItems.vakken && vm.bevestigdeItems.leerkrachten && vm.bevestigdeItems.lokalen)">
                             <span data-ng-show="vm.isSubmitting"><i class="fa fa-spinner fa-pulse fa-fw"></i> </span>
                             Opslaan
                         </button>
-                    </div>
-                    <div class="well">
-                        <p data-ng-repeat="les in vm.lessen | uniekeLessen">
-                            {{les.Vak.Naam}}
-                        </p>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -196,14 +193,24 @@
                                 </div>
                             </fieldset>
                         </form>
-                    </div> <!--// well-->
+                    </div> 
+                    <!-- bestaande lessen -->
+                    <div class="well" data-ng-show="vm.huidigItem == 'bestaandeLessen'">
+                        <h3 class="well-title">Bestaande lessen</h3>
+                        <div data-ng-repeat="les in vm.lessen | uniekeLessen as unieke"
+                             class="bestaande-les"
+                             data-ng-click="vm.useExisting(les)">
+                            <p>{{les.Vak.Naam}}</p>
+                            <p>{{les.Leerkracht.Naam}} {{les.Leerkracht.Voornaam}}</p>
+                            <p>{{les.Lokaal.Naam}}</p>
+                        </div>
+                        <p data-ng-show="unieke.length == 0">Nog geen lessen ingepland.</p>
+                    </div>
                 </div> <!--// col-md-6 -->
             </div> <!--// row -->
         </div> <!--// showDetails  -->
     </div> <!--// Right col -->
 </div> <!--// row -->
-
-
 <!-- Delete modal -->
 <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog">
     <div class="modal-dialog">

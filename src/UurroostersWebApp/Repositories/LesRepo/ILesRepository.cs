@@ -17,5 +17,7 @@ namespace UurroostersWebApp.Repositories.LesRepo
         IEnumerable<Les> GetByLeerkrachtID(int id);
 
         void Update(Les les);
+
+        bool CheckAvailability(Les les);
     }
 }

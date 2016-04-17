@@ -113,5 +113,11 @@ namespace UurroostersWebApp.Repositories.LesRepo
         {
             throw new NotImplementedException();
         }
+
+        public bool CheckAvailability(Les les)
+        {
+            throw new NotImplementedException();
+            //string query = "SELECT id FROM Lessen WHERE jaar=@jaar AND dagID=@dagID AND lesblokID = @lesblokID"
+        }
     }
 }

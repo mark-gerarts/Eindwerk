@@ -1,12 +1,16 @@
 ﻿<!-- Uurroosters Index -->
+<ul class="breadcrumb">
+    <li><a href="#/">Home</a></li>
+    <li class="active">Uurroosters</li>
+</ul>
 <div class="row">
     <div class="col-md-4">
         <form>
             <div class="well">
                 <div class="form-group">
-                    <label class="control-label" for="zoek">Zoek {{ vm.entityName }}:</label>
+                    <label class="control-label" for="zoek">Zoek een klas:</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="zoek" placeholder="Zoek {{ vm.entityName }}..." data-ng-model="query" />
+                        <input type="text" class="form-control" id="zoek" placeholder="Zoek een klas..." data-ng-model="query" />
                         <span class="input-group-addon">
                             <i class="fa fa-search"></i>
                         </span>
@@ -52,7 +56,7 @@
                         <th>Studierichting</th>
                     </tr>
                 </thead>
-                <tbody data-ng-show="vm.entities.length == 0 && !vm.isLoading">
+                <tbody data-ng-show="vm.klassen.length == 0 && !vm.isLoading">
                     <tr>
                         <td colspan="4">
                             Nog geen klassen!
@@ -67,8 +71,8 @@
                     </tr>
                 </tbody>
                 <tbody data-ng-show="!vm.isLoading">
-                    <tr data-ng-repeat="klas in vm.entities | filter:query | filter:vm.srQuery.Naam | filter:vm.campusQuery.Naam"
-                        data-ng-click="vm.showDetails(klas)"
+                    <tr data-ng-repeat="klas in vm.klassen | filter:query | filter:vm.srQuery.Naam | filter:vm.campusQuery.Naam"
+                        data-ng-click="vm.selectKlas(klas)"
                         class="link">
                         <td>{{klas.Naam}}</td>
                         <td>{{klas.Leerjaar}}</td>
@@ -80,4 +84,3 @@
         </div>
     </div>
 </div>
-<a href="#/uurroosters/1/preview">Preview ID = 1</a>

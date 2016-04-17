@@ -202,3 +202,46 @@ BEGIN
 
 	COMMIT TRANSACTION UpsertLes;
 END
+
+
+ALTER PROCEDURE spCheckAvailability(
+	@id INT NULL,
+	@jaar SMALLINT,
+	@lesblokID INT,
+	@dagID INT,
+	@leerkrachtID INT,
+	@lokaalID INT,
+	@klasID INT,
+	@vakID INT
+) AS
+BEGIN	
+	DECLARE @starttijd TIME;
+	DECLARE @eindtijd TIME;
+
+	SELECT @starttijd = starttijd, @eindtijd = eindtijd 
+	FROM Lesblokken 
+	WHERE id = @lesblokID;
+	
+	IF(@id IS NOT NULL)
+	BEGIN
+		SELECT COUNT(l.id)
+		FROM Lessen l 
+		JOIN Lesblokken lb ON l.lesblokID = lb.id
+		WHERE l.jaar=@jaar AND l.dagID=@dagID -- Zelfde dag
+			AND ((lb.starttijd > @starttijd AND lb.starttijd < @eindtijd) -- In dezelfde tijdspanne
+				OR (lb.eindtijd > @starttijd AND lb.eindtijd < @eindtijd))
+			AND (l.lokaalID=@lokaalID OR l.leerkrachtID=@leerkrachtID) -- Met dezelfde leerkracht OF lokaal
+			;
+	END
+	ELSE
+	BEGIN
+		SELECT COUNT(l.id)
+		FROM Lessen l 
+		JOIN Lesblokken lb ON l.lesblokID = lb.id
+		WHERE l.jaar=@jaar AND l.dagID=@dagID -- Zelfde dag
+			AND ((lb.starttijd > @starttijd AND lb.starttijd < @eindtijd) -- In dezelfde tijdspanne
+				OR (lb.eindtijd > @starttijd AND lb.eindtijd < @eindtijd))
+			AND (l.lokaalID=@lokaalID OR l.leerkrachtID=@leerkrachtID) -- Met dezelfde leerkracht OF lokaal
+			AND l.id<>@id
+	END
+END
