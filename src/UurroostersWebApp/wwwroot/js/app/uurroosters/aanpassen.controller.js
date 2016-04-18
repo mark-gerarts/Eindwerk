@@ -28,6 +28,7 @@
         vm.bevestigdeItems = {};
         vm.huidigItem = "";
         vm.nieuweLes = {};
+        vm.isLoading = true;
                 
         vm.tijdstippen = [
             "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"
@@ -48,7 +49,7 @@
                     lokalen: true
                 }
                 vm.nieuweLes.Vak = les.Vak;
-                vm.nieuweLes.Leerkracht = les.Leerkracht;
+                vm.nieuweLes.Leerkracht = vm.leerkrachten.find((lrk) => lrk.Id == les.Leerkracht.Id);
                 vm.nieuweLes.Lokaal = les.Lokaal;
                 vm.nieuweLes.Id = les.Id;
             }            
@@ -138,6 +139,17 @@
                 lokalen: true
             };
             vm.huidigItem = '';
+        }
+
+        vm.conflicting = function () {
+            if (vm.nieuweLes.Leerkracht) {
+                return !vm.isLoading
+                   && vm.bevestigdeItems.vakken
+                   && vm.bevestigdeItems.leerkrachten
+                   && vm.nieuweLes.Leerkracht.Vakken.findIndex((v) => v.Id == vm.nieuweLes.Vak.Id) == -1
+            }
+            return false;
+            
         }
 
         vm.submitLes = function () {
@@ -233,6 +245,8 @@
 
                 vm.currentKlas = klassenService.findById($routeParams.klasID);
                 vm.initialiseNieuweLes();
+
+                vm.isLoading = false;
             })
         }
         vm.init();

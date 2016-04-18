@@ -23,7 +23,7 @@
         });
 
         vm.selectKlas = function (klas) {
-            $location.path("/uurroosters/" + klas.Id + "/preview");
+            $location.path("/uurroosters/" + klas.Id + "/aanpassen");
         }
     }
 })();

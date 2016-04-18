@@ -17,7 +17,8 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row"
+     data-ng-show="!vm.isLoading && vm.lessen.length > 0">
     <div class="col-md-3">
         <!-- 1-dag kalender -->
         <div class="calendar">
@@ -104,6 +105,10 @@
                                 Reeds ingeplande les gebruiken <i class="fa fa-angle-double-right fa-fw"></i>
                             </a>
                         </p>
+                        <p data-ng-show="vm.conflicting()" class="text-warning">
+                            <i class="fa fa-warning"></i> {{vm.nieuweLes.Vak.Naam}} staat niet in de lijst van beschikbare vakken
+                            van {{ vm.nieuweLes.Leerkracht.Naam }} {{ vm.nieuweLes.Leerkracht.Voornaam }}.
+                        </p>
                         <button type="reset"
                                 class="btn btn-default"
                                 data-ng-click="vm.cancel()">
@@ -158,11 +163,18 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" /> Toon enkel leerkrachten die {{ vm.nieuweLes.Vak.Naam }} kunnen geven.
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <select class="form-control"
                                             size="5"
                                             data-ng-model="vm.nieuweLes.Leerkracht"
-                                            data-ng-options="lrk.Naam for lrk in vm.leerkrachten| filter:lrkQuery | orderBy:'Naam' track by lrk.Id"></select>
-                                </div>
+                                            data-ng-options="(lrk.Naam + ' ' + lrk.Voornaam) for lrk in vm.leerkrachten| filter:lrkQuery | orderBy:'Naam' track by lrk.Id"></select>
+                                </div>                                
                                 <div class="form-group">
                                     <button class="btn btn-primary" data-ng-click="vm.bevestigItem('leerkrachten')">Bevestigen</button>
                                 </div>
@@ -193,7 +205,7 @@
                                 </div>
                             </fieldset>
                         </form>
-                    </div> 
+                    </div>
                     <!-- bestaande lessen -->
                     <div class="well" data-ng-show="vm.huidigItem == 'bestaandeLessen'">
                         <h3 class="well-title">Bestaande lessen</h3>
@@ -211,6 +223,19 @@
         </div> <!--// showDetails  -->
     </div> <!--// Right col -->
 </div> <!--// row -->
+
+<p data-ng-show="vm.isLoading" class="text-center">
+    <i class="fa fa-spinner fa-pulse"></i>
+</p>
+
+<div data-ng-show="!vm.isLoading && vm.lessen.length == 0"
+     class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <p>Eerste setup</p>
+    </div>
+</div>
+
+
 <!-- Delete modal -->
 <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog">
     <div class="modal-dialog">
