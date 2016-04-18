@@ -8,6 +8,8 @@ namespace UurroostersWebApp.ViewModels.LesViewModels
 {
     public class InsertLesViewModel
     {
+        public int Id { get; set; }
+
         [Required]
         public int Jaar { get; set; }
         

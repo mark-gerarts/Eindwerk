@@ -162,10 +162,10 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" data-ng-show="vm.bevestigdeItems.vakken">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" /> Toon enkel leerkrachten die {{ vm.nieuweLes.Vak.Naam }} kunnen geven.
+                                            <input type="checkbox" data-ng-model="chkVak"/> Toon enkel leerkrachten die {{ vm.nieuweLes.Vak.Naam }} kunnen geven.
                                         </label>
                                     </div>
                                 </div>
@@ -173,7 +173,7 @@
                                     <select class="form-control"
                                             size="5"
                                             data-ng-model="vm.nieuweLes.Leerkracht"
-                                            data-ng-options="(lrk.Naam + ' ' + lrk.Voornaam) for lrk in vm.leerkrachten| filter:lrkQuery | orderBy:'Naam' track by lrk.Id"></select>
+                                            data-ng-options="(lrk.Naam + ' ' + lrk.Voornaam) for lrk in vm.leerkrachten| filter:lrkQuery | filter: (chkVak || '') && vm.nieuweLes.Vak.Naam | orderBy:'Naam' track by lrk.Id"></select>
                                 </div>                                
                                 <div class="form-group">
                                     <button class="btn btn-primary" data-ng-click="vm.bevestigItem('leerkrachten')">Bevestigen</button>

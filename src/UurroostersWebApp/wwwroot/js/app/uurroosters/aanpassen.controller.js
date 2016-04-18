@@ -132,7 +132,7 @@
         vm.useExisting = function (les) {
             vm.nieuweLes.Vak = les.Vak;
             vm.nieuweLes.Lokaal = les.Lokaal;
-            vm.nieuweLes.Leerkracht = les.Leerkracht;
+            vm.nieuweLes.Leerkracht = vm.leerkrachten.find((lrk) => lrk.Id == les.Leerkracht.Id);
             vm.bevestigdeItems = {
                 vakken: true,
                 leerkrachten: true,
@@ -168,7 +168,6 @@
             if (vm.nieuweLes.Id) les.Id = vm.nieuweLes.Id;
             
             lessenService.insertLes(les).then(function (r) {
-                console.log("success")
                 vm.nieuweLes.Id = r.data;
                 vm.upsert(les);
                 vm.initialiseNieuweLes();
@@ -176,7 +175,7 @@
             }, function (e) {
                 console.log(e);
                 if (e.status == 409) { // Conflict
-                    alert("Lokaal of leerkracht is op dit tijdstip al ingepland voor klas " + e.data.KlasNaam)
+                    alert("Lokaal of leerkracht is op dit tijdstip al ingepland voor klas " + e.data.KlasNaam);
                 }
             }).finally(function () {
                 vm.isSubmitting = false;

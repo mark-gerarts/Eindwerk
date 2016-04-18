@@ -127,9 +127,14 @@
 }
 .bestaande-les {
     padding: 5px;
+    border-bottom: 1px solid #cfd1d2;
+}
+.bestaande-les:last-of-type {
+    border-bottom: none;
 }
 
 .bestaande-les:hover {
     cursor: pointer;
     background: #cfd1d2;
 }
+

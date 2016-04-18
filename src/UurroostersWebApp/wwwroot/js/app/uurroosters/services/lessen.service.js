@@ -16,6 +16,7 @@
         }
 
         this.insertLes = function (les) {
+            console.log(les)
             return $http.post("api/lessen", les);
         }
 
