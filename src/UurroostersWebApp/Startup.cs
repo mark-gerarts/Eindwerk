@@ -20,6 +20,7 @@ using UurroostersWebApp.Repositories.LesRepo;
 using UurroostersWebApp.ViewModels.LesViewModels;
 using UurroostersWebApp.Repositories.LesblokRepo;
 using UurroostersWebApp.Repositories.DagRepo;
+using UurroostersWebApp.Repositories.EventRepo;
 
 namespace UurroostersWebApp
 {
@@ -51,6 +52,7 @@ namespace UurroostersWebApp
             services.AddTransient<ILesRepository, LesRepository>();
             services.AddTransient<ILesblokRepository, LesblokRepository>();
             services.AddTransient<IDagRepository, DagRepository>();
+            services.AddTransient<IEventRepository, EventRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,8 +61,7 @@ namespace UurroostersWebApp
             // Om JS bestanden etc te kunnen serven
             app.UseStaticFiles();
 
-            // In de AutoMapperConfig class worden alle mappings gerigstreerd
-            // http://cpratt.co/using-automapper-creating-mappings/
+            // In de AutoMapperConfig class worden alle mappings geregistreerd
             AutoMapperConfig.RegisterMappings();
 
             app.UseMvc(config =>

@@ -74,6 +74,23 @@ CREATE TABLE Lessen(
 	CONSTRAINT FK_Lesblok_dag FOREIGN KEY (dagID) REFERENCES Dagen (id),
 	CONSTRAINT FK_Les_Vak FOREIGN KEY (vakID) REFERENCES Vakken (id)
 );
+CREATE TABLE Events(
+	id INT IDENTITY PRIMARY KEY,
+	naam VARCHAR(255),
+	omschrijving VARCHAR(MAX),
+	startTijdstip DATETIME,
+	eindTijdstip DATETIME,
+);
+CREATE TABLE EventsKlassen(
+	eventID INT,
+	klasID INT,
+	CONSTRAINT PK_EventsKlassen PRIMARY KEY(eventID, klasID),
+	CONSTRAINT FK_EK_event FOREIGN KEY (eventID) REFERENCES Events (id),
+	CONSTRAINT FK_EK_klas FOREIGN KEY (klasID) REFERENCES Klassen (id)
+);
+
+
+
 
 --Inserts
 -- Dagen

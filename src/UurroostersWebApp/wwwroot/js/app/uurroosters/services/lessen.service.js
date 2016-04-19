@@ -8,7 +8,7 @@
         this.promise;
 
         this.getLessenByKlasID = function (klasID) {
-            return $http.get("api/lessen/" + klasID);
+            return $http.get("api/uurroosters/" + klasID);
         }
 
         this.getDetailedLessenByKlasID = function (klasID) {

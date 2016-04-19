@@ -8,7 +8,7 @@ namespace UurroostersWebApp.ViewModels.LesViewModels
 {
     public class DisplayLesViewModel
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
 
         public int Jaar { get; set; }
 
