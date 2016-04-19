@@ -7,10 +7,13 @@
         var vm = this;
         
         vm.lessen = [];
+        vm.events = [];
+
         vm.currentKlas = {
             Id: $routeParams.klasID
         };
 
+        vm.startOfWeek = "20160418"; // ToDo
         vm.selectedLes = {};
 
         vm.dagen = [
@@ -40,12 +43,7 @@
             '#227FB0',
             '#2AB0C5',
             '#39C0B3'
-        ];
-
-        lessenService.getLessenByKlasID($routeParams.klasID).then(function (r) {
-            angular.copy(r.data, vm.lessen);
-            vm.generateColors(vm.lessen);
-        });
+        ];   
 
         vm.generateColors = function (lessen) {
             var usedColors = {};
@@ -97,8 +95,53 @@
             }
         }
 
+        vm.getEventStyle = function (event) {
+            var start = vm.convertTime(event.StartTijdstip);
+            var einde = vm.convertTime(event.EindTijdstip);
+
+            return {
+                "margin-top": start + "px", 
+                "height": (einde - start) + "px",
+                "background": "#FFF"
+            };
+        }
+
         vm.getFormattedTime = function (les) {
             return les.Starttijd + " - " + les.Eindtijd;
         }
+
+        vm.dateTimeToTimeString = function(date) {
+            return date.toTimeString().substring(0, 5);
+        }
+
+        vm.formatEvents = function () {
+            var lowerBound = 8;
+            var upperBound = 18;
+
+            vm.events.forEach(function (event) {
+                var start = new Date(event.StartTijdstip);
+                var eind = new Date(event.EindTijdstip);
+                if (start.getHours() < lowerBound) start.setHours(lowerBound);
+                if (eind.getHours() > upperBound) eind.setHours(upperBound);
+
+                event.StartTijdstip = vm.dateTimeToTimeString(start);
+                event.EindTijdstip = vm.dateTimeToTimeString(eind);
+
+                //Temporary
+                var dag = start.getDay() + 1;
+                event.DagNaam = vm.dagen[dag];
+            });
+        }
+
+        vm.init = function () {
+            lessenService.getUurrooster($routeParams.klasID, vm.startOfWeek).then(function (r) {
+                angular.copy(r.data.lessen, vm.lessen);
+                angular.copy(r.data.events, vm.events);                
+                vm.formatEvents();
+                console.log(vm.events)
+                vm.generateColors(vm.lessen);
+            });
+        }
+        vm.init();
     }
 })();

@@ -7,8 +7,8 @@
         this.lessen = [];
         this.promise;
 
-        this.getLessenByKlasID = function (klasID) {
-            return $http.get("api/uurroosters/" + klasID);
+        this.getUurrooster = function (klasID, startdag) {
+            return $http.get("api/uurroosters/" + klasID + "/" + startdag);
         }
 
         this.getDetailedLessenByKlasID = function (klasID) {

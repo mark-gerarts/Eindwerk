@@ -52,6 +52,12 @@
             <p>{{les.LokaalNaam}}</p>
             <p>{{ vm.getFormattedTime(les) }}</p>    
         </div>
+        <div class="les event"
+             data-ng-repeat="event in vm.events | filter:{DagNaam:dag}"
+             data-ng-style="{{vm.getEventStyle(event)}}"
+        >
+            <p>{{event.Naam}}</p>
+        </div>
 
     </div>
 </div>

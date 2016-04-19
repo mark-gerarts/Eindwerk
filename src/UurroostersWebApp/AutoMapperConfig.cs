@@ -51,7 +51,7 @@ namespace UurroostersWebApp
                     .ForMember(dest => dest.Lokaal, opt => opt.MapFrom(src => new Lokaal { Id = src.LokaalID }))
                     .ForMember(dest => dest.Klas, opt => opt.MapFrom(src => new Klas { Id = src.KlasID }))
                     .ForMember(dest => dest.Vak, opt => opt.MapFrom(src => new Vak { Id = src.VakID }));
-
+                
                 //Campussen
                 config.CreateMap<InsertCampusViewModel, Campus>();
                 config.CreateMap<UpdateCampusViewModel, Campus>();
