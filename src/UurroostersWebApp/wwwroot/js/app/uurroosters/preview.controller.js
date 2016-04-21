@@ -115,14 +115,10 @@
         }
 
         vm.formatEvents = function () {
-            var lowerBound = 8;
-            var upperBound = 18;
 
             vm.events.forEach(function (event) {
                 var start = new Date(event.StartTijdstip);
                 var eind = new Date(event.EindTijdstip);
-                if (start.getHours() < lowerBound) start.setHours(lowerBound);
-                if (eind.getHours() > upperBound) eind.setHours(upperBound);
 
                 event.StartTijdstip = vm.dateTimeToTimeString(start);
                 event.EindTijdstip = vm.dateTimeToTimeString(eind);

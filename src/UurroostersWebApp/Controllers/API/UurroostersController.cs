@@ -21,13 +21,13 @@ namespace UurroostersWebApp.Controllers.API
 
         private DateTime start;
         private DateTime einde;
-        private List<DisplayLesViewModel> OpgesplitsteLessen;
+        private List<DisplayLesViewModel> OpgesplitsteLessen = new List<DisplayLesViewModel>();
+        private List<Event> OpgesplitsteEvents = new List<Event>();
 
         public UurroostersController(ILesRepository les, IEventRepository eventrepo)
         {
             _les = les;
             _event = eventrepo;
-            OpgesplitsteLessen = new List<DisplayLesViewModel>();
         }
 
         [HttpGet("{klasID}/{startOfWeek}")]
@@ -100,6 +100,52 @@ namespace UurroostersWebApp.Controllers.API
                         }
                     }
                 }
+
+                //Opsplitsen events (8 - 18)
+                var lowerBound = new TimeSpan(8, 0, 0);
+                var upperBound = new TimeSpan(18, 0, 0);
+
+                if (ev.StartTijdstip.TimeOfDay < lowerBound)
+                {
+                    ev.StartTijdstip = ev.StartTijdstip.Date + lowerBound;
+                }
+                if (ev.EindTijdstip.TimeOfDay > upperBound)
+                {
+                    ev.EindTijdstip = ev.EindTijdstip.Date + upperBound;
+                }
+
+                if (ev.StartTijdstip.Date < ev.EindTijdstip.Date)
+                {
+                    var iDate = new DateTime(ev.StartTijdstip.Ticks);
+                    while(iDate < ev.EindTijdstip)
+                    {
+                        var newEvent = new Event
+                        {
+                            Naam = ev.Naam,
+                            Omschrijving = ev.Omschrijving
+                        };
+
+                        if (iDate.Date == ev.StartTijdstip.Date)
+                        {
+                            newEvent.StartTijdstip = ev.StartTijdstip;
+                        }
+                        else if (iDate.Date == ev.EindTijdstip.Date)
+                        {
+                            newEvent.EindTijdstip = ev.EindTijdstip;
+                        }
+                        else
+                        {
+                            newEvent.StartTijdstip = iDate.Date + lowerBound;
+                            newEvent.EindTijdstip = iDate.Date + upperBound;
+                        }
+                        OpgesplitsteEvents.Add(newEvent);
+                        iDate.AddDays(1);
+                    }
+                }
+                else
+                {
+                    OpgesplitsteEvents.Add(ev);
+                }      
             }
 
             // Merge met de opgesplitste lessen.
