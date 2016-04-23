@@ -139,7 +139,7 @@ namespace UurroostersWebApp.Controllers.API
                             newEvent.EindTijdstip = iDate.Date + upperBound;
                         }
                         OpgesplitsteEvents.Add(newEvent);
-                        iDate.AddDays(1);
+                        iDate = iDate.AddDays(1);
                     }
                 }
                 else
@@ -154,7 +154,7 @@ namespace UurroostersWebApp.Controllers.API
             var output = new
             {
                 lessen = lessen,
-                events = events
+                events = OpgesplitsteEvents
             };
 
             return Json(output);

@@ -13,7 +13,17 @@
             Id: $routeParams.klasID
         };
 
-        vm.startOfWeek = "20160418"; // ToDo
+        vm.today = new Date();
+        vm.startOfWeek = function () {
+            var start;
+            var currentDay = vm.today.getDay();
+            while (currentDay != 1) {
+                //WIP
+            }
+        }
+        //vm.startOfWeek = "20160418"; // ToDo
+        
+
         vm.selectedLes = {};
 
         vm.dagen = [
@@ -99,10 +109,16 @@
             var start = vm.convertTime(event.StartTijdstip);
             var einde = vm.convertTime(event.EindTijdstip);
 
+            if (event.StartTijdstip == "08:00") {
+                start = vm.convertTime("08:05");
+            }
+            if (event.EindTijdstip == "18:00") {
+                einde = vm.convertTime("17:55");
+            }
+
             return {
                 "margin-top": start + "px", 
-                "height": (einde - start) + "px",
-                "background": "#FFF"
+                "height": (einde - start) + "px"                
             };
         }
 
@@ -115,7 +131,6 @@
         }
 
         vm.formatEvents = function () {
-
             vm.events.forEach(function (event) {
                 var start = new Date(event.StartTijdstip);
                 var eind = new Date(event.EindTijdstip);
@@ -124,7 +139,7 @@
                 event.EindTijdstip = vm.dateTimeToTimeString(eind);
 
                 //Temporary
-                var dag = start.getDay() + 1;
+                var dag = start.getDay() - 1;
                 event.DagNaam = vm.dagen[dag];
             });
         }
