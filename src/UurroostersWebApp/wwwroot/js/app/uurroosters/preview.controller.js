@@ -13,15 +13,24 @@
             Id: $routeParams.klasID
         };
 
-        vm.today = new Date();
-        vm.startOfWeek = function () {
-            var start;
-            var currentDay = vm.today.getDay();
+        vm.currentDay = new Date();
+
+        vm.startOfWeek = function (date) {
+            var start = date || new Date();
+            var currentDay = start.getDay();
             while (currentDay != 1) {
-                //WIP
+                start.setDate(start.getDate() - 1);
+                currentDay = start.getDay();
             }
+            return start;
         }
         //vm.startOfWeek = "20160418"; // ToDo
+
+        vm.getShortDate = function (index) {
+            var start = vm.startOfWeek(vm.currentDay);
+            start.setDate(start.getDate() + index);
+            return start.getDate() + "/" + (start.getMonth() + 1);
+        }
         
 
         vm.selectedLes = {};
@@ -144,15 +153,46 @@
             });
         }
 
-        vm.init = function () {
-            lessenService.getUurrooster($routeParams.klasID, vm.startOfWeek).then(function (r) {
+        vm.formatDate = function(date) {
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+
+            if(month < 10) month = "0" + month.toString();
+            if(day < 10) day = "0" + day.toString();
+
+            return year.toString() + month.toString() + day.toString();
+        }
+
+        vm.previousWeek = function () {
+            var newDate = new Date();
+            newDate.setDate(vm.currentDay.getDate() - 7);
+            vm.currentDay = newDate;
+            vm.loadWeek();
+        }
+
+        vm.nextWeek = function () {
+            var newDate = new Date();
+            newDate.setDate(vm.currentDay.getDate() + 7);
+            vm.currentDay = newDate;
+            vm.loadWeek();
+        }
+
+        vm.loadWeek = function (date) {
+            vm.isLoading = true;
+
+            date = date || vm.formatDate(vm.startOfWeek(vm.currentDay));
+            console.log(date)
+            lessenService.getUurrooster($routeParams.klasID, date).then(function (r) {
                 angular.copy(r.data.lessen, vm.lessen);
                 angular.copy(r.data.events, vm.events);                
                 vm.formatEvents();
                 console.log(vm.events)
                 vm.generateColors(vm.lessen);
+            }).finally(function () {
+                vm.isLoading = false;
             });
         }
-        vm.init();
+        vm.loadWeek();
     }
 })();
