@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
-using UurroostersWebApp.Repositories.LokaalRepo;
+using UurroostersWebApp.Repositories;
 using UurroostersWebApp.Models;
-using UurroostersWebApp.ViewModels.LokaalViewModels;
+using UurroostersWebApp.ViewModels;
 using AutoMapper;
 
 namespace UurroostersWebApp.Controllers.API

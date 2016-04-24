@@ -10,6 +10,7 @@
     angular.module("klassenApp", []);
     angular.module("lokalenApp", []);
     angular.module("uurroostersApp", []);
+    angular.module("eventsApp", []);
 
     // De main module.
     angular.module("app", [
@@ -20,7 +21,8 @@
         "studierichtingenApp",
         "klassenApp",
         "lokalenApp",
-        "uurroostersApp"
+        "uurroostersApp",
+        "eventsApp"
     ]).config(function ($routeProvider) {
         // De gedeelde views' URLs
         var baseUrl = {
@@ -173,6 +175,13 @@
             controller: 'uurroostersVerwijderenCtrl',
             controllerAs: 'vm',
             templateUrl: 'js/app/uurroosters/views/verwijderen.html'
+        });
+
+        //Events
+        $routeProvider.when('/events/nieuw', {
+            controller: 'eventsNieuwCtrl',
+            controllerAs: 'vm',
+            templateUrl: 'js/app/events/views/nieuw.html'
         });
     });
 })();

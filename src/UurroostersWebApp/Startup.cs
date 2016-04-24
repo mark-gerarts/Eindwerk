@@ -10,17 +10,6 @@ using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.Extensions.Configuration;
 using UurroostersWebApp.Models;
 using UurroostersWebApp.Repositories;
-using UurroostersWebApp.Repositories.LeerkrachtRepo;
-using UurroostersWebApp.Repositories.VakRepo;
-using UurroostersWebApp.Repositories.CampusRepo;
-using UurroostersWebApp.Repositories.StudierichtingRepo;
-using UurroostersWebApp.Repositories.KlasRepo;
-using UurroostersWebApp.Repositories.LokaalRepo;
-using UurroostersWebApp.Repositories.LesRepo;
-using UurroostersWebApp.ViewModels.LesViewModels;
-using UurroostersWebApp.Repositories.LesblokRepo;
-using UurroostersWebApp.Repositories.DagRepo;
-using UurroostersWebApp.Repositories.EventRepo;
 
 namespace UurroostersWebApp
 {

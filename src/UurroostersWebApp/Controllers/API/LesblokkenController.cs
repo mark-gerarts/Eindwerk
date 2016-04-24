@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
-using UurroostersWebApp.Repositories.LesblokRepo;
+using UurroostersWebApp.Repositories;
 using AutoMapper;
-using UurroostersWebApp.ViewModels.LesblokViewModels;
+using UurroostersWebApp.ViewModels;
 using UurroostersWebApp.Models;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860

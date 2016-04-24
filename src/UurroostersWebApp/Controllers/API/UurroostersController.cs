@@ -7,9 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UurroostersWebApp.Models;
 using UurroostersWebApp.Repositories;
-using UurroostersWebApp.Repositories.EventRepo;
-using UurroostersWebApp.Repositories.LesRepo;
-using UurroostersWebApp.ViewModels.LesViewModels;
+using UurroostersWebApp.ViewModels;
 
 namespace UurroostersWebApp.Controllers.API
 {

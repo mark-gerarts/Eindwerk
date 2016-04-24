@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
-using UurroostersWebApp.Repositories.StudierichtingRepo;
+using UurroostersWebApp.Repositories;
 using UurroostersWebApp.Models;
-using UurroostersWebApp.ViewModels.StudierichtingVIewModels;
+using UurroostersWebApp.ViewModels;
 using AutoMapper;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860

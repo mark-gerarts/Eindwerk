@@ -4,14 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UurroostersWebApp.Models;
-using UurroostersWebApp.ViewModels.CampusViewModels;
-using UurroostersWebApp.ViewModels.KlasViewModels;
-using UurroostersWebApp.ViewModels.LeerkrachtViewModels;
-using UurroostersWebApp.ViewModels.LesblokViewModels;
-using UurroostersWebApp.ViewModels.LesViewModels;
-using UurroostersWebApp.ViewModels.LokaalViewModels;
-using UurroostersWebApp.ViewModels.StudierichtingVIewModels;
-using UurroostersWebApp.ViewModels.VakVIewModels;
+using UurroostersWebApp.ViewModels;
 
 namespace UurroostersWebApp
 {
@@ -38,7 +31,7 @@ namespace UurroostersWebApp
                     .ForMember(dest => dest.Eindtijd, opt => opt.MapFrom(src => ConvertTimeSpan(src.Lesblok.Eindtijd)))
                     .ForMember(dest => dest.LeerkrachtNaam, opt => opt.MapFrom(src => src.Leerkracht.Naam + " " + src.Leerkracht.Voornaam))
                     .ForMember(dest => dest.KlasNaam, opt => opt.MapFrom(src => src.Klas.Naam));
-
+                
                 //Lesblokken
                 config.CreateMap<Lesblok, DisplayLesblokViewModel>()
                     .ForMember(dest => dest.Starttijd, opt => opt.MapFrom(src => ConvertTimeSpan(src.Starttijd)))
@@ -51,7 +44,10 @@ namespace UurroostersWebApp
                     .ForMember(dest => dest.Lokaal, opt => opt.MapFrom(src => new Lokaal { Id = src.LokaalID }))
                     .ForMember(dest => dest.Klas, opt => opt.MapFrom(src => new Klas { Id = src.KlasID }))
                     .ForMember(dest => dest.Vak, opt => opt.MapFrom(src => new Vak { Id = src.VakID }));
-                
+
+                //Events
+                config.CreateMap<InsertEventViewModel, Event>();
+
                 //Campussen
                 config.CreateMap<InsertCampusViewModel, Campus>();
                 config.CreateMap<UpdateCampusViewModel, Campus>();

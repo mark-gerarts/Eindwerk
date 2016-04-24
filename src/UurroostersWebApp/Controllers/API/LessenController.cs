@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
-using UurroostersWebApp.Repositories.LesRepo;
+using UurroostersWebApp.Repositories;
 using AutoMapper;
 using UurroostersWebApp.Models;
-using UurroostersWebApp.ViewModels.LesViewModels;
+using UurroostersWebApp.ViewModels;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
