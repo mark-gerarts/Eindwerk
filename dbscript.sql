@@ -190,6 +190,27 @@ BEGIN
 	COMMIT TRANSACTION UpdateLeerkacht;
 END
 
+ALTER PROCEDURE spInsertLeerkracht(
+	@naam VARCHAR(255),
+	@voornaam VARCHAR(255),
+	@vakken VARCHAR(255),
+	@leerkrachtID INT OUTPUT
+) AS
+BEGIN
+	BEGIN TRANSACTION InsertLeerkracht;
+	
+	--Insert van de leerkracht met output van identity
+	INSERT INTO Leerkrachten  (naam, voornaam)
+	VALUES (@naam, @voornaam)
+	SET @leerkrachtID = SCOPE_IDENTITY();
+
+	-- Insert van de vakken
+	INSERT INTO LeerkrachtVakken (leerkrachtID, vakID)
+		(SELECT @leerkrachtID, i.number FROM iter_intlist_to_tbl(@vakken) i);
+
+	COMMIT TRANSACTION InsertLeerkacht;
+END
+
 CREATE PROCEDURE spUpsertLes(
 	@jaar SMALLINT,
 	@lesblokID INT,
@@ -290,4 +311,28 @@ BEGIN
 			AND (l.lokaalID=@lokaalID OR l.leerkrachtID=@leerkrachtID) -- Met dezelfde leerkracht OF lokaal
 			AND l.id<>@id
 	END
+END
+
+
+CREATE PROCEDURE spInsertEvent(
+	@naam VARCHAR(255),
+	@omschrijving VARCHAR(MAX),
+	@startTijdstip DATETIME,
+	@eindTijdstip DATETIME,
+	@klasIDs VARCHAR(MAX),
+	@eventID INT OUTPUT
+) AS
+BEGIN
+	BEGIN TRANSACTION InsertEvent;
+	
+	--Insert van de leerkracht met output van identity
+	INSERT INTO Events  (naam, omschrijving, startTijdstip, eindTijdstip)
+	VALUES (@naam, @omschrijving, @startTijdstip, @eindTijdstip)
+	SET @eventID = SCOPE_IDENTITY();
+
+	-- Insert van de vakken
+	INSERT INTO EventsKlassen(eventID, klasID)
+		(SELECT @eventID, i.number FROM iter_intlist_to_tbl(@klasIDs) i);
+
+	COMMIT TRANSACTION InsertEvent;
 END

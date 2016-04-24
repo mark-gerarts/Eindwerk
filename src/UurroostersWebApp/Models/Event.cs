@@ -16,5 +16,7 @@ namespace UurroostersWebApp.Models
         public DateTime StartTijdstip { get; set; }
 
         public DateTime EindTijdstip { get; set; }
+
+        public List<Klas> Klassen { get; set; }
     }
 }

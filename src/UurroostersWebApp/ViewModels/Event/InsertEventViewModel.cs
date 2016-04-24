@@ -20,5 +20,7 @@ namespace UurroostersWebApp.ViewModels
 
         [Required]
         public string EindTijdstip { get; set; }
+
+        public List<int> Klassen { get; set; }
     }
 }

@@ -13,9 +13,13 @@
                 Vakken: []
             };
 
-            leerkracht.Vakken.forEach(function (vak) {
-                insertvm.Vakken.push(vak.Id);
-            });
+            if (leerkracht.Vakken) {
+                leerkracht.Vakken.forEach(function (vak) {
+                    insertvm.Vakken.push(vak.Id);
+                });
+            } else {
+                leerkracht.Vakken = [];
+            }            
 
             return insertvm;
         }

@@ -21,27 +21,17 @@ namespace UurroostersWebApp.Repositories
 
         public int Insert(Leerkracht leerkracht)
         {
-            string query = "INSERT INTO Leerkrachten (naam, voornaam) OUTPUT Inserted.id VALUES (@naam, @voornaam)";
+            string vakkenIDsString = string.Join(" ", leerkracht.Vakken.Select(l => l.Id).ToList());
 
-            _db.Open();
-            int identity = _db.Query<int>(query, new { leerkracht.Naam, leerkracht.Voornaam }).Single();
-            if(leerkracht.Vakken != null && leerkracht.Vakken.Count() > 0)
-            {
-                string vakQuery = "INSERT INTO LeerkrachtVakken (leerkrachtID, vakID) VALUES (@lid, @vid)";
-                foreach (Vak vak in leerkracht.Vakken)
-                {
-                    try
-                    {
-                        _db.Execute(vakQuery, new { lid = identity, vid = vak.Id });
-                    }
-                    catch(Exception)
-                    {
-                        break;
-                    }
-                }
-            }
-            _db.Close();
-            return identity;
+            var parameters = new DynamicParameters();
+            parameters.Add("@leerkrachtID", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            parameters.Add("@naam", leerkracht.Naam);
+            parameters.Add("@voornaam", leerkracht.Voornaam);
+            parameters.Add("@vakken", vakkenIDsString);
+
+            _db.Execute("spInsertLeerkracht", parameters, commandType: CommandType.StoredProcedure);
+
+            return parameters.Get<int>("leerkrachtID");
         }
 
         public void Delete(int id)
@@ -121,6 +111,7 @@ namespace UurroostersWebApp.Repositories
 
         public void addVak(int leerkrachtID, int vakID)
         {
+            //Fix
             string query = "INSERT INTO LeerkrachtVakken (leerkrachtID, vakID) VALUES (@lkid, @vid)";
             try
             {
@@ -134,6 +125,7 @@ namespace UurroostersWebApp.Repositories
 
         public void removeVak(int leerkrachtID, int vakID)
         {
+            //fix
             string query = "DELETE FROM LeerkrachtVakken WHERE leerkrachtID = @lkid AND vakID = @vid";
             try
             {

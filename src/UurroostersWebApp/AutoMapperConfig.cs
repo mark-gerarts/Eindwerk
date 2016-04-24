@@ -46,7 +46,11 @@ namespace UurroostersWebApp
                     .ForMember(dest => dest.Vak, opt => opt.MapFrom(src => new Vak { Id = src.VakID }));
 
                 //Events
-                config.CreateMap<InsertEventViewModel, Event>();
+                config.CreateMap<InsertEventViewModel, Event>()
+                    .ForMember(dest => dest.StartTijdstip, opt => opt.MapFrom(src => DateTime.Parse(src.StartTijdstip)))
+                    .ForMember(dest => dest.EindTijdstip, opt => opt.MapFrom(src => DateTime.Parse(src.EindTijdstip)))
+                    .ForMember(dest => dest.Klassen, opt => opt.ResolveUsing(src => ConvertKlasList(src.Klassen)));
+                config.CreateMap<Event, DisplayEventViewModel>();
 
                 //Campussen
                 config.CreateMap<InsertCampusViewModel, Campus>();
@@ -94,6 +98,18 @@ namespace UurroostersWebApp
             foreach (int vakID in src)
             {
                 output.Add(new Vak { Id = vakID });
+            }
+
+            return output;
+        }
+
+        private static List<Klas> ConvertKlasList(List<int> src)
+        {
+            List<Klas> output = new List<Klas>();
+
+            foreach(int klasID in src)
+            {
+                output.Add(new Klas { Id = klasID });
             }
 
             return output;

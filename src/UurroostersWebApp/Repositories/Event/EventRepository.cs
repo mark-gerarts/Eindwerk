@@ -43,9 +43,11 @@ namespace UurroostersWebApp.Repositories
             return _db.Query<Event>(query, new { klasID }).ToList();
         }
 
-        public void Delete(int id)
+        public void Delete(int eventID)
         {
-            throw new NotImplementedException();
+            string query = "DELETE FROM EventsKlassen WHERE eventID = @eventID; " +
+                "DELETE FROM Events WHERE id = @eventID";
+            _db.Execute(query, new { eventID });
         }
 
         public Event Find(int id)
@@ -58,9 +60,21 @@ namespace UurroostersWebApp.Repositories
             throw new NotImplementedException();
         }
         
-        public int Insert(Event entity)
+        public int Insert(Event ev)
         {
-            throw new NotImplementedException();
+            string klasIDs = string.Join(" ", ev.Klassen.Select(k => k.Id).ToList());
+
+            var parameters = new DynamicParameters();
+            parameters.Add("@eventID", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            parameters.Add("@naam", ev.Naam);
+            parameters.Add("@omschrijving", ev.Omschrijving);
+            parameters.Add("@startTijdstip", ev.StartTijdstip);
+            parameters.Add("@eindTijdstip", ev.EindTijdstip);
+            parameters.Add("@klasIDs", klasIDs);
+
+            _db.Execute("spInsertEvent", parameters, commandType: CommandType.StoredProcedure);
+
+            return parameters.Get<int>("eventID");
         }
 
         public void Update(Event entity)
