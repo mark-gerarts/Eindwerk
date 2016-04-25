@@ -13,6 +13,12 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 
+    <!-- Datetime picker -->
+    <script src="~/lib/moment/min/moment.min.js"></script>
+    <script src="~/lib/moment/locale/nl.js"></script>
+    <script src="~/lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="~/lib/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+
     <!-- Angular -->
     <script src="~/lib/angular/angular.min.js"></script>
     <script src="~/lib/angular-route/angular-route.min.js"></script>
@@ -103,11 +109,18 @@
             </div>
             <div class="collapse navbar-collapse" id="nav">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
+                    <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Uurroosters <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#/uurroosters">Uurroosters</a></li>
                             <li><a href="#/lesblokken">Lesblokken</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Events <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#/events/nieuw">Nieuw</a></li>
+                            <li><a href="#/events">Overzicht</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
