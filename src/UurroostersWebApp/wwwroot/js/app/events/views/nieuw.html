@@ -26,54 +26,79 @@
                     <div class="form-group">
                         <select class="form-control"
                                 size="5"
-                                data-ng-model="vm.selectedKlassen"
-                                data-ng-options="klas.Naam for klas in vm.klassen | filter:klasQuery | orderBy:'Naam' track by klas.Id"></select>
+                                data-ng-model="vm.nieuwEvent.Klassen"
+                                data-ng-multiple="true"
+                                data-ng-options="klas.Naam for klas in vm.klassen | filter:klasQuery | orderBy:'Naam' track by klas.Id"
+                                multiple>
+
+                        </select>
                     </div>
-                    //ToDo: filteren op bv campus
+                    <p data-toggle="collapse" class="my-collapse-title" href="#campussen" aria-expanded="false">
+                        <i class="fa fa-angle-double-right fa-fw"></i> Selecteer per campus
+                    </p>
+                    <div class="collapse" id="campussen">
+                        <div class="checkbox"
+                             data-ng-repeat="campus in vm.campussen | orderBy:'Naam' "
+                        >
+                            <label>
+                                <input type="checkbox"> {{campus.Naam}}
+                            </label>
+                        </div>
+                    </div>
                 </fieldset>
             </form>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-8">
         <div class="well">
             <form>
                 <fieldset>
                     <legend>Info</legend>
-                    <div class="form-group">
-                        <label class="control-label" for="event_naam">Naam:</label>
-                        <input type="text" class="form-control" name="event_naam" id="event_naam" />
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="event_omschrijving">Omschrijving:</label>
-                        <textarea class="form-control" name="event_omschrijving" id="event_omschrijving"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Start tijdstip</label>
-                        <div class='input-group date datetimepicker'>
-                            <input type='text' class="form-control" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label" for="event_naam">Naam:</label>
+                                <input type="text" class="form-control" name="event_naam" id="event_naam" data-ng-model="vm.nieuwEvent.Naam"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="event_omschrijving">Omschrijving:</label>
+                                <textarea class="form-control" name="event_omschrijving" id="event_omschrijving" data-ng-model="vm.nieuwEvent.Omschrijving"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Starttijdstip</label>
+                                <div class='input-group date datetimepicker'>
+                                    <input type='text' class="form-control" data-ng-model="vm.nieuwEvent.StartTijdstip"/>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Eindtijdstip</label>
+                                <div class='input-group date datetimepicker'>
+                                    <input type='text' class="form-control" data-ng-model="vm.nieuwEvent.EindTijdstip"/>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label>Eind tijdstip</label>
-                        <div class='input-group date datetimepicker'>
-                            <input type='text' class="form-control" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                    </div>
-                    <script type="text/javascript">
-                        $(function () {
-                            $('.datetimepicker').datetimepicker({
-                                locale: 'nl'
-                            });
-                        });
-                    </script>
+                    <button class="btn btn-primary">Opslaan</button>
+                    <button class="btn btn-default">Annuleren</button>
                 </fieldset>
             </form>
-        </div>
-    </div>
+        </div><!--// well -->
+    </div><!--// col-md-4 -->
 </div>
+<pre>{{vm.nieuwEvent | json}}</pre>
+
+<script type="text/javascript">
+    $(function () {
+        $('.datetimepicker').datetimepicker({
+            locale: 'nl'
+        });
+    });
+</script>

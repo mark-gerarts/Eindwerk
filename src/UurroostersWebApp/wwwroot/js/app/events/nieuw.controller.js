@@ -8,9 +8,24 @@
         
         vm.isLoading = true;
         vm.klassen = [];
+        vm.campussen = [];
+
+        vm.nieuwEvent = {};
+
+        vm.resetNieuwEvent = function () {
+            vm.nieuwEvent = {
+                Naam: "",
+                Omschrijving: "",
+                StartTijdstip: "",
+                EindTijdstip: "",
+                Klassen: []
+            }
+        }
 
         vm.init = function () {
             vm.isLoading = true;
+
+            vm.resetNieuwEvent();
 
             function getData(service) {
                 var defer = $q.defer();

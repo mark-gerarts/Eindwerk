@@ -12,3 +12,8 @@
 .pointer:hover {
     cursor: pointer;
 }
+
+.my-collapse-title:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
