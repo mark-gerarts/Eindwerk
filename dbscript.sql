@@ -190,7 +190,7 @@ BEGIN
 	COMMIT TRANSACTION UpdateLeerkacht;
 END
 
-ALTER PROCEDURE spInsertLeerkracht(
+CREATE PROCEDURE spInsertLeerkracht(
 	@naam VARCHAR(255),
 	@voornaam VARCHAR(255),
 	@vakken VARCHAR(255),

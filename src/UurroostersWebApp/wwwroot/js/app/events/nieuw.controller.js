@@ -3,9 +3,10 @@
 
     angular.module("eventsApp").controller("eventsNieuwCtrl", eventsNieuwCtrl);
 
-    function eventsNieuwCtrl($q, klassenService, campussenService) {
+    function eventsNieuwCtrl($q, $scope, klassenService, campussenService, eventsService) {
         var vm = this;
         
+        vm.submitting = false;
         vm.isLoading = true;
         vm.klassen = [];
         vm.campussen = [];
@@ -20,6 +21,17 @@
                 EindTijdstip: "",
                 Klassen: []
             }
+        }
+
+        vm.insertEvent = function () {
+            vm.submitting = true;
+
+            eventsService.async().then(function () {
+                eventsService.insert(vm.nieuwEvent);
+                vm.resetNieuwEvent();
+            }).finally(function () {
+                vm.submitting = false;
+            });
         }
 
         vm.init = function () {
@@ -52,5 +64,23 @@
             })
         }
         vm.init();
+
+        $(function () {
+            $('.datetimepicker').datetimepicker({
+                locale: 'nl'
+            });
+
+            $("#starttijdstip").on("dp.change", function () {
+                $scope.$apply(function () {
+                    vm.nieuwEvent.StartTijdstip = $("#startinput").val();
+                });                
+            });
+
+            $("#eindtijdstip").on("dp.change", function () {
+                $scope.$apply(function () {
+                    vm.nieuwEvent.EindTijdstip = $("#eindinput").val();
+                });
+            });
+        });
     }
 })();

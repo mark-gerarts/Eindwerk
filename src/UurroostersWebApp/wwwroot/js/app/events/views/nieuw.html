@@ -12,7 +12,7 @@
     <div class="col-md-4">
         <!-- Klassen kiezen-->
         <div class="well">
-            <form>
+            <form novalidate name="nieuw">
                 <fieldset>
                     <legend>Klassen</legend>
                     <div class="form-group">
@@ -26,13 +26,18 @@
                     <div class="form-group">
                         <select class="form-control"
                                 size="5"
+                                id="klassen"
+                                name="klassen"
                                 data-ng-model="vm.nieuwEvent.Klassen"
                                 data-ng-multiple="true"
                                 data-ng-options="klas.Naam for klas in vm.klassen | filter:klasQuery | orderBy:'Naam' track by klas.Id"
+                                required
                                 multiple>
 
                         </select>
+                        <span data-ng-show="nieuw.klassen.$error.required" class="text-warning">Ten minste één klas is verplicht.</span>
                     </div>
+                    
                     <p data-toggle="collapse" class="my-collapse-title" href="#campussen" aria-expanded="false">
                         <i class="fa fa-angle-double-right fa-fw"></i> Selecteer per campus
                     </p>
@@ -51,43 +56,59 @@
     </div>
     <div class="col-md-8">
         <div class="well">
-            <form>
+            <form novalidate name="nieuw" data-ng-submit="vm.insertEvent()">
                 <fieldset>
                     <legend>Info</legend>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label" for="event_naam">Naam:</label>
-                                <input type="text" class="form-control" name="event_naam" id="event_naam" data-ng-model="vm.nieuwEvent.Naam"/>
+                                <input type="text" id="naam" name="naam"
+                                       class="form-control" 
+                                       name="event_naam"
+                                       data-ng-model="vm.nieuwEvent.Naam"
+                                       data-ng-maxlength="255"
+                                       required/>
+                                <span data-ng-show="nieuw.naam.$error.required" class="text-warning">Naam is een verplicht veld</span>
+                                <span data-ng-show="nieuw.naam.$error.maxlength" class="text-warning">Naam mag maximaal 255 tekens lang zijn.</span>
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="event_omschrijving">Omschrijving:</label>
-                                <textarea class="form-control" name="event_omschrijving" id="event_omschrijving" data-ng-model="vm.nieuwEvent.Omschrijving"></textarea>
+                                <textarea class="form-control" 
+                                          name="omschrijving" 
+                                          id="omschrijving" 
+                                          data-ng-model="vm.nieuwEvent.Omschrijving"
+                                          data-ng-maxlength="255"
+                                          required></textarea>
+                                <span data-ng-show="nieuw.omschrijving.$error.required" class="text-warning">Omschrijving is een verplicht veld</span>
+                                <span data-ng-show="nieuw.omschrijving.$error.maxlength" class="text-warning">Omschrijving mag maximaal 255 tekens lang zijn.</span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Starttijdstip</label>
-                                <div class='input-group date datetimepicker'>
-                                    <input type='text' class="form-control" data-ng-model="vm.nieuwEvent.StartTijdstip"/>
+                                <div class='input-group date datetimepicker' id="starttijdstip">
+                                    <input type='text' class="form-control" data-ng-model="vm.nieuwEvent.StartTijdstip" id="startinput" name="startinput" required/>
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
+                                <span data-ng-show="nieuw.startinput.$error.required" class="text-warning">Starttijdstip is een verplicht veld</span>
                             </div>
                             <div class="form-group">
                                 <label>Eindtijdstip</label>
-                                <div class='input-group date datetimepicker'>
-                                    <input type='text' class="form-control" data-ng-model="vm.nieuwEvent.EindTijdstip"/>
+                                <div class='input-group date datetimepicker' id="eindtijdstip">
+                                    <input type='text' class="form-control" data-ng-model="vm.nieuwEvent.EindTijdstip" id="eindinput" name="eindinput" required/>
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
+                                    </span>                                    
                                 </div>
+                                <span data-ng-show="nieuw.eindinput.$error.required" class="text-warning">Eindtijdstip is een verplicht veld</span>
                             </div>
                         </div>
                     </div>
                     <button class="btn btn-primary">Opslaan</button>
-                    <button class="btn btn-default">Annuleren</button>
+                    <span class="btn btn-default" data-ng-click="vm.resetNieuwEvent()">Annuleren</span>
                 </fieldset>
             </form>
         </div><!--// well -->
@@ -96,9 +117,5 @@
 <pre>{{vm.nieuwEvent | json}}</pre>
 
 <script type="text/javascript">
-    $(function () {
-        $('.datetimepicker').datetimepicker({
-            locale: 'nl'
-        });
-    });
+    
 </script>
