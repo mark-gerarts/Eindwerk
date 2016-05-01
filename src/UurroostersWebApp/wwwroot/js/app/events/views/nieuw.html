@@ -32,24 +32,24 @@
                                 data-ng-multiple="true"
                                 data-ng-options="klas.Naam for klas in vm.klassen | filter:klasQuery | orderBy:'Naam' track by klas.Id"
                                 required
-                                multiple>
-
-                        </select>
+                                multiple></select>
                         <span data-ng-show="nieuw.klassen.$error.required" class="text-warning">Ten minste één klas is verplicht.</span>
                     </div>
-                    
+
                     <p data-toggle="collapse" class="my-collapse-title" href="#campussen" aria-expanded="false">
                         <i class="fa fa-angle-double-right fa-fw"></i> Selecteer per campus
                     </p>
                     <div class="collapse" id="campussen">
                         <div class="checkbox"
-                             data-ng-repeat="campus in vm.campussen | orderBy:'Naam' "
-                        >
+                             data-ng-repeat="campus in vm.campussen | orderBy:'Naam' ">
                             <label>
-                                <input type="checkbox"> {{campus.Naam}}
+                                <input type="checkbox"
+                                       data-ng-change="vm.selectCampus(campus)"
+                                       data-ng-model="vm.campusCheckboxes[campus.Id]"> {{campus.Naam}}
                             </label>
                         </div>
-                    </div>
+                    </div><pre>{{vm.campusCheckboxes |json}}</pre>
+
                 </fieldset>
             </form>
         </div>
@@ -64,8 +64,7 @@
                             <div class="form-group">
                                 <label class="control-label" for="event_naam">Naam:</label>
                                 <input type="text" id="naam" name="naam"
-                                       class="form-control" 
-                                       name="event_naam"
+                                       class="form-control"
                                        data-ng-model="vm.nieuwEvent.Naam"
                                        data-ng-maxlength="255"
                                        required/>
@@ -107,15 +106,15 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-primary">Opslaan</button>
+                    <button class="btn btn-primary" data-ng-disabled="vm.submitting">
+                        <span data-ng-show="vm.submitting"><i class="fa fa-spinner fa-pulse"></i></span>
+                        <span data-ng-hide="vm.submitting">Opslaan</span>
+                    </button>
                     <span class="btn btn-default" data-ng-click="vm.resetNieuwEvent()">Annuleren</span>
+                    <p class="text text-success" data-ng-show="vm.success">Event succesvol toegevoegd.</p>
                 </fieldset>
             </form>
         </div><!--// well -->
     </div><!--// col-md-4 -->
 </div>
 <pre>{{vm.nieuwEvent | json}}</pre>
-
-<script type="text/javascript">
-    
-</script>

@@ -7,9 +7,11 @@
         var vm = this;
         
         vm.submitting = false;
+        vm.success = false;
         vm.isLoading = true;
         vm.klassen = [];
         vm.campussen = [];
+        vm.campusCheckboxes = {};
 
         vm.nieuwEvent = {};
 
@@ -23,11 +25,31 @@
             }
         }
 
+        vm.selectCampus = function (campus) {
+            if (vm.campusCheckboxes[campus.Id]) {
+                vm.klassen.forEach(function (klas) {
+                    if (klas.Campus.Id == campus.Id) {
+                        vm.nieuwEvent.Klassen.push(klas);
+                    }
+                });
+            } else {
+                var i = vm.nieuwEvent.Klassen.length - 1;
+                while (i >= 0) {
+                    if (vm.nieuwEvent.Klassen[i].Campus.Id == campus.Id) {
+                        vm.nieuwEvent.Klassen.splice(i, 1);
+                    }
+                    i--;
+                }
+            }
+        }
+
         vm.insertEvent = function () {
             vm.submitting = true;
+            vm.success = false;
 
             eventsService.async().then(function () {
                 eventsService.insert(vm.nieuwEvent);
+                vm.success = true,
                 vm.resetNieuwEvent();
             }).finally(function () {
                 vm.submitting = false;
