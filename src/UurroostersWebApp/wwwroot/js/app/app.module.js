@@ -183,5 +183,11 @@
             controllerAs: 'vm',
             templateUrl: 'js/app/events/views/nieuw.html'
         });
+
+        $routeProvider.when('/events', {
+            controller: 'eventsOverzichtCtrl',
+            controllerAs: 'vm',
+            templateUrl: 'js/app/events/views/overzicht.html'
+        });
     });
 })();

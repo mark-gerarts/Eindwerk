@@ -88,6 +88,7 @@ namespace UurroostersWebApp.Repositories
                 "FROM Leerkrachten l " +
                 "LEFT JOIN LeerkrachtVakken lv ON l.id = lv.leerkrachtID " +
                 "LEFT JOIN Vakken v ON v.id = lv.vakID";
+
             var lookup = new Dictionary<int, Leerkracht>();
             _db.Query<Leerkracht, Vak, Leerkracht>(query, (l, v) =>
             {

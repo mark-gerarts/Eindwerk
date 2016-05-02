@@ -1,0 +1,86 @@
+﻿<!-- overzicht events -->
+<ul class="breadcrumb">
+    <li><a href="#/">Home</a></li>
+    <li>Events</li>
+</ul>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel">
+            <a class="btn btn-primary btn-block" data-ng-href="#/events/nieuw">
+                <i class="fa fa-plus-circle fa-fw"></i> Nieuw event toevoegen
+            </a>
+        </div>
+
+        <form>
+            <div class="well">
+                <div class="form-group">
+                    <label class="control-label" for="zoek">Zoek event:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="zoek" placeholder="Zoek event..." data-ng-model="query" />
+                        <span class="input-group-addon">
+                            <i class="fa fa-search"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- search options -->
+            <div class="well">
+                <fieldset>
+                    <legend>Opties</legend>
+                    <div class="form-group">
+                        <label class="control-label">Klas:</label>
+                        <select class="form-control"
+                                data-ng-model="vm.klasQuery"
+                                data-ng-options="klas.Naam for klas in vm.klassen | orderBy:Naam track by klas.Id"
+                                ng-model-options="{getterSetter: true}">
+                            <option value="">Kies een klas...</option>
+                        </select>
+                    </div>
+                </fieldset>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-8">
+        <!-- overview -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Overzicht events
+            </div>
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>Naam</th>
+                        <th>Starttijdstip</th>
+                        <th>Eindtijdstip</th>
+                    </tr>
+                </thead>
+                <tbody data-ng-show="vm.events.length == 0 && !vm.isLoading">
+                    <tr>
+                        <td colspan="2">
+                            Nog geen events!
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody data-ng-show="vm.isLoading">
+                    <tr>
+                        <td colspan="2" class="text-center">
+                            <i class="fa fa-spinner fa-pulse"></i> Loading
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody data-ng-show="!vm.isLoading">
+                    <tr data-ng-repeat="ev in vm.events | filter:query | filter:vm.klasQuery.Naam"
+                        data-ng-click="vm.showDetails(ev)"
+                        class="link">
+                        <td>{{ev.Naam}}</td>
+                        <td>{{ev.StartTijdstip}}</td>
+                        <td>{{ev.EindTijdstip}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<pre>{{vm.events | json}}</pre>

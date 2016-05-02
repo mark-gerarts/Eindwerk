@@ -21,6 +21,13 @@ namespace UurroostersWebApp.Controllers.API
         {
             _ev = ev;
         }
+
+        [HttpGet("")]
+        public JsonResult GetAll()
+        {
+            IEnumerable<Event> events = _ev.GetAll();
+            return Json(events);
+        }
         
         [HttpGet("{klasID}")]
         public JsonResult GetByKlasID(int klasID)

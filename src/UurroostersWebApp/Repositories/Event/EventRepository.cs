@@ -57,7 +57,30 @@ namespace UurroostersWebApp.Repositories
 
         public IEnumerable<Event> GetAll()
         {
-            throw new NotImplementedException();
+            string query = "SELECT e.*, k.*  FROM Events e " +
+                "JOIN EventsKlassen ek ON e.id = ek.eventID " +
+                "JOIN Klassen k ON k.id = ek.klasID";
+
+            var lookup = new Dictionary<int, Event>();
+            _db.Query<Event, Klas, Event>(query, (e, k) => 
+            {
+                Event ev;
+                if (!lookup.TryGetValue(e.Id, out ev))
+                {
+                    lookup.Add(e.Id, ev = e);
+                }
+                if (ev.Klassen == null)
+                {
+                    ev.Klassen = new List<Klas>();
+                }
+                if (k != null)
+                {
+                    ev.Klassen.Add(k);
+                }
+                return ev;
+            }).AsQueryable();
+
+            return lookup.Values;
         }
         
         public int Insert(Event ev)
