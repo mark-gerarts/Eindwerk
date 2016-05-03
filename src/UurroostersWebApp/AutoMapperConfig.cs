@@ -50,6 +50,10 @@ namespace UurroostersWebApp
                     .ForMember(dest => dest.StartTijdstip, opt => opt.MapFrom(src => DateTime.Parse(src.StartTijdstip)))
                     .ForMember(dest => dest.EindTijdstip, opt => opt.MapFrom(src => DateTime.Parse(src.EindTijdstip)))
                     .ForMember(dest => dest.Klassen, opt => opt.ResolveUsing(src => ConvertKlasList(src.Klassen)));
+                config.CreateMap<UpdateEventViewModel, Event>()
+                    .ForMember(dest => dest.StartTijdstip, opt => opt.MapFrom(src => DateTime.Parse(src.StartTijdstip)))
+                    .ForMember(dest => dest.EindTijdstip, opt => opt.MapFrom(src => DateTime.Parse(src.EindTijdstip)))
+                    .ForMember(dest => dest.Klassen, opt => opt.ResolveUsing(src => ConvertKlasList(src.Klassen)));
                 config.CreateMap<Event, DisplayEventViewModel>();
 
                 //Campussen

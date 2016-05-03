@@ -100,9 +100,19 @@ namespace UurroostersWebApp.Repositories
             return parameters.Get<int>("eventID");
         }
 
-        public void Update(Event entity)
+        public void Update(Event ev)
         {
-            throw new NotImplementedException();
+            string klasIDs = string.Join(" ", ev.Klassen.Select(k => k.Id).ToList());
+
+            var parameters = new DynamicParameters();
+            parameters.Add("@eventID", ev.Id);
+            parameters.Add("@naam", ev.Naam);
+            parameters.Add("@omschrijving", ev.Omschrijving);
+            parameters.Add("@startTijdstip", ev.StartTijdstip);
+            parameters.Add("@eindTijdstip", ev.EindTijdstip);
+            parameters.Add("@klasIDs", klasIDs);
+
+            _db.Execute("spUpdateEvent", parameters, commandType: CommandType.StoredProcedure);
         }
     }
 }

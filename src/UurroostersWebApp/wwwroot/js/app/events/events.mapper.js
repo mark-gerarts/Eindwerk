@@ -24,7 +24,9 @@
         }
 
         mapper.updateViewModel = function (event) {
-            return event;
+            var updatevm = mapper.insertViewModel(event);
+            updatevm.Id = event.Id;
+            return updatevm;
         }
 
         return mapper;

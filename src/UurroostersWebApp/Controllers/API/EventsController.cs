@@ -52,5 +52,28 @@ namespace UurroostersWebApp.Controllers.API
                 return Json("Unprocessable Enitity"); //ToDo
             }
         }
+
+        [HttpPut("")]
+        public JsonResult Update([FromBody]UpdateEventViewModel eventvm)
+        {
+            if (ModelState.IsValid)
+            {
+                Event ev = Mapper.Map<Event>(eventvm);
+                _ev.Update(ev);
+                return Json("Update Succesful");
+            }
+            else
+            {
+                Response.StatusCode = 422;
+                return Json("Unprocessable Enitity"); //ToDo
+            }
+        }
+
+        [HttpDelete("{eventID}")]
+        public JsonResult Delete(int eventID)
+        {
+            _ev.Delete(eventID);
+            return Json("Delete sucesful");
+        }
     }
 }

@@ -14,7 +14,7 @@
 
 
         vm.showDetails = function (ev) {
-            console.log('redirecting');
+            $location.path("/events/" + ev.Id);
         }
 
         vm.init = function () {

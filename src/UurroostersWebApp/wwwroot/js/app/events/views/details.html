@@ -1,0 +1,154 @@
+﻿<!-- update event -->
+<ul class="breadcrumb">
+    <li><a href="#/">Home</a></li>
+    <li><a data-ng-href="#/events">Events</a></li>
+    <li class="active">Details</li>
+</ul>
+
+<p class="text-center" data-ng-show="vm.isLoading">
+    <i class="fa fa-spinner fa-pulse"></i> Loading... 
+</p>
+<p class="text-center text-success" data-ng-show="vm.isDeleted">
+    Event is succesvol verwijderd.
+</p>
+<div data-ng-show="vm.notFound">
+    <p class="text-warning" >Er is geen event met dit ID gevonden.</p>
+    <p><a href="#/events"><i class="fa fa-angle-double-right fa-fw"></i>Terug.</a></p>
+</div>
+<div class="row" data-ng-hide="vm.isLoading || vm.isDeleted || vm.notFound">
+    <div class="col-md-4">
+        <!-- Klassen kiezen-->
+        <div class="well">
+            <form novalidate name="nieuw">
+                <fieldset>
+                    <legend>Klassen</legend>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="zoek_klas" placeholder="Zoek een klas..." data-ng-model="klasQuery" />
+                            <span class="input-group-addon">
+                                <i class="fa fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control"
+                                size="5"
+                                id="klassen"
+                                name="klassen"
+                                data-ng-model="vm.currentEvent.Klassen"
+                                data-ng-multiple="true"
+                                data-ng-options="klas.Naam for klas in vm.klassen | filter:klasQuery | orderBy:'Naam' track by klas.Id"
+                                required
+                                multiple></select>
+                        <span data-ng-show="nieuw.klassen.$error.required" class="text-warning">Ten minste één klas is verplicht.</span>
+                    </div>
+
+                    <p data-toggle="collapse" class="my-collapse-title" href="#campussen" aria-expanded="false">
+                        <i class="fa fa-angle-double-right fa-fw"></i> Selecteer per campus
+                    </p>
+                    <div class="collapse" id="campussen">
+                        <div class="checkbox"
+                             data-ng-repeat="campus in vm.campussen | orderBy:'Naam' ">
+                            <label>
+                                <input type="checkbox"
+                                       data-ng-change="vm.selectCampus(campus)"
+                                       data-ng-model="vm.campusCheckboxes[campus.Id]"> {{campus.Naam}}
+                            </label>
+                        </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="well">
+            <form novalidate name="nieuw" data-ng-submit="vm.updateEvent()">
+                <fieldset>
+                    <legend>Info</legend>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label" for="event_naam">Naam:</label>
+                                <input type="text" id="naam" name="naam"
+                                       class="form-control"
+                                       data-ng-model="vm.currentEvent.Naam"
+                                       data-ng-maxlength="255"
+                                       required/>
+                                <span data-ng-show="nieuw.naam.$error.required" class="text-warning">Naam is een verplicht veld</span>
+                                <span data-ng-show="nieuw.naam.$error.maxlength" class="text-warning">Naam mag maximaal 255 tekens lang zijn.</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="event_omschrijving">Omschrijving:</label>
+                                <textarea class="form-control" 
+                                          name="omschrijving" 
+                                          id="omschrijving" 
+                                          data-ng-model="vm.currentEvent.Omschrijving"
+                                          data-ng-maxlength="255"
+                                          required></textarea>
+                                <span data-ng-show="nieuw.omschrijving.$error.required" class="text-warning">Omschrijving is een verplicht veld</span>
+                                <span data-ng-show="nieuw.omschrijving.$error.maxlength" class="text-warning">Omschrijving mag maximaal 255 tekens lang zijn.</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Starttijdstip</label>
+                                <div class='input-group date datetimepicker' id="starttijdstip">
+                                    <input type='text' class="form-control" data-ng-model="vm.currentEvent.StartTijdstip" id="startinput" name="startinput" required/>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                                <span data-ng-show="nieuw.startinput.$error.required" class="text-warning">Starttijdstip is een verplicht veld</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Eindtijdstip</label>
+                                <div class='input-group date datetimepicker' id="eindtijdstip">
+                                    <input type='text' class="form-control" data-ng-model="vm.currentEvent.EindTijdstip" id="eindinput" name="eindinput" required/>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>                                    
+                                </div>
+                                <span data-ng-show="nieuw.eindinput.$error.required" class="text-warning">Eindtijdstip is een verplicht veld</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" data-ng-disabled="vm.submitting">
+                        <span data-ng-show="vm.submitting"><i class="fa fa-spinner fa-pulse"></i></span>
+                        <span data-ng-hide="vm.submitting">Opslaan</span>
+                    </button>
+                    <button class="btn btn-danger" 
+                            data-toggle="modal"
+                            data-target="#confirmationbox">
+                        <span data-ng-show="vm.deleting"><i class="fa fa-spinner fa-pulse"></i></span>
+                        <span data-ng-hide="vm.deleting">Verwijderen</span>
+                    </button>
+                    <a class="btn btn-default" href="#/events">Annuleren</a>
+                    <p class="text text-success" data-ng-show="vm.success">Event succesvol geupdate.</p>
+                </fieldset>
+            </form>
+        </div><!--// well -->
+    </div><!--// col-md-4 -->
+</div>
+
+
+<!-- Confirmationbox voor delete -->
+<div id="confirmationbox" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="fa fa-times"></i>
+                </button>
+                <h4 class="modal-title">Event verwijderen</h4>
+            </div>
+            <div class="modal-body">
+                Dit event wordt definitief verwijderd
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="vm.deleteEvent()">
+                    <i class="fa fa-times fa-fw"></i> Verwijderen
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

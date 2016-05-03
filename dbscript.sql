@@ -325,7 +325,7 @@ CREATE PROCEDURE spInsertEvent(
 BEGIN
 	BEGIN TRANSACTION InsertEvent;
 	
-	--Insert van de leerkracht met output van identity
+	--Insert van het event met output van identity
 	INSERT INTO Events  (naam, omschrijving, startTijdstip, eindTijdstip)
 	VALUES (@naam, @omschrijving, @startTijdstip, @eindTijdstip)
 	SET @eventID = SCOPE_IDENTITY();
@@ -335,4 +335,40 @@ BEGIN
 		(SELECT @eventID, i.number FROM iter_intlist_to_tbl(@klasIDs) i);
 
 	COMMIT TRANSACTION InsertEvent;
+END
+
+ALTER PROCEDURE spUpdateEvent(
+	@naam VARCHAR(255),
+	@omschrijving VARCHAR(MAX),
+	@startTijdstip DATETIME,
+	@eindTijdstip DATETIME,
+	@klasIDs VARCHAR(MAX),
+	@eventID INT
+) AS
+BEGIN
+	BEGIN TRANSACTION UpdateEvent
+
+	UPDATE Events SET naam = @naam, omschrijving = @omschrijving WHERE id = @eventID;
+
+	IF OBJECT_ID('tempdb.dbo.#EventsKlassen', 'U') IS NOT NULL DROP TABLE #EventsKlassen;
+	
+	CREATE TABLE #EventsKlassen(
+		klasID INT,
+		eventID INT
+	);
+
+	INSERT INTO #EventsKlassen (eventID, klasID)
+		(SELECT @eventID, i.number FROM iter_intlist_to_tbl(@klasIDs) i);
+
+	MERGE INTO EventsKlassen AS TARGET
+		USING #EventsKlassen AS SOURCE
+			ON SOURCE.eventID = TARGET.eventID
+			AND SOURCE.klasID = TARGET.klasID
+		WHEN NOT MATCHED BY TARGET AND SOURCE.eventID = @eventID THEN
+			INSERT (eventID, klasID)
+				VALUES (eventID, klasID)
+		WHEN NOT MATCHED BY SOURCE AND TARGET.eventID = @eventID THEN
+			DELETE;
+
+	COMMIT TRANSACTION UpdateEvent
 END

@@ -189,5 +189,11 @@
             controllerAs: 'vm',
             templateUrl: 'js/app/events/views/overzicht.html'
         });
+
+        $routeProvider.when('/events/:eventID', {
+            controller: 'eventsDetailsCtrl',
+            controllerAs: 'vm',
+            templateUrl: 'js/app/events/views/details.html'
+        });
     });
 })();
