@@ -17,3 +17,8 @@
     text-decoration: underline;
     cursor: pointer;
 }
+
+img.logo {
+    height: 100%;
+    display: inline-block;
+}

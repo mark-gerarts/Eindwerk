@@ -39,6 +39,19 @@ CREATE TABLE Studierichtingen(
 	id INT IDENTITY PRIMARY KEY,
 	naam VARCHAR(255)
 );
+/*
+CREATE TABLE Lesblokgroepen(
+	id INT IDENTITY PRIMARY KEY,
+	naam VARCHAR(255)
+);
+*/
+CREATE TABLE Lesblokken(
+	id INT IDENTITY PRIMARY KEY,
+	starttijd TIME,
+	eindtijd TIME,
+	--lesblokgroepID  INT,
+	--CONSTRAINT FK_lb_lbg FOREIGN KEY (lesblokgroepID) REFERENCES Lesblokgroepen (id)
+);
 CREATE TABLE Klassen(
 	id INT IDENTITY PRIMARY KEY,
 	studierichtingID INT,
@@ -46,17 +59,13 @@ CREATE TABLE Klassen(
 	naam VARCHAR(255),
 	leerjaar INT,
 	CONSTRAINT FK_klas_sr FOREIGN KEY (studierichtingID) REFERENCES Studierichtingen (id),
-	CONSTRAINT FK_klas_campus FOREIGN KEY (campusID) REFERENCES Campussen (id)
+	CONSTRAINT FK_klas_campus FOREIGN KEY (campusID) REFERENCES Campussen (id),
+	CONSTRAINT FK_klas_lbg FOREIGN KEY (lesblokgroepID) REFERENCES Lesblokgroepen (id)
 );
 --
 CREATE TABLE Dagen(
 	id INT IDENTITY PRIMARY KEY,
 	naam VARCHAR(20)
-);
-CREATE TABLE Lesblokken(
-	id INT IDENTITY PRIMARY KEY,
-	starttijd TIME,
-	eindtijd TIME
 );
 CREATE TABLE Lessen(
 	id INT IDENTITY PRIMARY KEY,

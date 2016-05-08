@@ -9,9 +9,11 @@
         vm.klassen = [];
         vm.campussen = [];
         vm.studierichtingenService = [];
+        vm.isLoading = true;
 
         klassenService.async().then(function () {
             vm.klassen = klassenService.getAll();
+            vm.isLoading = false;
         });
 
         campussenService.async().then(function () {
